@@ -1,0 +1,17 @@
+Serve para o backend, criação de rotas
+Arquitetura: event-loop (pilha de eventos); single-thread; Non-Blocking I/O;
+API Rest: Requisição e Resposta; Rotas (GET:pega; POST:cria; PUT:edita; DELETE:deleta); Estrutura de dados (JSON())
+HTTP Code: 1xx (Informação); 2xx (Sucess); 3xx (Redirecionamento); 4xx (Cliente Erro); 5xx (Server Error)
+
+Comandos:
+npm add express > adiciona o express
+npm add typescript - D > adiciona o typescript como ambiente de desenvolvimento
+tsc --init > onde vai configurações
+npm add @types/express -D > type do express
+npm add ts-node-dev -D > coloca no arquivo package.json, dentro de script: "dev": "ts-node-dev --transpile-only src/server.ts"
+npm run dev
+
+conceitos das rotas:
+query params: ?nome=comprar
+route params: /tarefas/2
+request body: {nome:"marcos"}
