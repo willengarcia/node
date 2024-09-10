@@ -6,7 +6,7 @@ HTTP Code: 1xx (Informação); 2xx (Sucess); 3xx (Redirecionamento); 4xx (Client
 Comandos:
 npm add express > adiciona o express
 npm add typescript - D > adiciona o typescript como ambiente de desenvolvimento
-tsc --init > onde vai configurações
+npx tsc --init > onde vai configurações
 npm add @types/express -D > type do express
 npm add ts-node-dev -D > coloca no arquivo package.json, dentro de script: "dev": "ts-node-dev --transpile-only src/server.ts"
 npm run dev
@@ -15,3 +15,11 @@ conceitos das rotas:
 query params: ?nome=comprar
 route params: /tarefas/2
 request body: {nome:"marcos"}
+
+MEXENDO NO PRISMA:
+npm install prisma --save-dev > Instalar o prisma para mexer no banco de dados
+npm install @prisma/client > Para configurar o cliente do prisma
+npx prisma migrate dev --name initial_migration > Depois de configurar o banco de dados, basta inicializar 
+
+LIB PARA CRIPTOGRAFAR SENHAS:
+npm add bcryptjs
