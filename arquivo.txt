@@ -23,3 +23,14 @@ npx prisma migrate dev --name initial_migration > Depois de configurar o banco d
 
 LIB PARA CRIPTOGRAFAR SENHAS:
 npm add bcryptjs
+
+TOKENS (JWT):
+npm add jsonwebtoken
+
+VERIFICAR SE ESTÁ OK O JWT:
+https://www.md5hashgenerator.com/ > faz o JWT
+https://jwt.io/ > verifica o token gerado
+
+TRABALHAR COM IMAGENS:
+npm add multer
+npm add @types/multer -D
