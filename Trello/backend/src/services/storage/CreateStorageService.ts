@@ -3,7 +3,7 @@ import prismaClient from "../../prisma";
 interface CreateStorage {
   name: string;
   location?: string;
-  userId: string; // ID do usuário que será associado à loja
+  userId?: string; // `userId` agora é opcional
 }
 
 class CreateStorageService {
@@ -13,28 +13,41 @@ class CreateStorageService {
       throw new Error('Erro ao inserir o nome');
     }
 
-    // Validação do userId
-    if (!userId) {
-      throw new Error('Erro ao inserir o ID do usuário');
-    }
-
-    // Criar a loja e associar o usuário diretamente
+    // Criar a loja
     const store = await prismaClient.store.create({
       data: {
         name: name,
         location: location,
-        users: {
-          connect: [{ id: userId }], // Corrigido: Passa um array para `connect`
-        },
       },
       select: {
         id: true,
         name: true,
         location: true,
+        users:{
+          select:{
+            id:true,
+            user:{
+              select:{
+                id:true,
+                name:true,
+              },
+            },
+          },
+        },
       },
     });
 
-    // Retorna a loja criada com os dados selecionados
+    // Se `userId` for fornecido, adiciona a conexão com o usuário através da tabela intermediária
+    if (userId) {
+      await prismaClient.userStore.create({
+        data: {
+          user: { connect: { id: userId } },
+          store: { connect: { id: store.id } },
+        },
+      });
+    }
+
+    // Retorna a loja criada
     return store;
   }
 }

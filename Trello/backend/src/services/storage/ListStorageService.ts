@@ -1,18 +1,18 @@
 import prismaClient from "../../prisma";
 interface ListStorage{
-    userId:string
+    name:string
 }
 class ListStorageService{
-    async execute({userId}:ListStorage){
-        if(!userId){
+    async execute({name}:ListStorage){
+        if(!name){
             throw new Error('Erro ao buscar dados!')
         }
-        const userWithStore = await prismaClient.user.findMany({
+        const userWithStore = await prismaClient.store.findMany({
             where:{
-                id: userId,
+                name: name,
             },
             include:{
-                stores:true
+                users:true
             }
         })
         return userWithStore
