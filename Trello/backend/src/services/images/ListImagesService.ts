@@ -44,11 +44,11 @@ class ListImagesService {
       },
       include:{
         user:{
-            include:{
-                images:true,
-                stores:true,
-            },
-        },
+          select:{
+            name:true,
+            images:true
+          }
+        }
       },
     });
 
