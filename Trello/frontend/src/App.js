@@ -4,6 +4,7 @@ import Login from './Componentes/login'; // Importa o componente de Login
 import CadastroUser from './Componentes/cadastroUser';
 import PrivateRoute from './Componentes/rotaPrivada'; // Importando o componente de rota protegida
 import Lojas from './Componentes/lojas';
+import Imagens from './Componentes/imagens';
 
 
 function App() {
@@ -17,6 +18,14 @@ function App() {
           element={
             <PrivateRoute>
               <Lojas token />
+            </PrivateRoute>
+          } 
+        />
+        <Route 
+          path="/Imagens" 
+          element={
+            <PrivateRoute>
+              <Imagens token />
             </PrivateRoute>
           } 
         />

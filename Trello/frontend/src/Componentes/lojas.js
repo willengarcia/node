@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../App.css'
 
@@ -6,6 +7,7 @@ import '../App.css'
 function Lojas() {
     const [loja, setLoja] = useState('')
     const [nome, setNome] = useState('')
+    const navigator = useNavigate()
     const cadastrar = (e)=>{
         e.preventDefault()
         axios.post('http://192.168.50.164:3333/cadastrar/loja',{
@@ -39,9 +41,9 @@ function Lojas() {
             
             const lojas = response.data;
             const lojasSimplificadas = lojas.map(store => ({
-            id: store.id,
-            name: store.name,
-            location: store.location
+                id: store.id,
+                name: store.name,
+                location: store.location
             }));
             setLojas(lojasSimplificadas);
         } catch (error) {
@@ -51,8 +53,21 @@ function Lojas() {
 
         fetchLojas();
     }, []);
+    const pegaIdLoja = (el) =>{
+        localStorage.setItem('storeId', `${el}`)
+        console.log(el)
+        navigator('/imagens')
+    }
+    
+    const sair = ()=>{
+        localStorage.removeItem('authToken')
+        localStorage.removeItem('storeId')
+        navigator('/')
+    }
+
     return(
         <section className='paiListaLoja'>
+            <button className='sair' onClick={()=>{sair()}}>Sair</button>
             <article className='cadastrarLoja'>
                 <h1>Cadastrar Loja</h1>
                 <form onSubmit={cadastrar}>
@@ -63,7 +78,7 @@ function Lojas() {
             </article>
             <div className='listarLoja'>
                 {lojas.map(loja => (
-                    <div key={loja.id} className="loja-card">
+                    <div key={loja.id} className="loja-card" id={loja.id} onClick={(el)=>{pegaIdLoja(el.target.id)}}>
                         <h2>ID: {loja.id}</h2>
                         <p>Nome: {loja.name}</p>
                         <p>Localização: {loja.location}</p>
