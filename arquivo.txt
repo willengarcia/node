@@ -41,27 +41,6 @@ npm add @types/multer -D
 TABELA
 
 
-model User {
-  id        String      @id @default(uuid())
-  name      String
-  email     String      @unique
-  password  String
-  stores    UserStore[] // Relacionamento através da tabela intermediária
-  images    Image[]     // Relacionamento com imagens
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
-}
-
-model Store {
-  id        String      @id @default(uuid())
-  name      String
-  location  String?
-  users     UserStore[] // Relacionamento através da tabela intermediária
-  images    Image[]     // Relacionamento com imagens
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
-}
-
 model UserStore {
   id           String   @id @default(uuid())
   user         User     @relation(fields: [userId], references: [id])
@@ -69,17 +48,16 @@ model UserStore {
   store        Store    @relation(fields: [storeId], references: [id])
   storeId      String   // Chave estrangeira para Store
   isVerified   Boolean  @default(false)       // Campo de verificação
+  imageName    String?                        // Nome da imagem
   createdAt    DateTime @default(now())       // Data de criação
 
   @@unique([userId, storeId])                 // Impede duplicação de pares usuário-loja
 }
 
 model Image {
-  id         String   @id @default(uuid())
-  url        String   // URL ou caminho da imagem
-  user       User     @relation(fields: [userId], references: [id])
-  userId     String   // Chave estrangeira para User
-  store      Store    @relation(fields: [storeId], references: [id])
-  storeId    String   // Chave estrangeira para Store
-  createdAt  DateTime @default(now()) // Data de criação
+  id        String      @id @default(uuid())
+  url       String
+  user      User        @relation(fields: [userId], references: [id])
+  userId    String
+  createdAt DateTime    @default(now())
 }

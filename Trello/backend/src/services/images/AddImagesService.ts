@@ -1,9 +1,11 @@
 import prismaClient from "../../prisma";
+
 interface AddImageToUserStore {
   userId: string;
   storeId: string;
   imageUrl: string; // URL ou caminho da imagem
 }
+
 class AddImagesService {
   async execute({ userId, storeId, imageUrl }: AddImageToUserStore) {
     // Verificar se o usuário e a loja existem
@@ -37,11 +39,11 @@ class AddImagesService {
       throw new Error('Usuário não está associado à loja.');
     }
 
-    // Adicionar a imagem
+    // Adicionar a imagem associada ao UserStore
     const newImage = await prismaClient.image.create({
       data: {
         url: imageUrl,
-        userId: user.id
+        userStoreId: userStoreRelation.id, // Usa userStoreId diretamente
       },
       select: {
         id: true,
@@ -53,4 +55,5 @@ class AddImagesService {
     return newImage;
   }
 }
+
 export { AddImagesService };

@@ -54,8 +54,8 @@ function Lojas() {
         fetchLojas();
     }, []);
     const pegaIdLoja = (el) =>{
-        localStorage.setItem('storeId', `${el}`)
         console.log(el)
+        localStorage.setItem('storeId', `${el}`)
         navigator('/imagens')
     }
     
@@ -78,10 +78,11 @@ function Lojas() {
             </article>
             <div className='listarLoja'>
                 {lojas.map(loja => (
-                    <div key={loja.id} className="loja-card" id={loja.id} onClick={(el)=>{pegaIdLoja(el.target.id)}}>
+                    <div key={loja.id} className="loja-card" id={loja.id}>
                         <h2>ID: {loja.id}</h2>
                         <p>Nome: {loja.name}</p>
                         <p>Localização: {loja.location}</p>
+                        <button onClick={(el)=>{pegaIdLoja(el.target.parentElement.id)}}>Acessar</button>
                     </div>
                 ))}
             </div>

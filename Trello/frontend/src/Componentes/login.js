@@ -20,6 +20,7 @@ function Login() {
       console.log('Logado! ')
       setToken(response.data.token)
       localStorage.setItem('authToken', response.data.token); // Armazena o token
+      localStorage.setItem('userId', response.data.id)
       navigate('/Lojas'); // Redireciona para a página inicial ou qualquer outra página
     })
     .catch(error=>{

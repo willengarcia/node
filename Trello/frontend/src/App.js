@@ -5,6 +5,7 @@ import CadastroUser from './Componentes/cadastroUser';
 import PrivateRoute from './Componentes/rotaPrivada'; // Importando o componente de rota protegida
 import Lojas from './Componentes/lojas';
 import Imagens from './Componentes/imagens';
+import AdicionarImagens from './Componentes/adicionarImagens';
 
 
 function App() {
@@ -26,6 +27,14 @@ function App() {
           element={
             <PrivateRoute>
               <Imagens token />
+            </PrivateRoute>
+          } 
+        />
+        <Route 
+          path="/Trello" 
+          element={
+            <PrivateRoute>
+              <AdicionarImagens token />
             </PrivateRoute>
           } 
         />

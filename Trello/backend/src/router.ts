@@ -9,8 +9,7 @@ import { AddImagesController } from "./controllers/images/AddImagesController";
 import { ListImagesController } from "./controllers/images/ListImagesController";
 import multer from "multer";
 import uploadConfig from './config/multer'
-
-
+import { ValidImageController } from "./controllers/images/ValidImageController";
 
 const router = Router()
 
@@ -28,4 +27,5 @@ router.post('/update/user_loja', isAuthenticated, new UpdateStorageController().
 // ROTA IMAGENS
 router.post('/add/imagens', isAuthenticated, upload.single('file'), new AddImagesController().handle) // Adiciona imagem por imagem na tabela Image, com o id do usuário, e a foto é recebida somente com a chave file
 router.get('/list/imagens', isAuthenticated, new ListImagesController().handle) // Mostra todas as imagens, de acordo com o id do usuario e o id da loja.
+router.put('/list/imagens/validate/:id', isAuthenticated, new ValidImageController().handle)
 export {router}
