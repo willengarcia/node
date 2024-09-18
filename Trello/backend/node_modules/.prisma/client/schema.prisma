@@ -12,6 +12,7 @@ model User {
   name      String
   email     String      @unique
   password  String
+  superUser Boolean?
   stores    UserStore[] // Relacionamento com a tabela intermediária
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt

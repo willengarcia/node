@@ -4,9 +4,9 @@ import { CreateUserService } from "../../services/user/CreateUserService";
 class CreateUserController{ // chama no router
     async handle(req:Request, res:Response){
         
-        const {name, email, senha} = req.body;
+        const {name, email, senha, superUser} = req.body;
         const createUserService = new CreateUserService()
-        const exeutar = await createUserService.execute({name, email, senha})
+        const exeutar = await createUserService.execute({name, email, senha, superUser})
         return res.json({"Usuário":exeutar})
     }
 }

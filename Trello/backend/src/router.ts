@@ -11,6 +11,7 @@ import multer from "multer";
 import uploadConfig from './config/multer'
 import { ValidImageController } from "./controllers/images/ValidImageController";
 import { ListUserController } from "./controllers/user/ListUserController";
+import { UpdateUserController } from "./controllers/user/UpdateUserController";
 
 const router = Router()
 
@@ -20,6 +21,7 @@ const upload = multer(uploadConfig.upload("./tmp")) // nome do arquivo para salv
 router.post('/cadastrar/usuario', new CreateUserController().handle) // cadastrar user.
 router.post('/login', new AuthUserController().handle) // Verifica se o usuário está autenticado, e retorna os dados.
 router.get('/list/user', isAuthenticated, new ListUserController().handle)
+router.put('/update/user/:userId', isAuthenticated, new UpdateUserController().handle)
 
 // ROTA LOJA
 router.post('/cadastrar/loja', isAuthenticated, new CreateStorageController().handle) // Cadastrar a loja, e junto inserir o usuário

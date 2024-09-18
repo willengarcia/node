@@ -12,10 +12,11 @@ function CadastroUser() {
   const navigate = useNavigate()
   const cadastro = (e)=>{
     e.preventDefault()
-    axios.post('http://localhost:3333/cadastrar/usuario',{
+    axios.post('http://192.168.50.164:3333/cadastrar/usuario',{
         name:nome,
         email:email,
-        senha:senha
+        senha:senha,
+        superUser:false
     })
     .then(response=>{
       console.log('Cadastrado '+ JSON.stringify(response.data))

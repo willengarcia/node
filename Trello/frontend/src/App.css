@@ -1,13 +1,13 @@
-body {
+#root{
+  width: 100%;
   font-family: Arial, sans-serif;
-  background-color: #f0f2f5;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   margin: 0;
 }
-
+/* Página de Login */
 .login {
   background-color: white;
   padding: 2rem;
@@ -53,19 +53,52 @@ a {
 a:hover {
   text-decoration: underline;
 }
-
-.cadastrarLoja {
-  width: 300px;
-}
+/* Add loja, List loja, Update user */
 .paiListaLoja{
   height: 100vh;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 3rem;
 }
-.listarLoja{
+.paiCadastroAdd{
+  position: fixed;
+  top: 0rem;
+  left: 2.5rem;
+  grid-column-start: 1;
+  grid-column-end: 1;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.cadastrarLoja {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+}
+.addUser {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+}
+.addUser select{
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #dddfe2;
+  border-radius: 4px;
+}
+.listarLoja {
+  grid-column-start: 2;
+  grid-column-end: 2;
+  display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
@@ -77,8 +110,9 @@ a:hover {
   margin: 10px;
   background-color: #f9f9f9;
   cursor: pointer;
+  min-width: 300px;
+  max-width: 400px;
 }
-
 .loja-card h2 {
   font-size: 16px;
   margin: 0;
@@ -87,12 +121,14 @@ a:hover {
 .loja-card p {
   margin: 5px 0;
 }
-
-.containerImagens {
-  height: 100dvh;
-  width: 100%;
-  margin-top: 4rem;
+.sair {
+  border-radius: 0 inherit inherit 0;
+  background-color: rgb(248, 89, 41);
+  position: fixed;
+  top: 0;
+  left: 0;
 }
+/* List Imagem */
 .listarImagens {
   display: grid;
   grid-template-columns: repeat(3, minmax(200px, 500px));
@@ -115,11 +151,4 @@ a:hover {
 .listarImagens > .loja-imagem > img {
   width: 200px;
   margin: auto;
-}
-.sair {
-  border-radius: 0 inherit inherit 0;
-  background-color: rgb(248, 89, 41);
-  position: fixed;
-  top: 0;
-  left: 0;
 }

@@ -4,9 +4,10 @@ interface CreateUser{
     name:string;
     email: string;
     senha: string;
+    superUser:boolean;
 }
 class CreateUserService{
-    async execute({name, email, senha}:CreateUser){
+    async execute({name, email, senha, superUser}:CreateUser){
         // verifica se envou o email
         if(!email){
             return {erro:"Email incorreto ou há existe"}
@@ -33,11 +34,13 @@ class CreateUserService{
             data:{
                 name:name,
                 email:email,
-                password:passwordHash
+                password:passwordHash,
+                superUser:superUser,
             },
             select:{
                 name:true,
-                id:true
+                id:true,
+                superUser:true,
             },
         })
 

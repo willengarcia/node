@@ -29,13 +29,14 @@ class AuthUserService{
 
         const token = sign({
             name: user.name, // dados do payload
-            email:user.email 
+            email:user.email
         }, process.env.JWT_SECRET, { // chave secreta
             subject: user.id,
             expiresIn:'30d' // expira em 30 dias
         })
 
         return {
+            superUser:user.superUser,
             id:user.id,
             name: user.name,
             email: user.email,
