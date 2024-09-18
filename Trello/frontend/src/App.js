@@ -6,6 +6,7 @@ import PrivateRoute from './Componentes/rotaPrivada'; // Importando o componente
 import Lojas from './Componentes/lojas';
 import Imagens from './Componentes/imagens';
 import AdicionarImagens from './Componentes/adicionarImagens';
+import AdicionarUser from './Componentes/adicionarUser';
 
 
 function App() {
@@ -35,6 +36,14 @@ function App() {
           element={
             <PrivateRoute>
               <AdicionarImagens token />
+            </PrivateRoute>
+          } 
+        />
+        <Route 
+          path="/addUser" 
+          element={
+            <PrivateRoute>
+              <AdicionarUser token />
             </PrivateRoute>
           } 
         />

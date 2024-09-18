@@ -21,7 +21,6 @@ function Imagens() {
                     Authorization: `Bearer ${token}`,
                 }
             });
-            setBotaoMap(response.data)
             return response.data;
         } catch (error) {
             console.error('Erro ao buscar imagens:', error);
@@ -35,8 +34,8 @@ function Imagens() {
             id: imageEntry.idImage,
             name: imageEntry.userName,
             url: imageEntry.imageUrl,
-            createdAt: imageEntry.createdAt,
-            isVerified: imageEntry.isVerified // Adicionando o status de verificação se necessário
+            isVerified: imageEntry.isVerified, // Adicionando o status de verificação se necessário
+            createdAt: imageEntry.createdAt
         }));
         setImagens(result); // Atualiza o estado com as imagens tratadas
 
@@ -56,11 +55,9 @@ function Imagens() {
         fetchData(); // Chama a função de busca de dados
     }, []); // Executa apenas uma vez ao montar o componente
 
-    const sair = () => {
-        localStorage.removeItem('authToken');
-        localStorage.removeItem('storeId');
-        navigator('/');
-    };
+    const voltar = ()=>{
+        navigator('/Lojas')
+    }
     
     const validar = async (idImage) => {
         const token = localStorage.getItem('authToken');
@@ -76,18 +73,10 @@ function Imagens() {
             console.error('Erro ao validar a imagem:', error);
         }
     };
-    
-    const validacao = (e) =>{
-        const token = localStorage.getItem('authToken');
-        axios.put(`http://localhost:3333/list/imagens/validate/${e.target.parentElement.parentElement.id}`, {}, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            }})
-    }
 
     return (
         <div className='containerImagens'>
-            <button className='sair' onClick={sair}>Sair</button>
+            <button className='sair' onClick={voltar}>Voltar</button>
             <div className="listarImagens">
                 {imagens.map((imagem) => (
                     <div key={imagem.id} className="loja-imagem" id={imagem.id}>
@@ -107,5 +96,4 @@ function Imagens() {
         </div>
     );
 }
-
 export default Imagens;

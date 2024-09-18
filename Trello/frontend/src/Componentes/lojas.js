@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../App.css'
+import AdicionarUser from './adicionarUser';
 
 
 function Lojas() {
@@ -76,6 +77,7 @@ function Lojas() {
                     <button type='submit'>Cadastrar</button>
                 </form>
             </article>
+            <AdicionarUser></AdicionarUser>
             <div className='listarLoja'>
                 {lojas.map(loja => (
                     <div key={loja.id} className="loja-card" id={loja.id}>

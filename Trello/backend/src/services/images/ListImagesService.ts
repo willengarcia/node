@@ -43,6 +43,7 @@ class ListImageService {
       idImage: image.id,
       userName: image.userStore.user.name,
       imageUrl: image.url,
+      isVerified: image.userStore.isVerified,
       createdAt: image.createdAt,
     }));
 

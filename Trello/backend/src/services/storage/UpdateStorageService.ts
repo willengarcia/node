@@ -34,6 +34,16 @@ class UpdateStorageService {
       throw new Error('Usuário não encontrado');
     }
 
+    const verificaUniao = await prismaClient.userStore.findFirst({
+      where: {
+        userId: userId, // o ID do usuário que você está verificando
+        storeId: storeId, // o ID da loja que você está verificando
+      }
+    });
+    if(verificaUniao){
+      throw new Error('Usuário já está cadastrado na loja!')
+    }
+
     // Adicionar o usuário à loja na tabela intermediária
     const userStoreRelation = await prismaClient.userStore.create({
       data: {
