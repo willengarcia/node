@@ -24,9 +24,6 @@ class AuthUserService{
             throw new Error('Usuário/Senha está incorreto')
         }
 
-        // Gerar um token JWT (Json Web Token: autenticar o usuário, e aplicações REST) e devolver os dados do usuário
-        // Se deu tudo certo, é só gerar o token pro usuário
-
         const token = sign({
             name: user.name, // dados do payload
             email:user.email
@@ -34,13 +31,34 @@ class AuthUserService{
             subject: user.id,
             expiresIn:'30d' // expira em 30 dias
         })
+        
+        // Verifica se o usuário já tem alguma loja cadastrada
+        const locaCadastradaUser = await prismaClient.userStore.findFirst({
+            where:{
+                userId:user.id
+            }
+        })
+        if(!locaCadastradaUser){
+            return {
+                superUser:user.superUser,
+                id:user.id,
+                name: user.name,
+                email: user.email,
+                token: token,
+                storeId:null
+            }
+        }
+
+        // Gerar um token JWT (Json Web Token: autenticar o usuário, e aplicações REST) e devolver os dados do usuário
+        // Se deu tudo certo, é só gerar o token pro usuário
 
         return {
             superUser:user.superUser,
             id:user.id,
             name: user.name,
             email: user.email,
-            token: token
+            token: token,
+            storeId:locaCadastradaUser.storeId
         }
     }
 }

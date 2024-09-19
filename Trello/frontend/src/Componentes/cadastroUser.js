@@ -5,6 +5,7 @@ import { useState } from  'react'
 import '../App.css'
 
 
+
 function CadastroUser() {
   const [nome, setNome] = useState('')
   const [email, setEmail] = useState('')
@@ -12,11 +13,11 @@ function CadastroUser() {
   const navigate = useNavigate()
   const cadastro = (e)=>{
     e.preventDefault()
-    axios.post('http://192.168.50.164:3333/cadastrar/usuario',{
+    axios.post(`${process.env.REACT_APP_API}/cadastrar/usuario`,{
         name:nome,
         email:email,
         senha:senha,
-        superUser:false
+        superUser:true
     })
     .then(response=>{
       console.log('Cadastrado '+ JSON.stringify(response.data))

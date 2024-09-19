@@ -16,6 +16,7 @@ class AddImagesService {
     const store = await prismaClient.store.findUnique({
       where: { id: storeId },
     });
+    console.log("ID DO USUÁRIO: "+user)
 
     if (!user) {
       throw new Error('Usuário não encontrado.');

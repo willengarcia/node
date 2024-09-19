@@ -13,7 +13,7 @@ function Imagens() {
         const storeId = localStorage.getItem('storeId');
         const token = localStorage.getItem('authToken');
         try {
-            const response = await axios.get(`http://192.168.50.164:3333/list/imagens`, {
+            const response = await axios.get(`${process.env.REACT_APP_API}/list/imagens`, {
                 params: {
                     storeId: storeId, // Adiciona storeId como parâmetro de consulta
                 },
@@ -67,7 +67,7 @@ function Imagens() {
     const validar = async (idImage) => {
         const token = localStorage.getItem('authToken');
         try {
-            const response = await axios.put(`http://192.168.50.164:3333/list/imagens/validate/${idImage}`, {}, {
+            const response = await axios.put(`${process.env.REACT_APP_API}/list/imagens/validate/${idImage}`, {}, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 }
@@ -85,7 +85,7 @@ function Imagens() {
             <div className="listarImagens">
                 {imagens.map((imagem) => (
                     <div key={imagem.id} className="loja-imagem" id={imagem.id}>
-                        <img src={'http://192.168.50.164:3333/files/'+imagem.url} alt={`Imagem de ${imagem.name}`} />
+                        <img src={`${process.env.REACT_APP_API}/files/`+imagem.url} alt={`Imagem de ${imagem.name}`} />
                         <div className='loja-imagemDados'>
                             <p>Usuário: {imagem.name}</p>
                             <p>Data: {imagem.createdAt}</p>

@@ -12,7 +12,7 @@ function Lojas() {
     const navigator = useNavigate()
     const cadastrar = (e)=>{
         e.preventDefault()
-        axios.post('http://192.168.50.164:3333/cadastrar/loja',{
+        axios.post(`${process.env.REACT_APP_API}/cadastrar/loja`,{
           name:loja,
           location:nome
         },{
@@ -39,7 +39,7 @@ function Lojas() {
                         // Obtendo o token do localStorage ou de outra fonte
                         const token = localStorage.getItem('authToken');
                         
-                        const response = await axios.get('http://192.168.50.164:3333/listar/loja', {
+                        const response = await axios.get(`${process.env.REACT_APP_API}/listar/loja`, {
                         headers: {
                             Authorization: `Bearer ${token}`
                         }

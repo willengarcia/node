@@ -22,7 +22,7 @@ function AdicionarUser() {
         console.log(`User ID: ${userId}, Store ID: ${storeId}`);
 
         try {
-            const response = await axios.post('http://192.168.50.164:3333/update/user_loja', {
+            const response = await axios.post(`${process.env.REACT_APP_API}/update/user_loja`, {
                 storeId:storeId,
                 userId:userId
             }, {
@@ -44,7 +44,7 @@ function AdicionarUser() {
             const fetchLojas = async () => {
                 try {
                     const token = localStorage.getItem('authToken');
-                    const response = await axios.get('http://192.168.50.164:3333/listar/loja', {
+                    const response = await axios.get(`${process.env.REACT_APP_API}/listar/loja`, {
                         headers: {
                             Authorization: `Bearer ${token}`,
                         },
@@ -65,7 +65,7 @@ function AdicionarUser() {
             const fetchUser = async () => {
                 try {
                     const token = localStorage.getItem('authToken');
-                    const response = await axios.get('http://192.168.50.164:3333/list/user', {
+                    const response = await axios.get(`${process.env.REACT_APP_API}/list/user`, {
                         headers: {
                             Authorization: `Bearer ${token}`,
                         },
