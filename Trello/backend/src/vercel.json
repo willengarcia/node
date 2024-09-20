@@ -1,0 +1,15 @@
+{
+    "version":2,
+    "builds":[
+        {
+            "build": "prisma migrate deploy && tsc",
+            "use":"@vercel/node"
+        }
+    ],
+    "routes":[
+        {
+            "src":"(.*)",
+            "des":"src/server.ts"
+        }
+    ]
+}

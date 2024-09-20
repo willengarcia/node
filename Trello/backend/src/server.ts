@@ -4,7 +4,7 @@ import cors from 'cors';
 import path from 'path';
 
 const app = express();
-
+const porta = process.env.PORT || 4000
 // Middleware para permitir CORS
 const corsOptions = {
     origin: 'https://trello-six-rose.vercel.app', // Remova a barra final
@@ -24,6 +24,6 @@ app.use(router);
 app.use('/files', express.static(path.resolve(__dirname, '..', 'tmp')));
 
 // Iniciar o servidor
-app.listen(process.env.PORT, () => {
+app.listen(porta, () => {
     console.log('Server Online!!');
 });
