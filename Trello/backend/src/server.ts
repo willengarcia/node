@@ -13,7 +13,6 @@ const corsOptions = {
 };
 // Aplicar o middleware de CORS
 app.use(cors(corsOptions));
-
 // Middleware para processar JSON
 app.use(express.json());
 
