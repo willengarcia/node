@@ -12,7 +12,6 @@ const corsOptions = {
     allowedHeaders: ['Content-Type', 'Authorization'], // Cabeçalhos permitidos
     credentials: true, // Permite cookies e credenciais, se necessário
 };
-
 // Aplicar o middleware de CORS
 app.use(cors(corsOptions));
 
@@ -21,7 +20,6 @@ app.use(express.json());
 
 // Defina suas rotas aqui
 app.use(router);
-
 // Criar uma rota estática para exibir as fotos
 app.use('/files', express.static(path.resolve(__dirname, '..', 'tmp')));
 
