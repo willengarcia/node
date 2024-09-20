@@ -1,21 +1,17 @@
 import { Request, Response } from "express";
 import { AddImagesService } from '../../services/images/AddImagesService';
-interface AddImageToUserStore {
-    userId: string;
-    storeId: string;
-    imagePath: string; // URL da imagem
-}
+import cloudinary from '../../config/cloudinary';
+
 class AddImagesController {
-  async handle({ userId, storeId, imagePath }: AddImageToUserStore, res: Response) {
-    const addImagesService = new AddImagesService();
-    try {
-      const image = await addImagesService.execute({ userId, storeId, imagePath });
-      return res.json(image);
-    } catch (err) {
-      return res.status(400).json({ error: err.message });
+    async handle(userId: string, storeId: string, imageUrl: string, res: Response) {
+        try {
+            const addImagesService = new AddImagesService();
+            const image = await addImagesService.execute({ userId, storeId, imageUrl });
+            return res.json(image);
+        } catch (err) {
+            return res.status(400).json({ error: err.message });
+        }
     }
-  }
 }
 
 export { AddImagesController };
-

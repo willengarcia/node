@@ -4,11 +4,11 @@ import cloudinary from '../../config/cloudinary'; // Certifique-se de que o Clou
 interface AddImageToUserStore {
   userId: string;
   storeId: string;
-  imagePath: string; // Caminho ou URL local da imagem
+  imageUrl: string; // Caminho ou URL local da imagem
 }
 
 class AddImagesService {
-  async execute({ userId, storeId, imagePath }: AddImageToUserStore) {
+  async execute({ userId, storeId, imageUrl }: AddImageToUserStore) {
     // Verificar se o usuário e a loja existem
     const user = await prismaClient.user.findUnique({
       where: { id: userId },
@@ -42,7 +42,7 @@ class AddImagesService {
 
     // Fazer upload da imagem para o Cloudinary
     try {
-      const uploadResult = await cloudinary.uploader.upload(imagePath, {
+      const uploadResult = await cloudinary.uploader.upload(imageUrl, {
         folder: 'user_images', // Define a pasta onde as imagens serão salvas no Cloudinary
       });
 

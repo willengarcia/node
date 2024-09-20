@@ -32,29 +32,31 @@ router.post('/update/user_loja', isAuthenticated, new UpdateStorageController().
 // ROTA IMAGENS
 router.post('/add/imagens', isAuthenticated, upload.single('file'), async (req, res) => {
     try {
-      const { userId, storeId } = req.body; // Obtendo userId e storeId do corpo da requisição
-      const file = req.file;
-  
-      if (!file) {
-        return res.status(400).json({ error: 'Arquivo não encontrado.' });
-      }
-  
-      // Upload para o Cloudinary
-      const uploadResponse = await cloudinary.uploader.upload(file.path);
-  
-      // Chame o controlador para adicionar a imagem ao banco de dados
-      const newImage = await new AddImagesController().handle({
-        userId,
-        storeId,
-        imagePath: uploadResponse.secure_url, // URL da imagem no Cloudinary
-      }, res);
-  
-      res.status(201).json(newImage);
+        const { userId, storeId } = req.body; // Certifique-se de que storeId está correto
+        const file = req.file;
+
+        if (!file) {
+            return res.status(400).json({ error: 'Arquivo não encontrado.' });
+        }
+
+        // Upload para o Cloudinary
+        const uploadResponse = await cloudinary.uploader.upload(file.path);
+
+        // Chame o controlador para adicionar a imagem ao banco de dados
+        const newImage = await new AddImagesController().handle(
+            userId,
+            storeId,
+            uploadResponse.secure_url,
+            res
+        );
+
+        res.status(201).json(newImage);
     } catch (error) {
-      res.status(500).json({ error: error.message });
+        res.status(500).json({ error: error.message });
     }
-  });
-  
+});
+
+
 
 router.get('/list/imagens', isAuthenticated, new ListImagesController().handle);
 router.put('/list/imagens/validate/:id', isAuthenticated, new ValidImageController().handle);
