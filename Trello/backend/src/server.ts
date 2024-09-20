@@ -15,7 +15,6 @@ const corsOptions = {
 app.use(cors(corsOptions));
 // Middleware para processar JSON
 app.use(express.json());
-
 // Defina suas rotas aqui
 app.use(router);
 // Criar uma rota estática para exibir as fotos
