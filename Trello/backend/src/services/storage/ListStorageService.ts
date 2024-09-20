@@ -5,17 +5,14 @@ class ListStorageService{
             include:{
                 users:true
             },
-            orderBy: {
-                name: 'asc' // Ordena alfabéticamente, mas você pode sobrescrever depois
-            }
         })
         // Processamento manual para ordenar por número
         userWithStore = userWithStore.sort((a, b) => {
-            const numA = parseInt(a.name.replace(/\D/g, ''), 10); // Remove as letras e pega os números
-            const numB = parseInt(b.name.replace(/\D/g, ''), 10);
-            return numA - numB;
+            const numA = parseInt(a.name.replace(/\D/g, ''), 10); // Extrai números de a.name
+            const numB = parseInt(b.name.replace(/\D/g, ''), 10); // Extrai números de b.name
+            return numA - numB; // Ordena de forma crescente
         });
-  
+      
         return userWithStore
     }
 }
