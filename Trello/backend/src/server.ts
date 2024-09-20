@@ -7,9 +7,9 @@ const app = express();
 
 // Middleware para permitir CORS
 const corsOptions = {
-    origin: 'https://trello-six-rose.vercel.app/', // Remova a barra final
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],  // Métodos permitidos
-    credentials: true  // Permite cookies e credenciais
+    origin: 'https://trello-six-rose.vercel.app', // Remova a barra final
+    methods: ['GET', 'POST', 'PUT', 'DELETE']  // Métodos permitidos
+    //credentials: true  // Permite cookies e credenciais
 };
 // Aplicar o middleware de CORS
 app.use(cors(corsOptions));
