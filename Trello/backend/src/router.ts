@@ -45,7 +45,6 @@ router.post('/add/imagens', isAuthenticated, upload.single('file'), async (req, 
             }
             return result; // Retorna o resultado do upload
         });
-
         const stream = require('stream');
         const bufferStream = new stream.PassThrough();
         bufferStream.end(file.buffer); // file.buffer deve conter os dados do arquivo
