@@ -12,5 +12,5 @@ app.use(express_1.default.json());
 app.use((0, cors_1.default)());
 app.use(router_1.router);
 app.use('/files', express_1.default.static(path_1.default.resolve(__dirname, '..', 'tmp'))); // criar uma rota estática para exibir as fotos
-app.listen(3333, () => { console.log('Server Online!!'); });
+app.listen(process.env.PORT, () => { console.log('Server Online!!'); });
 //# sourceMappingURL=server.js.map
