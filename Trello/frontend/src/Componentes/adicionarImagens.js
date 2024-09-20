@@ -7,7 +7,6 @@ function AdicionarImagens() {
     const [imagens, setImagens] = useState(null);
     const [imagensList, setImagensList] = useState([]);
     const navigator = useNavigate();
-
     const listarImagens = async () => {
         const storeId = localStorage.getItem('storeId');
         const token = localStorage.getItem('authToken');
