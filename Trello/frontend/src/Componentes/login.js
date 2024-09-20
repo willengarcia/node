@@ -20,10 +20,10 @@ function Login() {
     }
 
     axios.post(`${process.env.REACT_APP_API}/login`, {
-      email: email,
-      password: senha,
+      email,
+      password: senha
     }, {
-      withCredentials: true,
+      withCredentials:false
     })
       .then(response => {
         console.log(response.data)
