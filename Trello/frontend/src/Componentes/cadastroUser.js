@@ -23,7 +23,7 @@ function CadastroUser() {
       navigate('/'); // Redireciona para a página inicial ou qualquer outra página
     })
     .catch(error=>{
-      alert('Usuário já cadastrado! Contate o Administrador: '+error)
+      alert('Contate o Administrador: '+error)
     })
   }
   return (

@@ -21,7 +21,9 @@ function Lojas() {
             }
         })
         .then(response=>{
-          alert('Loja Cadastrada!')
+            alert('Loja Cadastrada!')
+            setLoja('')
+            setNome('')
         })
         .catch(error=>{
           alert("Erro: "+error)
@@ -60,7 +62,6 @@ function Lojas() {
         };
     }, []);
     const pegaIdLoja = (el) =>{
-        console.log(el)
         localStorage.setItem('storeId', `${el}`)
         navigator('/imagens')
     }
