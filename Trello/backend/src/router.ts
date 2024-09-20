@@ -14,7 +14,6 @@ import { ListUserController } from "./controllers/user/ListUserController";
 import { UpdateUserController } from "./controllers/user/UpdateUserController";
 
 const router = Router()
-
 const upload = multer(uploadConfig.upload("./tmp")) // nome do arquivo para salvar a imagem
 
 // ROTA USUÁRIO
