@@ -5,11 +5,10 @@ class ValidImageController{
         const imageId = req.params.id
         const validImageService = new ValidImageService()
         try{
-            console.log(imageId)
             const retorno = await validImageService.execute({imageId})
             return res.json(retorno)
         }catch(err){
-            console.log(err)
+            return res.status(400).json({error: err.message})
         }
 
     }

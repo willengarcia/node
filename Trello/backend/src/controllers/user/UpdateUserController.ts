@@ -7,8 +7,13 @@ class UpdateUserController{
     async handle(req:Request, res: Response){
         const userId = req.params.userId
         const update = new UpdateUserService()
-        const retorno = await update.execute({userId})
-        return res.json({ok:true})
+        try{
+            const retorno = await update.execute({userId})
+            return res.json({ok:true})
+        }catch(err){
+            return res.status(400).json({error: err.message})
+        }
+        
     }
 }
 export {UpdateUserController}

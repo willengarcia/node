@@ -4,8 +4,13 @@ class ListImagesController{
     async handle(req:Request, res:Response){
         const storeId = req.query.storeId as string
         const listImages = new ListImageService()
-        const list = await listImages.execute({storeId})
-        return res.json(list)
+        try{
+            const list = await listImages.execute({storeId})
+            return res.json(list)            
+        }catch(err){
+            return res.status(400).json({error: err.message})
+        }
+
     }
 }
 export {ListImagesController}

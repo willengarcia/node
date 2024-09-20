@@ -6,8 +6,13 @@ class CreateUserController{ // chama no router
         
         const {name, email, senha, superUser} = req.body;
         const createUserService = new CreateUserService()
-        const exeutar = await createUserService.execute({name, email, senha, superUser})
-        return res.json({"Usuário":exeutar})
+        try{
+            const exeutar = await createUserService.execute({name, email, senha, superUser})
+            return res.json({"Usuário":exeutar})
+        }catch(err){
+            return res.status(400).json({error: err.message})
+        }
+        
     }
 }
 
