@@ -20,7 +20,6 @@ app.use(express.json());
 app.use(router);
 // Criar uma rota estática para exibir as fotos
 app.use('/files', express.static(path.resolve(__dirname, '..', 'tmp')));
-
 // Iniciar o servidor
 app.listen(process.env.PORT, () => {
     console.log('Server Online!!');
