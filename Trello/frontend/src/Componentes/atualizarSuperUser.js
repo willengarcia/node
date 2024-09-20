@@ -18,7 +18,7 @@ function UpdateSuperUser() {
 
     try {
       const response = await axios.put(
-        `http://192.168.50.164:3333/update/user/${userId}`, 
+        `${process.env.REACT_APP_API}/update/user/${userId}`, 
         {}, 
         {
           headers: {
@@ -44,7 +44,7 @@ function UpdateSuperUser() {
       const fetchUser = async () => {
         try {
           const token = localStorage.getItem('authToken');
-          const response = await axios.get('http://192.168.50.164:3333/list/user', {
+          const response = await axios.get(`${process.env.REACT_APP_API}/list/user`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
