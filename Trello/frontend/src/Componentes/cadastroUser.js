@@ -20,7 +20,6 @@ function CadastroUser() {
         superUser:false
     })
     .then(response=>{
-      console.log('Cadastrado '+ JSON.stringify(response.data))
       navigate('/'); // Redireciona para a página inicial ou qualquer outra página
     })
     .catch(error=>{

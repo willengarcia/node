@@ -26,7 +26,6 @@ function Login() {
       withCredentials:false
     })
       .then(response => {
-        console.log(response.data)
         if(response.data.superUser === false){
           localStorage.setItem('authToken', response.data.token); // Armazena o token
           localStorage.setItem('userId', response.data.id); // Armazena o ID do usuário
@@ -34,11 +33,8 @@ function Login() {
           localStorage.setItem('storeId', response.data.storeId)
           //Armazena o Id da loja que op usuário está cadastrado.
           setErrorMessage(''); // Limpa a mensagem de erro, caso exista
-          console.log("Usuário: "+localStorage.getItem('userId'))
-          console.log("loja: "+localStorage.getItem('storeId'))
           navigate('/Trello')
         }else{
-          console.log('Logado com sucesso!');
           setToken(response.data.token);
           localStorage.setItem('authToken', response.data.token); // Armazena o token
           localStorage.setItem('userId', response.data.id); // Armazena o ID do usuário

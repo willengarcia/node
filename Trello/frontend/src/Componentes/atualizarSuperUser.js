@@ -28,7 +28,7 @@ function UpdateSuperUser() {
       );
 
     } catch (error) {
-      console.error('Erro ao cadastrar usuário:', error);
+      alert('Erro ao cadastrar usuário:', error);
       if (error.response && error.response.status === 409) {
         alert('Usuário já cadastrado! Contate o Administrador.');
       } else {
@@ -56,7 +56,7 @@ function UpdateSuperUser() {
           }));
           setUserIds(users);
         } catch (error) {
-          console.error('Erro ao buscar usuários:', error);
+          alert('Erro ao buscar usuários:', error);
         }
       };
 

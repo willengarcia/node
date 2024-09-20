@@ -23,7 +23,7 @@ function Imagens() {
             });
             return response.data;
         } catch (error) {
-            console.error('Erro ao buscar imagens:', error);
+            alert('Erro ao buscar imagens:', error);
             return [];
         }
     };

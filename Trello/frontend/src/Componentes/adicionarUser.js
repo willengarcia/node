@@ -19,7 +19,6 @@ function AdicionarUser() {
 
     const addUser = async (e) => {
         e.preventDefault();
-        console.log(`User ID: ${userId}, Store ID: ${storeId}`);
 
         try {
             const response = await axios.post(`${process.env.REACT_APP_API}/update/user_loja`, {
@@ -58,7 +57,7 @@ function AdicionarUser() {
                     }));
                     setLojas(lojasSimplificadas);
                 } catch (error) {
-                    console.error('Erro ao buscar lojas:', error);
+                    alert('Erro ao buscar lojas:', error);
                 }
             };
     
@@ -78,7 +77,7 @@ function AdicionarUser() {
                     }));
                     setUserIds(usersSimplificadas);
                 } catch (error) {
-                    console.error('Erro ao buscar usuários:', error);
+                    alert('Erro ao buscar usuários:', error);
                 }
             };
     

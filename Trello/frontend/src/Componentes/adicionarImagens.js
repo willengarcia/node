@@ -25,7 +25,7 @@ function AdicionarImagens() {
             });
             return response.data;
         } catch (error) {
-            console.error('Erro ao buscar imagens:', error);
+            alert('Erro ao buscar imagens:', error);
             return [];
         }
     };
@@ -55,7 +55,7 @@ function AdicionarImagens() {
         setUserId(localStorage.getItem('userId'));
 
         if (!imagens) {
-            console.error('Nenhuma imagem selecionada');
+            alert('Nenhuma imagem selecionada');
             return;
         }
 

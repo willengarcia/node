@@ -21,10 +21,10 @@ function Lojas() {
             }
         })
         .then(response=>{
-          console.log('Loja Cadastrada! ')
+          alert('Loja Cadastrada!')
         })
         .catch(error=>{
-          console.log("Erro: "+error)
+          alert("Erro: "+error)
         })
     }
     const [lojas, setLojas] = useState([]);
@@ -53,7 +53,7 @@ function Lojas() {
                         }));
                         setLojas(lojasSimplificadas);
                     } catch (error) {
-                        console.error('Erro ao buscar lojas:', error);
+                        alert('Erro ao buscar lojas:', error);
                 }
             }
             fetchLojas();
