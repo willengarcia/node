@@ -14,7 +14,7 @@ import { ListUserController } from "./controllers/user/ListUserController";
 import { UpdateUserController } from "./controllers/user/UpdateUserController";
 
 const router = Router()
-const upload = multer(uploadConfig.upload("./tmp")) // nome do arquivo para salvar a imagem
+const upload = multer(uploadConfig.upload("tmp")) // nome do arquivo para salvar a imagem
 // ROTA USUÁRIO
 router.post('/cadastrar/usuario', new CreateUserController().handle) // cadastrar user.
 router.post('/login', new AuthUserController().handle) // Verifica se o usuário está autenticado, e retorna os dados.
