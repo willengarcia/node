@@ -9,7 +9,7 @@ const app = express()
 
 app.use(express.json())
 app.use(cors({
-    origin: 'https://seu-frontend.com',  // Substitua pelo domínio do seu front-end
+    origin: '*',  // Substitua pelo domínio do seu front-end
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
 }))
