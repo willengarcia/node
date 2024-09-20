@@ -1,4 +1,5 @@
 import prismaClient from "../../prisma";
+import cloudinary from '../../config/cloudinary';
 
 interface StoreId {
   storeId: string;

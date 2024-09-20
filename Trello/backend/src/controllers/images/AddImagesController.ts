@@ -1,18 +1,21 @@
 import { Request, Response } from "express";
-import {AddImagesService} from '../../services/images/AddImagesService'
-
-class AddImagesController{
-    async handle(req:Request, res:Response){
-        const { userId, storeId } = req.body
-        const addImagesService = new AddImagesService()
-        const {filename:imageUrl} = req.file
-        try{
-            const image = await addImagesService.execute({ userId, storeId, imageUrl })
-            return res.json(image)
-        }catch(err){
-            return res.status(400).json({error: err.message})
-        }
-
-    }
+import { AddImagesService } from '../../services/images/AddImagesService';
+interface AddImageToUserStore {
+    userId: string;
+    storeId: string;
+    imagePath: string; // URL da imagem
 }
-export {AddImagesController}
+class AddImagesController {
+  async handle({ userId, storeId, imagePath }: AddImageToUserStore, res: Response) {
+    const addImagesService = new AddImagesService();
+    try {
+      const image = await addImagesService.execute({ userId, storeId, imagePath });
+      return res.json(image);
+    } catch (err) {
+      return res.status(400).json({ error: err.message });
+    }
+  }
+}
+
+export { AddImagesController };
+
