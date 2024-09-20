@@ -38,7 +38,6 @@ router.post('/add/imagens', isAuthenticated, upload.single('file'), async (req, 
         if (!file) {
             return res.status(400).json({ error: 'Arquivo não encontrado.' });
         }
-
         // Upload direto para o Cloudinary usando a stream
         const uploadResponse = await cloudinary.uploader.upload_stream((error, result) => {
             if (error) {
