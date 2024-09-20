@@ -7,7 +7,7 @@ const app = express();
 
 // Middleware para permitir CORS
 const corsOptions = {
-    origin: 'https://trello-o09frj28p-willen-garcia-s-projects.vercel.app', // Remova a barra final
+    origin: 'https://trello-six-rose.vercel.app', // Remova a barra final
     methods: ['GET', 'POST', 'PUT', 'DELETE'],  // Métodos permitidos
     credentials: true  // Permite cookies e credenciais
 };
