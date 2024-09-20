@@ -17,7 +17,7 @@ function CadastroUser() {
         name:nome,
         email:email,
         senha:senha,
-        superUser:true
+        superUser:false
     })
     .then(response=>{
       console.log('Cadastrado '+ JSON.stringify(response.data))
