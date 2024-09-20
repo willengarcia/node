@@ -40,20 +40,25 @@ class AddImagesService {
       throw new Error('Usuário não está associado à loja.');
     }
 
-    // Adicionar a imagem associada ao UserStore
-    const newImage = await prismaClient.image.create({
-      data: {
-        url: imageUrl,
-        userStoreId: userStoreRelation.id, // Usa userStoreId diretamente
-      },
-      select: {
-        id: true,
-        url: true,
-        createdAt: true,
-      },
-    });
 
-    return newImage;
+    // Adicionar a imagem associada ao UserStore
+    try{
+      const newImage = await prismaClient.image.create({
+          data: {
+            url: imageUrl,
+            userStoreId: userStoreRelation.id, // Usa userStoreId diretamente
+          },
+          select: {
+            id: true,
+            url: true,
+            createdAt: true,
+          },
+      });
+      return newImage
+    }catch(err){
+      return err
+    }
+;
   }
 }
 
