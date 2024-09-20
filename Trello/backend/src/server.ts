@@ -11,7 +11,6 @@ const corsOptions = {
     methods: ['GET', 'POST', 'PUT', 'DELETE'],  // Métodos permitidos
     credentials: true  // Permite cookies e credenciais
 };
-
 // Aplicar o middleware de CORS
 app.use(cors(corsOptions));
 
