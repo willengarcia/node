@@ -32,31 +32,31 @@ router.post('/update/user_loja', isAuthenticated, new UpdateStorageController().
 // ROTA IMAGENS
 router.post('/add/imagens', isAuthenticated, upload.single('file'), async (req, res) => {
     try {
-        const { userId, storeId } = req.body; // Certifique-se de que storeId está correto
+        const { userId, storeId } = req.body;
         const file = req.file;
 
         if (!file) {
             return res.status(400).json({ error: 'Arquivo não encontrado.' });
         }
 
-        // Upload para o Cloudinary
-        const uploadResponse = await cloudinary.uploader.upload(file.path);
+        // Upload direto para o Cloudinary usando a stream
+        const uploadResponse = await cloudinary.uploader.upload_stream((error, result) => {
+            if (error) {
+                return res.status(500).json({ error: error.message });
+            }
+            return result; // Retorna o resultado do upload
+        });
 
-        // Chame o controlador para adicionar a imagem ao banco de dados
-        const newImage = await new AddImagesController().handle(
-            userId,
-            storeId,
-            uploadResponse.secure_url,
-            res
-        );
+        const stream = require('stream');
+        const bufferStream = new stream.PassThrough();
+        bufferStream.end(file.buffer); // file.buffer deve conter os dados do arquivo
 
-        res.status(201).json(newImage);
+        bufferStream.pipe(uploadResponse);
+
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 });
-
-
 
 router.get('/list/imagens', isAuthenticated, new ListImagesController().handle);
 router.put('/list/imagens/validate/:id', isAuthenticated, new ValidImageController().handle);
