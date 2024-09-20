@@ -9,7 +9,6 @@ const porta = process.env.PORT || 4000
 const corsOptions = {
     origin: 'https://trello-six-rose.vercel.app', // Remova a barra final
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
-    allowedHeaders: ['Content-Type', 'Authorization'], // Cabeçalhos permitidos
     credentials: true, // Permite cookies e credenciais, se necessário
 };
 // Aplicar o middleware de CORS
