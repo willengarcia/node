@@ -115,7 +115,6 @@ function AdicionarImagens() {
                     </button>
                 </form>
             </article>
-
             <div className="listInseriImagem">
                 {imagensList.map((imagem) => (
                     <div key={imagem.id} className="loja-imagem" id={imagem.id}>

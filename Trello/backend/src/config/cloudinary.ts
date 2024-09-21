@@ -1,5 +1,4 @@
 import { v2 as cloudinary } from 'cloudinary';
-
 // Configurar o Cloudinary com as credenciais da API
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
