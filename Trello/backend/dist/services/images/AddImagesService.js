@@ -14,9 +14,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AddImagesService = void 0;
 const prisma_1 = __importDefault(require("../../prisma"));
+const cloudinary_1 = __importDefault(require("../../config/cloudinary"));
+const stream_1 = require("stream");
 class AddImagesService {
     execute(_a) {
-        return __awaiter(this, arguments, void 0, function* ({ userId, storeId, imageUrl }) {
+        return __awaiter(this, arguments, void 0, function* ({ userId, storeId, imageBuffer }) {
             // Verificar se o usuário e a loja existem
             const user = yield prisma_1.default.user.findUnique({
                 where: { id: userId },
@@ -24,7 +26,6 @@ class AddImagesService {
             const store = yield prisma_1.default.store.findUnique({
                 where: { id: storeId },
             });
-            console.log("ID DO USUÁRIO: " + user);
             if (!user) {
                 throw new Error('Usuário não encontrado.');
             }
@@ -43,19 +44,37 @@ class AddImagesService {
             if (!userStoreRelation) {
                 throw new Error('Usuário não está associado à loja.');
             }
-            // Adicionar a imagem associada ao UserStore
-            const newImage = yield prisma_1.default.image.create({
-                data: {
-                    url: imageUrl,
-                    userStoreId: userStoreRelation.id, // Usa userStoreId diretamente
-                },
-                select: {
-                    id: true,
-                    url: true,
-                    createdAt: true,
-                },
+            // Fazer upload da imagem no Cloudinary
+            const uploadStream = cloudinary_1.default.uploader.upload_stream({
+                resource_type: 'image',
             });
-            return newImage;
+            // Retornar a URL após o upload
+            return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+                const stream = stream_1.Readable.from(imageBuffer);
+                stream.pipe(uploadStream)
+                    .on('finish', () => __awaiter(this, void 0, void 0, function* () {
+                    const result = yield new Promise((res, rej) => {
+                        uploadStream.on('finish', () => res(uploadStream));
+                        uploadStream.on('error', (error) => rej(error));
+                    });
+                    resolve(result.secure_url); // Use secure_url para obter a URL
+                }))
+                    .on('error', (error) => reject(error));
+            })).then((imageUrl) => __awaiter(this, void 0, void 0, function* () {
+                // Adicionar a imagem associada ao UserStore com a URL retornada do Cloudinary
+                const newImage = yield prisma_1.default.image.create({
+                    data: {
+                        url: imageUrl, // URL da imagem no Cloudinary
+                        userStoreId: userStoreRelation.id,
+                    },
+                    select: {
+                        id: true,
+                        url: true,
+                        createdAt: true,
+                    },
+                });
+                return newImage;
+            }));
         });
     }
 }

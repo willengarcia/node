@@ -22,7 +22,7 @@ export function isAuthenticated(req: Request, res: Response, next: NextFunction)
         const {sub} = verify(token, process.env.JWT_SECRET)  as Payload// argumentos: token do usuário, chave que eu coloquei e retorna o id do banco de dados
 
         // recuperar o ID do token e colocar dentro de uma variável e colocar dentro do Request
-        req.user_id = sub
+        req.userId = sub
         
         return next()
     }catch(err){

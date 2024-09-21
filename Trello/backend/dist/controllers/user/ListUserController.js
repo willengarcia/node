@@ -15,8 +15,13 @@ class ListUserController {
     handle(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const lista = new ListUserService_1.ListUserService();
-            const usuarios = yield lista.execute();
-            return res.json(usuarios);
+            try {
+                const usuarios = yield lista.execute();
+                return res.json(usuarios);
+            }
+            catch (err) {
+                return res.status(400).json({ error: err.message });
+            }
         });
     }
 }

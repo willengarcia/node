@@ -16,8 +16,13 @@ class CreateStorageController {
         return __awaiter(this, void 0, void 0, function* () {
             const { name, location, userId } = req.body;
             const createStorageService = new CreateStorageService_1.CreateStorageService();
-            const storage = yield createStorageService.execute({ name, location, userId });
-            return res.json(storage);
+            try {
+                const storage = yield createStorageService.execute({ name, location, userId });
+                return res.json(storage);
+            }
+            catch (err) {
+                return res.status(400).json({ error: err.message });
+            }
         });
     }
 }

@@ -20,7 +20,10 @@ class ListStorageService {
             const userWithStore = yield prisma_1.default.store.findMany({
                 include: {
                     users: true
-                }
+                },
+                orderBy: {
+                    name: 'asc',
+                },
             });
             return userWithStore;
         });

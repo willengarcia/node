@@ -16,8 +16,13 @@ class UpdateUserController {
         return __awaiter(this, void 0, void 0, function* () {
             const userId = req.params.userId;
             const update = new UpdateUserService_1.UpdateUserService();
-            const retorno = yield update.execute({ userId });
-            return res.json({ ok: true });
+            try {
+                const retorno = yield update.execute({ userId });
+                return res.json({ ok: true });
+            }
+            catch (err) {
+                return res.status(400).json({ error: err.message });
+            }
         });
     }
 }

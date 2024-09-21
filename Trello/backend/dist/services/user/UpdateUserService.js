@@ -17,15 +17,29 @@ const prisma_1 = __importDefault(require("../../prisma"));
 class UpdateUserService {
     execute(_a) {
         return __awaiter(this, arguments, void 0, function* ({ userId }) {
-            const res = yield prisma_1.default.user.update({
+            // Busca o usuário para verificar o valor atual de superUser
+            const user = yield prisma_1.default.user.findUnique({
+                where: {
+                    id: userId,
+                },
+                select: {
+                    superUser: true,
+                },
+            });
+            // Se o usuário não for encontrado, lança um erro
+            if (!user) {
+                throw new Error('Usuário não encontrado');
+            }
+            // Alterna o valor de superUser (se true vira false, se false vira true)
+            const updatedUser = yield prisma_1.default.user.update({
                 where: {
                     id: userId,
                 },
                 data: {
-                    superUser: true,
+                    superUser: !user.superUser, // Inverte o valor atual de superUser
                 },
             });
-            return res;
+            return updatedUser;
         });
     }
 }

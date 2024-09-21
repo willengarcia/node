@@ -17,12 +17,11 @@ class ValidImageController {
             const imageId = req.params.id;
             const validImageService = new ValidImageService_1.ValidImageService();
             try {
-                console.log(imageId);
                 const retorno = yield validImageService.execute({ imageId });
                 return res.json(retorno);
             }
             catch (err) {
-                console.log(err);
+                return res.status(400).json({ error: err.message });
             }
         });
     }

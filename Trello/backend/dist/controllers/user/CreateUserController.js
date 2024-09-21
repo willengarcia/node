@@ -16,8 +16,13 @@ class CreateUserController {
         return __awaiter(this, void 0, void 0, function* () {
             const { name, email, senha, superUser } = req.body;
             const createUserService = new CreateUserService_1.CreateUserService();
-            const exeutar = yield createUserService.execute({ name, email, senha, superUser });
-            return res.json({ "Usuário": exeutar });
+            try {
+                const exeutar = yield createUserService.execute({ name, email, senha, superUser });
+                return res.json({ "Usuário": exeutar });
+            }
+            catch (err) {
+                return res.status(400).json({ error: err.message });
+            }
         });
     }
 }

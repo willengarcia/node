@@ -16,9 +16,13 @@ class UpdateStorageController {
         return __awaiter(this, void 0, void 0, function* () {
             const { storeId, userId } = req.body;
             const updateStorageService = new UpdateStorageService_1.UpdateStorageService();
-            const result = yield updateStorageService.execute({ storeId, userId });
-            console.log(storeId, userId);
-            return res.json(result);
+            try {
+                const result = yield updateStorageService.execute({ storeId, userId });
+                return res.json(result);
+            }
+            catch (err) {
+                return res.status(400).json({ error: err.message });
+            }
         });
     }
 }

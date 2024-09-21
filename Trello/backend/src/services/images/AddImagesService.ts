@@ -46,27 +46,34 @@ class AddImagesService {
             resource_type: 'image',
         });
 
-        const imageUrl = await new Promise<string>((resolve, reject) => {
+        // Retornar a URL após o upload
+        return new Promise(async (resolve, reject) => {
             const stream = Readable.from(imageBuffer);
             stream.pipe(uploadStream)
-                .on('finish', () => resolve(uploadStream.url))
+                .on('finish', async () => {
+                    const result = await new Promise<any>((res, rej) => {
+                        uploadStream.on('finish', () => res(uploadStream));
+                        uploadStream.on('error', (error) => rej(error));
+                    });
+                    resolve(result.secure_url); // Use secure_url para obter a URL
+                })
                 .on('error', (error) => reject(error));
-        });
+        }).then(async (imageUrl) => {
+            // Adicionar a imagem associada ao UserStore com a URL retornada do Cloudinary
+            const newImage = await prismaClient.image.create({
+                data: {
+                    url: imageUrl as string, // URL da imagem no Cloudinary
+                    userStoreId: userStoreRelation.id,
+                },
+                select: {
+                    id: true,
+                    url: true,
+                    createdAt: true,
+                },
+            });
 
-        // Adicionar a imagem associada ao UserStore com a URL retornada do Cloudinary
-        const newImage = await prismaClient.image.create({
-            data: {
-                url: imageUrl, // URL da imagem no Cloudinary
-                userStoreId: userStoreRelation.id,
-            },
-            select: {
-                id: true,
-                url: true,
-                createdAt: true,
-            },
+            return newImage;
         });
-
-        return newImage;
     }
 }
 

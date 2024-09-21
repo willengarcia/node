@@ -15,18 +15,21 @@ class AddImagesController {
     handle(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { userId, storeId } = req.body;
-            const addImagesService = new AddImagesService_1.AddImagesService();
-            console.log(req.file);
-            const { filename: imageUrl } = req.file;
-            const image = yield addImagesService.execute({ userId, storeId, imageUrl });
-            return res.json(image);
-            // if(!req.file){
-            //     throw new Error('Erro ao colocar a imagem')
-            // }else{
-            //     const {filename:imageUrl} = req.file
-            //     const image = await addImagesService.execute({ userId, storeId, imageUrl })
-            //     return res.json(image)
-            // }
+            if (!req.file) {
+                return res.status(400).json({ error: 'Arquivo não encontrado.' });
+            }
+            try {
+                const addImageService = new AddImagesService_1.AddImagesService();
+                const newImage = yield addImageService.execute({
+                    userId,
+                    storeId,
+                    imageBuffer: req.file.buffer, // Passa o buffer da imagem
+                });
+                return res.json(newImage);
+            }
+            catch (error) {
+                return res.status(500).json({ error: error.message });
+            }
         });
     }
 }

@@ -16,8 +16,13 @@ class ListImagesController {
         return __awaiter(this, void 0, void 0, function* () {
             const storeId = req.query.storeId;
             const listImages = new ListImagesService_1.ListImageService();
-            const list = yield listImages.execute({ storeId });
-            return res.json(list);
+            try {
+                const list = yield listImages.execute({ storeId });
+                return res.json(list);
+            }
+            catch (err) {
+                return res.status(400).json({ error: err.message });
+            }
         });
     }
 }

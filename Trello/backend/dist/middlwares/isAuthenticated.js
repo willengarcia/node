@@ -15,7 +15,7 @@ function isAuthenticated(req, res, next) {
         // validar o token
         const { sub } = (0, jsonwebtoken_1.verify)(token, process.env.JWT_SECRET); // argumentos: token do usuário, chave que eu coloquei e retorna o id do banco de dados
         // recuperar o ID do token e colocar dentro de uma variável e colocar dentro do Request
-        req.user_id = sub;
+        req.userId = sub;
         return next();
     }
     catch (err) {

@@ -15,8 +15,13 @@ class ListStorageController {
     handle(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const listStorageService = new ListStorageService_1.ListStorageService();
-            const lista = yield listStorageService.execute();
-            return res.json(lista);
+            try {
+                const lista = yield listStorageService.execute();
+                return res.json(lista);
+            }
+            catch (err) {
+                return res.status(400).json({ error: err.message });
+            }
         });
     }
 }

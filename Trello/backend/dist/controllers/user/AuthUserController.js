@@ -16,8 +16,13 @@ class AuthUserController {
         return __awaiter(this, void 0, void 0, function* () {
             const { email, password } = req.body;
             const authUserService = new AuthUserService_1.AuthUserService();
-            const auth = yield authUserService.execute({ email, password });
-            return res.json(auth);
+            try {
+                const auth = yield authUserService.execute({ email, password });
+                return res.json(auth);
+            }
+            catch (err) {
+                return res.status(400).json({ error: err.message });
+            }
         });
     }
 }
