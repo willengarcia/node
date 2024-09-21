@@ -86,6 +86,7 @@ function AdicionarImagens() {
                 <form onSubmit={insertImagens}>
                     <input
                         type='file'
+                        name='image'
                         onChange={(e) => setImagens(e.target.files[0])}
                     />
                     <button type='submit'>Upload</button>
