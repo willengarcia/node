@@ -29,7 +29,7 @@ router.get('/listar/loja', isAuthenticated, new ListStorageController().handle);
 router.post('/update/user_loja', isAuthenticated, new UpdateStorageController().handle);
 
 // ROTA IMAGENS
-router.post('/add/imagens', isAuthenticated, upload.single('image'), new AddImagesController().handle);
+router.post('/add/imagens', upload.single('image'), new AddImagesController().handle);
 
 router.get('/list/imagens', isAuthenticated, new ListImagesController().handle);
 router.put('/list/imagens/validate/:id', isAuthenticated, new ValidImageController().handle);
