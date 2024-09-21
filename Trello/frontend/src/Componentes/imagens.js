@@ -85,7 +85,7 @@ function Imagens() {
             <div className="listarImagens">
                 {imagens.map((imagem) => (
                     <div key={imagem.id} className="loja-imagem" id={imagem.id}>
-                        <img src={`${process.env.REACT_APP_API}/files/`+imagem.url} alt={`Imagem de ${imagem.name}`} />
+                        <img src={imagem.url} alt={`Imagem de ${imagem.name}`} />
                         <div className='loja-imagemDados'>
                             <p>Usuário: {imagem.name}</p>
                             <p>Data: {imagem.createdAt}</p>
