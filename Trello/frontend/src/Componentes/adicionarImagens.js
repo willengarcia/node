@@ -6,7 +6,10 @@ import '../App.css';
 function AdicionarImagens() {
     const [imagens, setImagens] = useState(null);
     const [imagensList, setImagensList] = useState([]);
+    const [isUploading, setIsUploading] = useState(false); // Indica se o upload está em andamento
     const navigator = useNavigate();
+
+    // Função para listar imagens
     const listarImagens = async () => {
         const storeId = localStorage.getItem('storeId');
         const token = localStorage.getItem('authToken');
@@ -23,16 +26,18 @@ function AdicionarImagens() {
         }
     };
 
+    // Função para tratar os dados recebidos
     const tratarDados = (data) => {
         const result = data.map((imageEntry) => ({
             id: imageEntry.idImage,
             name: imageEntry.userName,
-            url: imageEntry.imageUrl,
-            createdAt: imageEntry.createdAt
+            url: imageEntry.imageUrl, // Usar diretamente a URL do Cloudinary
+            createdAt: new Date(imageEntry.createdAt).toLocaleDateString() // Formatar a data
         }));
         setImagensList(result);
     };
 
+    // useEffect para carregar as imagens ao carregar o componente
     useEffect(() => {
         const fetchData = async () => {
             const data = await listarImagens();
@@ -41,13 +46,23 @@ function AdicionarImagens() {
         fetchData();
     }, []);
 
+    // Função para inserir imagens
     const insertImagens = async (e) => {
         e.preventDefault();
 
+        // Validação de arquivo
         if (!imagens) {
             alert('Nenhuma imagem selecionada');
             return;
         }
+
+        // Validação do tamanho do arquivo
+        if (imagens.size > 5000000) { // 5MB
+            alert('O arquivo é muito grande. Escolha um arquivo menor que 5MB.');
+            return;
+        }
+
+        setIsUploading(true); // Indica que o upload começou
 
         const formData = new FormData();
         formData.append('userId', localStorage.getItem('userId'));
@@ -61,16 +76,21 @@ function AdicionarImagens() {
                     'Content-Type': 'multipart/form-data'
                 }
             });
+
             alert('Imagem enviada com sucesso');
+
             // Atualiza a lista de imagens após o upload
             const updatedList = await listarImagens();
             tratarDados(updatedList);
         } catch (error) {
             console.error('Erro:', error);
-            alert(`Erro ao inserir Imagem: ${error.message}`);
+            alert(`Erro ao inserir imagem: ${error.message}`);
+        } finally {
+            setIsUploading(false); // Upload concluído
         }
     };
 
+    // Função para sair
     const sair = () => {
         localStorage.removeItem('authToken');
         localStorage.removeItem('storeId');
@@ -87,16 +107,20 @@ function AdicionarImagens() {
                     <input
                         type='file'
                         name='image'
+                        accept='image/*' // Aceita apenas arquivos de imagem
                         onChange={(e) => setImagens(e.target.files[0])}
                     />
-                    <button type='submit'>Upload</button>
+                    <button type='submit' disabled={isUploading || !imagens}>
+                        {isUploading ? 'Carregando...' : 'Upload'}
+                    </button>
                 </form>
             </article>
+
             <div className="listInseriImagem">
                 {imagensList.map((imagem) => (
                     <div key={imagem.id} className="loja-imagem" id={imagem.id}>
-                        <a href={`${process.env.REACT_APP_API}/files/${imagem.url}`} target='_blank' rel="noopener noreferrer">
-                            <img src={`${process.env.REACT_APP_API}/files/${imagem.url}`} alt={`Imagem de ${imagem.name}`} />
+                        <a href={imagem.url} target='_blank' rel="noopener noreferrer">
+                            <img src={imagem.url} alt={`Imagem de ${imagem.name}`} />
                         </a>
                         <div className='loja-imagemDados'>
                             <p>Usuário: {imagem.name}</p>
