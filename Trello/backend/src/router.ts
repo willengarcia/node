@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { CreateUserController } from "./controllers/user/CreateUserController";
 import { AuthUserController } from "./controllers/user/AuthUserController";
-import { isAuthenticated } from "./middlwares/isAuthenticated";
+import { isAuthenticated } from "./middlewares/isAuthenticated";
 import { CreateStorageController } from "./controllers/storage/CreateStorageController";
 import { ListStorageController } from "./controllers/storage/ListStorageController";
 import { UpdateStorageController } from "./controllers/storage/UpdateStorageController";
@@ -12,7 +12,10 @@ import { ListUserController } from "./controllers/user/ListUserController";
 import { UpdateUserController } from "./controllers/user/UpdateUserController";
 import multer from 'multer';
 
-// Configurar o multer
+// Configurar o multer para armazenar em memória
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
 const router = Router();
 
 // ROTA USUÁRIO
