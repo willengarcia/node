@@ -13,8 +13,6 @@ import { UpdateUserController } from "./controllers/user/UpdateUserController";
 import multer from 'multer';
 
 // Configurar o multer
-const upload = multer({ dest: 'tmp/' }); // O destino pode ser qualquer pasta temporária
-
 const router = Router();
 
 // ROTA USUÁRIO
@@ -30,7 +28,6 @@ router.post('/update/user_loja', isAuthenticated, new UpdateStorageController().
 
 // ROTA IMAGENS
 router.post('/add/imagens', upload.single('image'), new AddImagesController().handle);
-
 router.get('/list/imagens', isAuthenticated, new ListImagesController().handle);
 router.put('/list/imagens/validate/:id', isAuthenticated, new ValidImageController().handle);
 
