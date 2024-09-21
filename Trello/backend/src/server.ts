@@ -7,11 +7,6 @@ import 'dotenv/config'; // Carregar variáveis de ambiente
 const app = express();
 const porta = process.env.PORT || 4000;
 
-// Configuração do Cloudinary
-cloudinary.config({
-    cloudinary_url: process.env.CLOUDINARY_URL
-});
-
 // Middleware para permitir CORS
 const corsOptions = {
     origin: 'https://trello-six-rose.vercel.app', // Remova a barra final
