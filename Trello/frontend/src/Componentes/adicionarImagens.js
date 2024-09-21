@@ -36,7 +36,6 @@ function AdicionarImagens() {
         }));
         setImagensList(result);
     };
-
     // useEffect para carregar as imagens ao carregar o componente
     useEffect(() => {
         const fetchData = async () => {

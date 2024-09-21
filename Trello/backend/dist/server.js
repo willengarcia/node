@@ -6,14 +6,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const router_1 = require("./router");
 const cors_1 = __importDefault(require("cors"));
-const cloudinary_1 = require("cloudinary");
 require("dotenv/config"); // Carregar variáveis de ambiente
 const app = (0, express_1.default)();
 const porta = process.env.PORT || 4000;
-// Configuração do Cloudinary
-cloudinary_1.v2.config({
-    cloudinary_url: process.env.CLOUDINARY_URL
-});
 // Middleware para permitir CORS
 const corsOptions = {
     origin: 'https://trello-six-rose.vercel.app', // Remova a barra final
