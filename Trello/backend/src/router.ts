@@ -10,7 +10,6 @@ import { ListImagesController } from "./controllers/images/ListImagesController"
 import { ValidImageController } from "./controllers/images/ValidImageController";
 import { ListUserController } from "./controllers/user/ListUserController";
 import { UpdateUserController } from "./controllers/user/UpdateUserController";
-import cloudinary from './config/cloudinary';
 import multer from 'multer';
 
 // Configurar o multer
@@ -30,31 +29,7 @@ router.get('/listar/loja', isAuthenticated, new ListStorageController().handle);
 router.post('/update/user_loja', isAuthenticated, new UpdateStorageController().handle);
 
 // ROTA IMAGENS
-router.post('/add/imagens', isAuthenticated, upload.single('file'), async (req, res) => {
-    try {
-        const { userId, storeId } = req.body;
-        const file = req.file;
-
-        if (!file) {
-            return res.status(400).json({ error: 'Arquivo não encontrado.' });
-        }
-        // Upload direto para o Cloudinary usando a stream
-        const uploadResponse = await cloudinary.uploader.upload_stream((error, result) => {
-            if (error) {
-                return res.status(500).json({ error: error.message });
-            }
-            return result; // Retorna o resultado do upload
-        });
-        const stream = require('stream');
-        const bufferStream = new stream.PassThrough();
-        bufferStream.end(file.buffer); // file.buffer deve conter os dados do arquivo
-
-        bufferStream.pipe(uploadResponse);
-
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
+router.post('/add/imagens', isAuthenticated, upload.single('image'), new AddImagesController().handle);
 
 router.get('/list/imagens', isAuthenticated, new ListImagesController().handle);
 router.put('/list/imagens/validate/:id', isAuthenticated, new ValidImageController().handle);

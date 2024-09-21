@@ -52,7 +52,7 @@ function AdicionarImagens() {
         const formData = new FormData();
         formData.append('userId', localStorage.getItem('userId'));
         formData.append('storeId', localStorage.getItem('storeId'));
-        formData.append('file', imagens);
+        formData.append('image', imagens);
 
         try {
             await axios.post(`${process.env.REACT_APP_API}/add/imagens`, formData, {
