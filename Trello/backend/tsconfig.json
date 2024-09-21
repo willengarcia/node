@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "include": ["src/**/*"],
     "sourceMap": true,                                    /* Enable source maps for easier debugging in production. */
     /* Visit https://aka.ms/tsconfig to read more about this file */
 
