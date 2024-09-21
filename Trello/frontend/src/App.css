@@ -162,7 +162,8 @@ a:hover {
   cursor: pointer;
 }
 .listarImagens > .loja-imagem > img {
-  width: 200px;
+  width: 150px;
+  height: 150px;
   margin: auto;
 }
 /* Inserir Imagem */
