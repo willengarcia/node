@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import '../App.css'
 
-function Header(){
+function Header(props){
     return(
-        <header>
+        <header className={`conteudo ${props.ativo?"ativo":""}`}>
             <h1>ServiçosExpress</h1>
             <p>Sua solução completa em serviços profissionais</p>
         </header>

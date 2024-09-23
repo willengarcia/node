@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import '../App.css'
 
-function Main(){
+function Main(props){
     return(
-        <main>
+        <main className={`conteudo ${props.ativo?"ativo":""}`}>
             <section id='servicos'>
                 <h2>Nosso Serviços</h2>
                 <div className='services'>

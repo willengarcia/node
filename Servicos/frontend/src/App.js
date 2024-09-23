@@ -1,18 +1,17 @@
 import logo from './logo.svg';
 import './App.css';
-import Header from './componentes/header';
-import Nav from './componentes/nav';
-import Main from './componentes/main';
-import Footer from './componentes/footer';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Login from './componentes/login';
+import Inicial from './componentes/inicial';
 
 function App() {
   return (
-    <>
-      <Header></Header>
-      <Nav></Nav>
-      <Main></Main>
-      <Footer></Footer>
-    </>
+    <Router>
+      <Routes>
+        <Route path='/' element={<Inicial/>}/>
+        <Route path='/login' element={<Login/>}/>
+      </Routes>
+    </Router>
   );
 }
 

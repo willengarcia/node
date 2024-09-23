@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import '../App.css'
 
-function Footer(){
+function Footer(props){
     return(
-        <footer>
+        <footer className={`conteudo ${props.ativo?"ativo":""}`}>
             <p>© 2023 ServiçosExpress. Todos os direitos reservados.</p>
         </footer>
     )
