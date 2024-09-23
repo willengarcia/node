@@ -35,10 +35,10 @@ function Inicial(){
                 </li>
 
                 <li className='loginBotoes'>
-                    <a href='#'>login</a>
+                    <a href='/login'>login</a>
                 </li>
                 <li className='loginBotoes'>
-                    <a href='#'>Cadastrar-se</a>
+                    <a href='/cadastro'>Cadastrar-se</a>
                 </li>
     
             </ul>

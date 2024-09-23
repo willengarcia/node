@@ -167,27 +167,23 @@ footer {
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra para destaque */
 }
-
 #contato h2 {
   text-align: center;
   font-size: 24px;
   margin-bottom: 20px;
   color: #333;
 }
-
 /* Estilos gerais para o formulário */
 #contact-form {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
-
 #contact-form label {
   font-weight: bold;
   font-size: 14px;
   color: #333;
 }
-
 /* Estilos para os campos de entrada */
 #contact-form input[type="text"],
 #contact-form input[type="email"],
@@ -200,7 +196,6 @@ footer {
   font-size: 14px;
   color: #555;
 }
-
 #contact-form input:focus,
 #contact-form select:focus,
 #contact-form textarea:focus {
@@ -208,13 +203,11 @@ footer {
   outline: none;
   box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
 }
-
 /* Estilos específicos para o campo de texto */
 #contact-form textarea {
   min-height: 120px; /* Altura mínima para a área de texto */
   resize: vertical;
 }
-
 /* Estilo para o botão */
 #contact-form button {
   background-color: #007BFF;
@@ -226,11 +219,62 @@ footer {
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
-
 #contact-form button:hover {
   background-color: #0056b3;
 }
-
+/* Página de Login */
+.paiLogin, .paiCadastro {
+  height: 100dvh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.login {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 300px;
+}
+.login h1 {
+  text-align: center;
+  color: #1877f2;
+}
+.login form {
+  display: flex;
+  flex-direction: column;
+}
+.login input {
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #dddfe2;
+  border-radius: 4px;
+}
+.login button {
+  background-color: #1877f2;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+}
+.login button:hover {
+  background-color: #166fe5;
+}
+.login .register-link {
+  text-align: center;
+  margin-top: 20px;
+}
+.login a {
+  color: #1877f2;
+  text-decoration: none;
+}
+.login a:hover {
+  text-decoration: underline;
+}
 /* Responsividade */
 @media (max-width: 600px) {
   #contato {
