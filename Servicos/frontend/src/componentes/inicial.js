@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import '../App.css'
 import Header from './header';
 import Main from './main';
-import Login from './login';
 import Footer from './footer';
 
 function Inicial(){
