@@ -1,8 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import './cliente.css'
 import Solicitacoes from './solicitacoes';
+import axios from 'axios'
 
 function Agendamento(){
+    const [dados, setDados] = useState([])
+    const listAgendamentos = (clientId)=>{
+        axios.get(`http://localhost:3333/listServiceClient/${clientId}`)
+        .then(res=>{
+            setDados(res.data)
+        })
+    }
+    const tratarDados = (data)=>{
+        console.log(data)
+    }
+    useEffect(
+        ()=>{
+            const clientId = localStorage.getItem('clientId')
+            listAgendamentos(clientId)
+            tratarDados(dados)
+
+        }, []
+    )
     return(
         <>
         <div id="app">

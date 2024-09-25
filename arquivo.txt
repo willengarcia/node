@@ -19,6 +19,7 @@ request body: {nome:"marcos"}
 MEXENDO NO PRISMA:
 npm install prisma --save-dev > Instalar o prisma para mexer no banco de dados
 npm install @prisma/client > Para configurar o cliente do prisma
+npx prisma init > iniciar prisma
 npx prisma generate > Gerar o prisma
 npx prisma migrate dev --name initial_migration > Depois de configurar o banco de dados, basta inicializar 
 

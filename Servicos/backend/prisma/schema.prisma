@@ -1,0 +1,90 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL") // Adicione a URL do seu banco de dados PostgreSQL
+}
+
+model User {
+  id        String     @id @default(uuid())
+  name      String
+  email     String     @unique
+  password  String
+  celular   String
+  role      Role       @default(CLIENT)// CLIENT, EMPLOYEE, SUPERUSER
+  services  Service[]  @relation("EmployeeServices") // Serviços que o funcionário presta
+  ordersAsClient  Order[] @relation("ClientOrders")  // Pedidos feitos como cliente
+  ordersAsEmployee Order[] @relation("EmployeeOrders") // Pedidos atendidos como funcionário
+  reviews   Review[]   // Avaliações feitas pelo cliente
+  notifications Notification[] // Notificações recebidas pelo usuário
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model Service {
+  id          String     @id @default(uuid())
+  name        String
+  description String
+  price       Float
+  employee    User       @relation("EmployeeServices", fields: [employeeId], references: [id])
+  employeeId  String
+  orders      Order[]    // Pedidos desse serviço
+  reviews     Review[]   // Avaliações associadas ao serviço
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Order {
+  id        String     @id @default(uuid())
+  client    User       @relation("ClientOrders", fields: [clientId], references: [id])
+  clientId  String
+  employee  User       @relation("EmployeeOrders", fields: [employeeId], references: [id])
+  employeeId String
+  service   Service    @relation(fields: [serviceId], references: [id])
+  serviceId String
+  status    OrderStatus
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model Review {
+  id        String     @id @default(uuid())
+  client    User       @relation(fields: [clientId], references: [id])
+  clientId  String
+  service   Service    @relation(fields: [serviceId], references: [id])
+  serviceId String
+  rating    Int        @default(0) // Avaliação de 1 a 5
+  comment   String?    // Comentário opcional
+  createdAt DateTime   @default(now())
+}
+
+model Notification {
+  id        String     @id @default(uuid())
+  message   String
+  user      User       @relation(fields: [userId], references: [id])
+  userId    String
+  createdAt DateTime   @default(now())
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  CANCELED
+}
+
+enum Role {
+  CLIENT
+  EMPLOYEE
+  SUPERUSER
+}
+// Explicação dos modelos:
+
+//     User: Representa os usuários do sistema (clientes, funcionários e superusuários), com campos para serviços prestados, pedidos feitos e avaliações realizadas.
+//     Service: Representa os serviços oferecidos, vinculados ao funcionário que os presta. Também contém pedidos e avaliações associadas ao serviço.
+//     Order: Representa um pedido de serviço, vinculando o cliente, o funcionário e o serviço, com um status de pedido.
+//     Review: Representa uma avaliação feita por um cliente sobre um serviço, com campos para a nota e comentário.
+//     Notification: Representa notificações enviadas para os usuários.
+//     OrderStatus: Enum que define o status de um pedido (pendente, confirmado, cancelado).
+//     Role: Enum que define o papel do usuário (cliente, funcionário ou superusuário).
