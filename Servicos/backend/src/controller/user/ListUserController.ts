@@ -6,6 +6,7 @@ class ListUserController{
         if(!id){
             return res.status(400).json({erro: 'Não foi possível receber ID: '+id})
         }
+        console.log(id)
         try{
             const bd = new ListUserService()
             const get = await bd.execute({id})

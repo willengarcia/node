@@ -75,6 +75,7 @@ enum OrderStatus {
   PENDING
   CONFIRMED
   CANCELED
+  CONCLUID
 }
 
 enum Role {

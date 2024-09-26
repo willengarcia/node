@@ -4,12 +4,13 @@ import { AddServicosUserService } from "../../services/user/AddServicosUserServi
 class AddServicosUserController{
     async handle(req:Request, res:Response){
         const {servicoId, description, dataTime, hora, userId} = req.body
+        
         if((!servicoId)||(!dataTime)||(!hora)||(!userId)){
             return {error:'Erro ao inserir os dados'}
         }
         try{
             const addServiceUserService = new AddServicosUserService()
-            const pedido = addServiceUserService.execute({servicoId, description, dataTime, hora, userId})
+            const pedido = await addServiceUserService.execute({servicoId, description, dataTime, hora, userId})
             return res.json(pedido)
         }catch(err){
             return res.status(400).json({error:err});

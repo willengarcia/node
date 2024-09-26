@@ -105,6 +105,13 @@ padding: 12px;
 text-align: left;
 border-bottom: 1px solid #e0e0e0;
 }
+.idServico {
+    max-width: 50px; /* Defina a largura máxima da célula */
+    white-space: nowrap; /* Impede que o texto quebre para a linha seguinte */
+    overflow: scroll; /* Adiciona o scroll se o conteúdo for maior que a célula */
+    text-overflow: ellipsis; /* Adiciona "..." no final se o conteúdo for muito grande */
+}
+
 
 .container th {
 background-color: var(--primary-color);

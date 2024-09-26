@@ -6,25 +6,23 @@ import '../App.css'
 function Login(){
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [tipo, setTipo] = useState('CLIENT')
     const navigator = useNavigate()
     const logar = (e)=>{
         e.preventDefault()
         axios.post('http://localhost:3333/loginClient',{
             email:email, 
-            password:password,
-            tipo:tipo
+            password:password
         }, {
             withCredentials:false
         })
         .then(res=>{
             console.log(res.data)
-            if(res.data.role === 'CLIENT'){
+            if(res.data.userPedidosFeitos.role === 'CLIENT'){
                 localStorage.setItem('clientId', res.data.id)
                 navigator('/agendamento')
-            }else if(res.data.role ==='EMPLOYEE'){
-                console.log('funcionário')
-            }else if(res.data.role === 'SUPERUSER'){
+            }else if(res.data.userPedidosFeitos.role ==='EMPLOYEE'){
+                navigator('/adm')
+            }else if(res.data.userPedidosFeitos.role === 'SUPERUSER'){
                 console.log('superUser')
             }else{
                 alert('Contate o administrador')
@@ -51,11 +49,6 @@ function Login(){
                         value={password}
                         onChange={(e)=>{setPassword(e.target.value)}}
                     />
-                    <select onChange={(e)=>{setTipo(e.target.value)}}>
-                        <option value='CLIENT'>Cliente</option>
-                        <option value='EMPLOYEE'>Funcionário</option>
-                        <option value='SUPERUSER'>Administrador</option>
-                    </select>
                     <button type='submit'>Entrar</button>
                 </form>
                 <div>

@@ -7,6 +7,8 @@ import { ListUserController } from "./controller/user/ListUserController";
 import { AddServicoController} from "./controller/servicos/AddServicosController";
 import { AddServicosUserController } from "./controller/user/AddServicosUserController";
 import { ListUserFuncioController } from "./controller/user/ListUserFuncioController";
+import { ListServicosController } from "./controller/servicos/ListServicosController";
+import { ListOrdersController } from "./controller/servicos/ListServicosClientController";
 
 const rotas = Router()
 
@@ -19,5 +21,7 @@ rotas.post('/listUser', new ListUserFuncioController().handle) // lista os usuá
 rotas.post('/createServiceUser', new AddServicosUserController().handle) // o client cria um serviço
 rotas.post('/addServiceFuncio', new AddServicoController().handle) // Adiciona função/cargo do funcionário
 rotas.get('/listServiceClient/:id', new ListUserController().handle) // lista os servicos pedidos pelo client
+rotas.get('/listServices', new ListServicosController().handle)
+rotas.get('/orders', new ListOrdersController().handle);
 
 export {rotas}

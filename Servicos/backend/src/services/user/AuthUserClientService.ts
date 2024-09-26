@@ -5,7 +5,7 @@ import {sign} from 'jsonwebtoken' // gerar token
 interface AuthUser {
     email:string
     password:string
-    tipo:string
+    tipo?:string
 }
 class AuthUserClientService{
     async execute({email, password}:AuthUser){
@@ -38,7 +38,7 @@ class AuthUserClientService{
                     role:true
                 }
             })
-            return userPedidosFeitos
+            return {userPedidosFeitos, token}
         }catch(err){
             return err
         }

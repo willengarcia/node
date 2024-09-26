@@ -1,54 +1,111 @@
 import React, { useState, useEffect } from 'react';
-import './cliente.css'
+import './cliente.css';
 import Solicitacoes from './solicitacoes';
-import axios from 'axios'
+import axios from 'axios';
 
-function Agendamento(){
-    const [dados, setDados] = useState([])
-    const listAgendamentos = (clientId)=>{
-        axios.get(`http://localhost:3333/listServiceClient/${clientId}`)
-        .then(res=>{
-            setDados(res.data)
+function Agendamento() {
+    const [servicoId, setServicoId] = useState('');
+    const [userId, setUserId] = useState('');
+    const [Agendamento, setAgendamentos] = useState([]);
+    const [listServices, setListService] = useState([]);
+    const [select, setSelect] = useState('');
+    const [descricao, setDescricao] = useState('');
+    const [data, setData] = useState('');
+    const [time, setTime] = useState('');
+    const [image, setImage] = useState('');
+
+    const listAgendamentos = async (id) => {
+        try{
+            console.log(id)
+            const response = await axios.get(`http://localhost:3333/listServiceClient/${id}`)
+            return response.data
+        }catch(err){
+            console.log(err);
+            return [];
+        }
+    };
+
+    const listServicos = async () => {
+        try {
+            const response = await axios.get(`http://localhost:3333/listServices`);
+            return response.data;
+        } catch (err) {
+            console.log(err);
+            return [];
+        }
+    };
+
+    const tratarAgendamentos = (data) => {
+        setAgendamentos(data);
+    };
+
+    const tratarServicos = (data) => {
+        setListService(data)
+    };
+
+    const createService = (e) => {
+        e.preventDefault();
+        axios.post(`http://localhost:3333/createServiceUser`, {
+            servicoId: servicoId,
+            description: descricao,
+            dataTime: data,
+            hora: time,
+            userId: userId
+            // falta colocar a imagem, tanto no backend, quanto no front
         })
-    }
-    const tratarDados = (data)=>{
-        console.log(data)
-    }
-    useEffect(
-        ()=>{
-            const clientId = localStorage.getItem('clientId')
-            listAgendamentos(clientId)
-            tratarDados(dados)
+            .then(res => {
+                alert('Agendamento feito!');
+            })
+            .catch(err => {
+                alert('Erro ao agendar Serviço: ' + err);
+            });
+    };
 
-        }, []
-    )
-    return(
+    useEffect(() => {
+        setUserId(localStorage.getItem('clientId'))
+        // listAgendamentos(clientId);
+        // tratarDados(Agendamento);
+        const fetchAgendamentos = async ()=>{
+            const data = await listAgendamentos(localStorage.getItem('clientId'))
+            tratarAgendamentos(data)
+        }
+        fetchAgendamentos()
+        const fetchServicos = async () => {
+            const data = await listServicos();
+            tratarServicos(data);
+        };
+        fetchServicos();
+    }, []);
+
+    return (
         <>
-        <div id="app">
-            <h1>Agendamento de Serviços</h1>
-            <div className="service-form">
-                <label htmlFor="service">Serviço:</label>
-                <select>
-                    <option value={''} defaultChecked>Selecione um item</option>
-                    <option value={''}>Limpeza Residencial</option>
-                    <option value={''}>Reparos Gerais</option>
-                    <option value={''}>Jardinagem</option>
-                    <option value={''}>Suporte de T.I</option>
-                </select>
-                <label htmlFor="description">Descrição:</label>
-                <textarea id="description" required="required"></textarea>
-                <label htmlFor="date">Data:</label>
-                <input type="date" id="date" required="required"></input>
-                <label htmlFor="time">Horário:</label>
-                <input type="time" id="time" required="required"></input>
-                <label htmlFor="image">Imagem:</label>
-                <input type="file" id="image" accept="image/*"></input>
-                <button className='botaoAgendamento'>Agendar Serviço</button>
+            <div id="app">
+                <h1>Agendamento de Serviços</h1>
+                <form className="service-form" onSubmit={createService}>
+                    <label htmlFor="service">Serviço:</label>
+                    <select onChange={(e) => {
+                        setSelect(e.target.value);
+                        setServicoId(e.target.value); // Atualiza o servicoId aqui
+                    }}>
+                        <option value="" defaultChecked>Selecione um item</option>
+                        {listServices.map(service => (
+                            <option key={service.id} value={service.id}>{service.name}</option>
+                        ))}
+                    </select>
+                    <label htmlFor="description">Descrição:</label>
+                    <textarea id="description" required value={descricao} onChange={(e) => { setDescricao(e.target.value) }}></textarea>
+                    <label htmlFor="date">Data:</label>
+                    <input type="date" id="date" required value={data} onChange={(e) => { setData(e.target.value) }} />
+                    <label htmlFor="time">Horário:</label>
+                    <input type="time" id="time" required value={time} onChange={(e) => { setTime(e.target.value) }} />
+                    <label htmlFor="image">Imagem:</label>
+                    <input type="file" id="image" accept="image/*" onChange={(e) => { setImage(e.target.files[0]) }} />
+                    <button className='botaoAgendamento' type='submit'>Agendar Serviço</button>
+                </form>
             </div>
-        </div>
-        <Solicitacoes></Solicitacoes>
+            <Solicitacoes agendamentos={Agendamento}/>
         </>
-
-    )
+    );
 }
+
 export default Agendamento;
