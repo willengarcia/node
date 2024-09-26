@@ -4,7 +4,7 @@ class ListUserController{
     async handle(req:Request, res:Response){
         const id = req.params.id
         if(!id){
-            return res.status(400).json({erro: 'Não foi possível receber ID'})
+            return res.status(400).json({erro: 'Não foi possível receber ID: '+id})
         }
         try{
             const bd = new ListUserService()

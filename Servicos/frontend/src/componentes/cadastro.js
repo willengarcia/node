@@ -11,11 +11,12 @@ function Cadastro(){
     const navigator = useNavigate()
     const cadastrar = (e)=>{
         e.preventDefault()
-        axios.post('http://localhost:3333/cadastro',{
+        axios.post('http://localhost:3333/cadastroClient',{
             name: nome, 
             passwordUser:password, 
             emailUser:email, 
-            celularUser:cell
+            celularUser:cell,
+            tipo:"CLIENT"
         }, {
             withCredentials:false
         })

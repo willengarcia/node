@@ -1,13 +1,15 @@
+import { Role } from "@prisma/client";
 import prismaClient from "../../prisma";
 import { hash } from "bcryptjs";
 interface User{
     name: string
     passwordUser: string
     emailUser: string
-    celularUser:string
+    celularUser:string,
+    tipo: "CLIENT" | "EMPLOYEE" | "SUPERUSER";
 }
 class AddUserService{
-    async execute({name, passwordUser, emailUser, celularUser}:User){
+    async execute({name, passwordUser, emailUser, celularUser, tipo}:User){
         const existUser = await prismaClient.user.findFirst({
             where:{
                 email:emailUser
@@ -24,7 +26,7 @@ class AddUserService{
                     celular:celularUser,
                     email:emailUser,
                     password:passwordHash,
-                    role:"CLIENT",
+                    role:tipo as any,
                 },
                 select:{
                     id:true,

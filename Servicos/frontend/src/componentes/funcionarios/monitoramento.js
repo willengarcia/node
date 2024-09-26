@@ -1,7 +1,37 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import './func.css'
 
 function Monitoramento(){
+    const [nome, setNome] = useState('')
+    const [email, setEmail] = useState('')
+    const [cell, setCell] = useState('')
+    const [password, setPassword] = useState('')
+    const navigator = useNavigate()
+    const cadastrar = (e)=>{
+        e.preventDefault()
+        axios.post('http://localhost:3333/cadastro',{
+            name: nome, 
+            passwordUser:password, 
+            emailUser:email, 
+            celularUser:cell,
+            tipo:'EMPLOYEE'
+        }, {
+            withCredentials:false
+        })
+        .then(res=>{
+            console.log(res.data)
+            setEmail('')
+            setNome('')
+            setCell('')
+            setPassword('')
+            alert('Funcionário inserido com sucesso!')
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+    }
     return(
         <>
         <div class="dashboard">
@@ -88,6 +118,19 @@ function Monitoramento(){
                     </tbody>
                 </table>
             </div>
+            <h1>Inserção de Funcionários</h1>
+            <section className="paiCadastroFuncionario">
+            <article className='login'>
+                <h1>Cadastro</h1>
+                <form onSubmit={cadastrar}>
+                    <input type="text" placeholder='Nome' value={nome} onChange={(e)=>{setNome(e.target.value)}}></input>
+                    <input type="email" placeholder='Email' value={email} onChange={(e)=>{setEmail(e.target.value)}}></input>
+                    <input type="tel" placeholder='(91)9 8888-8888' value={cell} onChange={(e)=>{setCell(e.target.value)}}></input>
+                    <input type='password' placeholder='Senha' value={password} onChange={(e)=>{setPassword(e.target.value)}}></input>
+                    <button type='submit'>Finalizar</button>
+                </form>  
+            </article>
+        </section>
         </div>
         </>
     )

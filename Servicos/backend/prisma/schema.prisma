@@ -13,7 +13,7 @@ model User {
   email     String     @unique
   password  String
   celular   String
-  role      Role       @default(CLIENT)// CLIENT, EMPLOYEE, SUPERUSER
+  role      Role       // CLIENT, EMPLOYEE, SUPERUSER
   services  Service[]  @relation("EmployeeServices") // Serviços que o funcionário presta
   ordersAsClient  Order[] @relation("ClientOrders")  // Pedidos feitos como cliente
   ordersAsEmployee Order[] @relation("EmployeeOrders") // Pedidos atendidos como funcionário
@@ -37,16 +37,19 @@ model Service {
 }
 
 model Order {
-  id        String     @id @default(uuid())
-  client    User       @relation("ClientOrders", fields: [clientId], references: [id])
-  clientId  String
-  employee  User       @relation("EmployeeOrders", fields: [employeeId], references: [id])
-  employeeId String
-  service   Service    @relation(fields: [serviceId], references: [id])
-  serviceId String
-  status    OrderStatus
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  id           String   @id @default(uuid())
+  client       User     @relation("ClientOrders", fields: [clientId], references: [id])
+  clientId     String
+  employee     User?    @relation("EmployeeOrders", fields: [employeeId], references: [id])
+  employeeId   String?  // Campo opcional
+  service      Service  @relation(fields: [serviceId], references: [id])
+  serviceId    String
+  status       String   // e.g. "PENDING", "CONFIRMED", "CANCELLED"
+  description  String?
+  data         String
+  hota         String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
 
 model Review {
