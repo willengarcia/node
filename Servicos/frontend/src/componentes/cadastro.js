@@ -16,8 +16,6 @@ function Cadastro(){
             emailUser:email, 
             celularUser:cell,
             tipo:"CLIENT"
-        }, {
-            withCredentials:false
         })
         .then(res=>{
             console.log(res.data)
