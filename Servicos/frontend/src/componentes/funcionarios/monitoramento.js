@@ -20,7 +20,7 @@ function Monitoramento() {
     // cadastro funcionário
     const cadastrar = (e) => {
         e.preventDefault();
-        axios.post('http://localhost:3333/cadastro', {
+        axios.post(`${process.env.REACT_APP_API_URL}/cadastro`, {
             name: nome,
             passwordUser: password,
             emailUser: email,
@@ -43,7 +43,7 @@ function Monitoramento() {
     };
     const cadastrarServico = (e) =>{
         e.preventDefault()
-        axios.post('http://localhost:3333/addServiceFuncio',{
+        axios.post(`${process.env.REACT_APP_API_URL}/addServiceFuncio`,{
             name: nameServico,
             description: descricaoServico,
             price: priceServico,
@@ -52,7 +52,7 @@ function Monitoramento() {
     }
     const fetchFuncionarios = async()=>{
         try {
-            const response = await axios.post('http://localhost:3333/listUser',{
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/listUser`,{
                 tipo:"EMPLOYEE"
             }); // URL da sua API
             setInforFuncionarios(response.data)
@@ -64,7 +64,7 @@ function Monitoramento() {
     // Função para buscar agendamentos
     const fetchAgendamentos = async () => {
         try {
-            const response = await axios.get('http://localhost:3333/orders'); // URL da sua API
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/orders`); // URL da sua API
             setAgendamentos(response.data);
         } catch (error) {
             console.error('Erro ao buscar agendamentos:', error);

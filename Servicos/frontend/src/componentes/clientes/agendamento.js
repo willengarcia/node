@@ -16,8 +16,7 @@ function Agendamento() {
 
     const listAgendamentos = async (id) => {
         try{
-            console.log(id)
-            const response = await axios.get(`http://localhost:3333/listServiceClient/${id}`)
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/listServiceClient/${id}`)
             return response.data
         }catch(err){
             console.log(err);
@@ -27,7 +26,7 @@ function Agendamento() {
 
     const listServicos = async () => {
         try {
-            const response = await axios.get(`http://localhost:3333/listServices`);
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/listServices`);
             return response.data;
         } catch (err) {
             console.log(err);
@@ -45,7 +44,7 @@ function Agendamento() {
 
     const createService = (e) => {
         e.preventDefault();
-        axios.post(`http://localhost:3333/createServiceUser`, {
+        axios.post(`${process.env.URL}/createServiceUser`, {
             servicoId: servicoId,
             description: descricao,
             dataTime: data,

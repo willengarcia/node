@@ -11,7 +11,7 @@ function Cadastro(){
     const navigator = useNavigate()
     const cadastrar = (e)=>{
         e.preventDefault()
-        axios.post('http://localhost:3333/cadastroClient',{
+        axios.post(`${process.env.REACT_APP_API_URL}/cadastroClient`,{
             name: nome, 
             passwordUser:password, 
             emailUser:email, 

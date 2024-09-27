@@ -10,7 +10,7 @@ function StatusServicos() {
 
     const fetchAgendamentos = async () => {
         try {
-            const response = await axios.get('http://localhost:3333/orders'); // URL da sua API
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/orders`); // URL da sua API
             setAgendamentos(response.data); // Altere para response.data para pegar os dados
         } catch (error) {
             console.error('Erro ao buscar agendamentos:', error);
@@ -125,10 +125,10 @@ function StatusServicos() {
                             </tr>
                         ))
                     ) : (
-                        <tr>
-                            <td colSpan="5">Nenhum agendamento encontrado</td>
-                        </tr>
-                    )}
+                            <tr>
+                                <td colSpan="5">Nenhum agendamento encontrado</td>
+                            </tr>
+                        )}
                 </tbody>
             </table>
 

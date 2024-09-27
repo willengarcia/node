@@ -9,16 +9,15 @@ function Login(){
     const navigator = useNavigate()
     const logar = (e)=>{
         e.preventDefault()
-        axios.post('http://localhost:3333/loginClient',{
+        axios.post(`${process.env.REACT_APP_API_URL}/loginClient`,{
             email:email, 
             password:password
         }, {
             withCredentials:false
         })
         .then(res=>{
-            console.log(res.data)
             if(res.data.userPedidosFeitos.role === 'CLIENT'){
-                localStorage.setItem('clientId', res.data.id)
+                localStorage.setItem('clientId', res.data.userPedidosFeitos.id)
                 navigator('/agendamento')
             }else if(res.data.userPedidosFeitos.role ==='EMPLOYEE'){
                 navigator('/adm')
