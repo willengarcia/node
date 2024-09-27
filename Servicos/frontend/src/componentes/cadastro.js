@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import '../App.css'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
-
 function Cadastro(){
     const [nome, setNome] = useState('')
     const [email, setEmail] = useState('')
