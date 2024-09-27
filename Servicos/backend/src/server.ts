@@ -6,7 +6,7 @@ import {rotas} from './routes'
 const app = express()
 
 app.use(cors({
-    origin: 'http://localhost:3000', // Remova a barra final
+    origin: 'https://servicos-bice.vercel.app', // Remova a barra final
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials:true
 }))
