@@ -6,7 +6,6 @@ import Footer from './footer';
 
 function Inicial(){
     const [botaoAtivo, setBotaoAtivo] = useState(false);
-
     // Função para alternar o estado do botão
     const toggleMenu = () => {
         setBotaoAtivo(!botaoAtivo);
