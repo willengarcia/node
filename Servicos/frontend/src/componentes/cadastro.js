@@ -10,7 +10,7 @@ function Cadastro(){
     const navigator = useNavigate()
     const cadastrar = (e)=>{
         e.preventDefault()
-        axios.post(`${process.env.REACT_APP_API_URL}/cadastroClient`,{
+        axios.post(`${process.env.REACT_APP_API_URL}/cadastroUsuario`,{
             name: nome, 
             passwordUser:password, 
             emailUser:email, 
