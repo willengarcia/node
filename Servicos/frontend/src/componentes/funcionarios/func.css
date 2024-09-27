@@ -70,6 +70,112 @@
     background-color: #dc3545;
     color: #fff;
 }
+.dashboard .paiCadastroFuncionario{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+/* Status de Serviços e Funcioários */
+.containerStatus {
+    background-color: white;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.containerStatus h1 {
+    color: #333;
+    text-align: center;
+    font-size: 24px;
+}
+.containerStatus table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+.containerStatus th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+.containerStatus th {
+    background-color: #312f2f;
+    font-weight: bold;
+}
+.containerStatus .status {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-weight: bold;
+    display: inline-block;
+    margin-bottom: 5px;
+}
+.containerStatus .disponivel {
+    background-color: #d4edda;
+    color: #155724;
+}
+.containerStatus .ocupado {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+.containerStatus select, input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+.containerStatus button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+}
+.containerStatus button:hover {
+    background-color: #45a049;
+}
+.containerStatus .filter-container {
+    margin-bottom: 20px;
+}
+.containerStatus .card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: #fff;
+}
+.containerStatus .card-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.containerStatus .card-content {
+    margin-bottom: 10px;
+}
+.containerStatus .hidden {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .containerStatus .card {
+        display: none;
+    }
+    .containerStatus table {
+        display: table;
+    }
+}
+
+@media (max-width: 767px) {
+    .containerStatus table {
+        display: none;
+    }
+    .containerStatus .card {
+        display: block;
+    }
+}
+
+
 /* Estilos para dispositivos móveis */
 @media (max-width: 768px) {
     .dashboard {
@@ -92,5 +198,8 @@
 
     .dashboard th, td {
         padding: 10px;
+    }
+    .dashboard .paiCadastroFuncionario{
+        flex-direction: column;
     }
 }

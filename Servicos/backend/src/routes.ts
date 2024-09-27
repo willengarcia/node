@@ -9,6 +9,7 @@ import { AddServicosUserController } from "./controller/user/AddServicosUserCont
 import { ListUserFuncioController } from "./controller/user/ListUserFuncioController";
 import { ListServicosController } from "./controller/servicos/ListServicosController";
 import { ListOrdersController } from "./controller/servicos/ListServicosClientController";
+import { UpdateOrderPedidosController } from "./controller/pedidos/UpdateOrderPedidosController";
 
 const rotas = Router()
 
@@ -24,4 +25,6 @@ rotas.get('/listServiceClient/:id', new ListUserController().handle) // lista os
 rotas.get('/listServices', new ListServicosController().handle)
 rotas.get('/orders', new ListOrdersController().handle);
 
+// Order
+rotas.post('/updateOrder', new UpdateOrderPedidosController().handle)
 export {rotas}

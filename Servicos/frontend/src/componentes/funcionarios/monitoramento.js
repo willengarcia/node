@@ -1,16 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import './func.css';
+import StatusServicos from './statusServicos';
 
 function Monitoramento() {
+    // servico
+    const [nameServico, setNameServico] = useState('')
+    const [descricaoServico, setDescricaoServico] = useState('') 
+    const [priceServico, setPriceServico] = useState('')
+    const [funcionarioSelecionado, setFuncionarioSelecionado] = useState('')
+    // funcionários
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
     const [cell, setCell] = useState('');
     const [password, setPassword] = useState('');
+    // lista pedidos
     const [agendamentos, setAgendamentos] = useState([]); // Estado para armazenar agendamentos
-    const navigator = useNavigate();
-
+    const [inforFuncionarios, setInforFuncionarios] = useState([]); // Estado para armazenar agendamentos
+    // cadastro funcionário
     const cadastrar = (e) => {
         e.preventDefault();
         axios.post('http://localhost:3333/cadastro', {
@@ -24,17 +31,36 @@ function Monitoramento() {
         })
         .then(res => {
             console.log(res.data);
-            setEmail('');
-            setNome('');
-            setCell('');
-            setPassword('');
+            setNameServico('');
+            setDescricaoServico('');
+            setPriceServico('');
+            setFuncionarioSelecionado('');
             alert('Funcionário inserido com sucesso!');
         })
         .catch(err => {
             console.log(err);
         });
     };
-
+    const cadastrarServico = (e) =>{
+        e.preventDefault()
+        axios.post('http://localhost:3333/addServiceFuncio',{
+            name: nameServico,
+            description: descricaoServico,
+            price: priceServico,
+            funcionarioID: funcionarioSelecionado
+        })
+    }
+    const fetchFuncionarios = async()=>{
+        try {
+            const response = await axios.post('http://localhost:3333/listUser',{
+                tipo:"EMPLOYEE"
+            }); // URL da sua API
+            setInforFuncionarios(response.data)
+            
+        } catch (error) {
+            console.error('Erro ao buscar funcionários:', error);
+        }
+    }
     // Função para buscar agendamentos
     const fetchAgendamentos = async () => {
         try {
@@ -44,11 +70,11 @@ function Monitoramento() {
             console.error('Erro ao buscar agendamentos:', error);
         }
     };
-
+    // chama a função de fetchAgendamentos assim que a página carrega
     useEffect(() => {
         fetchAgendamentos(); // Chama a função ao montar o componente
+        fetchFuncionarios()
     }, []);
-
     return (
         <>
             <div className="dashboard">
@@ -99,21 +125,43 @@ function Monitoramento() {
                             ))}
                         </tbody>
                     </table>
+                    <StatusServicos></StatusServicos>
                 </div>
-                
-                <h1>Inserção de Funcionários</h1>
-                <section className="paiCadastroFuncionario">
-                    <article className='login'>
-                        <h1>Cadastro</h1>
-                        <form onSubmit={cadastrar}>
-                            <input type="text" placeholder='Nome' value={nome} onChange={(e) => { setNome(e.target.value) }} />
-                            <input type="email" placeholder='Email' value={email} onChange={(e) => { setEmail(e.target.value) }} />
-                            <input type="tel" placeholder='(91)9 8888-8888' value={cell} onChange={(e) => { setCell(e.target.value) }} />
-                            <input type='password' placeholder='Senha' value={password} onChange={(e) => { setPassword(e.target.value) }} />
-                            <button type='submit'>Finalizar</button>
-                        </form>  
-                    </article>
-                </section>
+
+                <article className='administracao'>
+                    <h1>Administração</h1>
+                    <section className="paiCadastroFuncionario">
+                        <article className='login'>
+                            <h1>Cadastro de Funcionários</h1>
+                            <form onSubmit={cadastrar}>
+                                <input type="text" placeholder='Nome' value={nome} onChange={(e) => { setNome(e.target.value) }} />
+                                <input type="email" placeholder='Email' value={email} onChange={(e) => { setEmail(e.target.value) }} />
+                                <input type="tel" placeholder='(91)9 8888-8888' value={cell} onChange={(e) => { setCell(e.target.value) }} />
+                                <input type='password' placeholder='Senha' value={password} onChange={(e) => { setPassword(e.target.value) }} />
+                                <button type='submit'>Finalizar</button>
+                            </form>  
+                        </article>
+                        <article className='login'>
+                            <h1>Cadastro de Serviços</h1>
+                            <form onSubmit={cadastrarServico}>
+                                <input type="text" placeholder='Ex: Encanador' value={nameServico} onChange={(e) => { setNameServico(e.target.value) }}  required/>
+                                <textarea type="text" placeholder='Digite as funcionalidades do cargo' value={descricaoServico} onChange={(e) => { setDescricaoServico(e.target.value) }}  required/>
+                                <input type="number" placeholder='50.30' value={priceServico} onChange={(e) => { setPriceServico(e.target.value) }}  required/>
+                                <select value={funcionarioSelecionado} onChange={(e) =>
+                                        setFuncionarioSelecionado(e.target.value)
+                                    } required>
+                                    <option value={''} defaultChecked disabled>Selecione o Funcionário</option>
+                                    {
+                                        inforFuncionarios.map(funcionario=>(
+                                            <option key={funcionario.id} value={funcionario.id}>{funcionario.name}</option>
+                                        ))
+                                    }
+                                </select>
+                                <button type='submit'>Finalizar</button>
+                            </form>  
+                        </article>
+                    </section>
+                </article>
             </div>
         </>
     );
