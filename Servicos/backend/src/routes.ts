@@ -10,7 +10,6 @@ import { ListUserFuncioController } from "./controller/user/ListUserFuncioContro
 import { ListServicosController } from "./controller/servicos/ListServicosController";
 import { ListOrdersController } from "./controller/servicos/ListServicosClientController";
 import { UpdateOrderPedidosController } from "./controller/pedidos/UpdateOrderPedidosController";
-
 const rotas = Router()
 
 // Usários
