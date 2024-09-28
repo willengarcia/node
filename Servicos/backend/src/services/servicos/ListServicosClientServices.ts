@@ -2,9 +2,6 @@ import prismaClient from "../../prisma";
 
 class ListOrdersService {
     async execute() {
-        // Ordem desejada dos status
-        const statusOrder = ['PENDING', 'CONFIRMED', 'COMPLETED', 'CANCELED'];
-
         // Listando pedidos e incluindo dados do serviço
         const orders = await prismaClient.order.findMany({
             include: {
@@ -18,7 +15,13 @@ class ListOrdersService {
                     select:{
                         name:true
                     }
-                }
+                },
+                employee:{
+                    select:{
+                        name:true,
+                        id:true,
+                    },
+                },
             },
             orderBy: {
                 // Ordenando pelo status usando um método alternativo

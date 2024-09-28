@@ -17,8 +17,6 @@ const prisma_1 = __importDefault(require("../../prisma"));
 class ListOrdersService {
     execute() {
         return __awaiter(this, void 0, void 0, function* () {
-            // Ordem desejada dos status
-            const statusOrder = ['PENDING', 'CONFIRMED', 'COMPLETED', 'CANCELED'];
             // Listando pedidos e incluindo dados do serviço
             const orders = yield prisma_1.default.order.findMany({
                 include: {
@@ -32,7 +30,13 @@ class ListOrdersService {
                         select: {
                             name: true
                         }
-                    }
+                    },
+                    employee: {
+                        select: {
+                            name: true,
+                            id: true,
+                        },
+                    },
                 },
                 orderBy: {
                     // Ordenando pelo status usando um método alternativo

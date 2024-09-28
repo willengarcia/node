@@ -129,6 +129,7 @@ function StatusServicos() {
                                 <td colSpan="5">Nenhum agendamento encontrado</td>
                             </tr>
                         )}
+                        
                 </tbody>
             </table>
 
