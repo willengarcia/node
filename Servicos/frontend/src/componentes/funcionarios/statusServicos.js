@@ -10,7 +10,6 @@ function StatusServicos() {
     const fetchAgendamentosPorStatus = async (e) => {
         try {
             const response = await axios.get(`${process.env.REACT_APP_API_URL}/orders/${e}`); // URL da sua API
-            console.log(e)
             setAgendamentos(response.data);
         } catch (error) {
             console.error('Erro ao buscar agendamentos:', error);
@@ -35,11 +34,11 @@ function StatusServicos() {
         }
     }
     const status = (ag)=>{
-        if(ag == 'PENDING'){
+        if(ag.status === 'PENDING'){
             return 'Pendente'
-        }else if(ag == 'CONCLUID'){
+        }else if(ag.status === 'CONCLUID'){
             return 'Concluído!'
-        }else if(ag == 'CONFIRMED'){
+        }else if( ag.status === 'CONFIRMED'){
             return 'Processando'
         }else{
             return 'Cancelado'
@@ -109,7 +108,7 @@ function StatusServicos() {
                                 <td>{agendamento.service.name}</td> {/* Nome do serviço */}
                                 <td>
                                     <span className={`status ${agendamento.status === 'PENDING' ? 'disponivel' : 'ocupado'}`}>
-                                        {status(agendamento.status)}
+                                        {status(agendamento)}
                                     </span>
                                 </td>
                                 <td>
