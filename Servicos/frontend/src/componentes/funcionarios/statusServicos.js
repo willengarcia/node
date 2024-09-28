@@ -18,7 +18,7 @@ function StatusServicos() {
     };
     const fetchFuncionarios = async()=>{
         try {
-            const response = await axios.post('http://localhost:3333/listUser',{
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/listUser`,{
                 tipo:"EMPLOYEE"
             }) // URL da sua API
             setInforFuncionarios(response.data)
@@ -51,7 +51,7 @@ function StatusServicos() {
 
     const confirmarServico = async (e)=>{
         try{
-            const response = await axios.post('http://localhost:3333/updateOrder',{
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/updateOrder`,{
                 orderId: e,
                 employeeId: funcionarioSelecionado
             })
