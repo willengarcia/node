@@ -67,7 +67,7 @@ function Monitoramento() {
     // Função para buscar agendamentos
     const fetchAgendamentos = async () => {
         try {
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}/orders`); // URL da sua API
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/orders/`); // URL da sua API
             setAgendamentos(response.data);
         } catch (error) {
             console.error('Erro ao buscar agendamentos:', error);
