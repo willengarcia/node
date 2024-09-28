@@ -43,7 +43,7 @@ function Monitoramento() {
     };
     const cadastrarServico = (e) =>{
         e.preventDefault()
-        axios.post(`${process.env.REACT_APP_API_URL}/addServiceFuncio`,{
+        axios.post(`${process.env.REACT_APP_API_URL}/cadastroUsuario`,{
             name: nameServico,
             description: descricaoServico,
             price: priceServico,
