@@ -29,7 +29,7 @@ class ListOrdersService {
                 },
                 orderBy: {
                     // Ordenando pelo status usando um método alternativo
-                    status:status?status as any:"asc",
+                    status:status as any??"asc",
                 },
             });
             return orders

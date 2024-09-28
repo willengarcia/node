@@ -17,6 +17,7 @@ const prisma_1 = __importDefault(require("../../prisma"));
 class ListOrdersService {
     execute(_a) {
         return __awaiter(this, arguments, void 0, function* ({ status }) {
+            var _b;
             // Listando pedidos e incluindo dados do serviço
             try {
                 const orders = yield prisma_1.default.order.findMany({
@@ -41,7 +42,7 @@ class ListOrdersService {
                     },
                     orderBy: {
                         // Ordenando pelo status usando um método alternativo
-                        status: status ? status : "asc",
+                        status: (_b = status) !== null && _b !== void 0 ? _b : "asc",
                     },
                 });
                 return orders;
