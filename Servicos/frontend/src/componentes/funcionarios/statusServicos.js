@@ -108,7 +108,7 @@ function StatusServicos() {
                                 <td>{agendamento.service.name}</td> {/* Nome do serviço */}
                                 <td>
                                     <span className={`status ${agendamento.status === 'PENDING' ? 'disponivel' : 'ocupado'}`}>
-                                        {status(agendamento)}
+                                        {status(agendamento.status)}
                                     </span>
                                 </td>
                                 <td>
