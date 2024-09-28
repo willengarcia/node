@@ -10,7 +10,9 @@ function StatusServicos() {
     const fetchAgendamentosPorStatus = async (e) => {
         try {
             const response = await axios.get(`${process.env.REACT_APP_API_URL}/orders/${e}`); // URL da sua API
+            console.log(e)
             setAgendamentos(response.data);
+            console.log(agendamentos)
         } catch (error) {
             console.error('Erro ao buscar agendamentos:', error);
         }
