@@ -22,7 +22,7 @@ function Login(){
             }else if(res.data.userPedidosFeitos.role ==='EMPLOYEE'){
                 navigator('/adm')
             }else if(res.data.userPedidosFeitos.role === 'SUPERUSER'){
-                console.log('superUser')
+                navigator('/adm')
             }else{
                 alert('Contate o administrador')
             }
