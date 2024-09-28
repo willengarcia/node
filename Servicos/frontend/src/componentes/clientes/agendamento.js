@@ -44,7 +44,7 @@ function Agendamento() {
 
     const createService = (e) => {
         e.preventDefault();
-        axios.post(`https://services-zeta-gold.vercel.app/createService`, {
+        axios.post(`${process.env.REACT_APP_API_URL}/createService`, {
             servicoId: servicoId,
             description: descricao,
             dataTime: data,
