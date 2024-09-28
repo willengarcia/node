@@ -38,7 +38,7 @@ function Monitoramento() {
             alert('Funcionário inserido com sucesso!');
         })
         .catch(err => {
-            console.log(err);
+            alert('Erro ao cadastrar: '+err);
         });
     };
     const cadastrarServico = (e) =>{
