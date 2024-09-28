@@ -20,7 +20,7 @@ function Monitoramento() {
     // cadastro funcionário
     const cadastrar = (e) => {
         e.preventDefault();
-        axios.post(`${process.env.REACT_APP_API_URL}/cadastro`, {
+        axios.post(`${process.env.REACT_APP_API_URL}/addServiceFuncio`, {
             name: nome,
             passwordUser: password,
             emailUser: email,
