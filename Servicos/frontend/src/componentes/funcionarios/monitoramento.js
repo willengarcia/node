@@ -159,9 +159,9 @@ function Monitoramento() {
                                     } required>
                                     <option value={''} defaultChecked disabled>Selecione o Funcionário</option>
                                     {
-                                        inforFuncionarios.map(funcionario=>(
+                                        inforFuncionarios.length>0?inforFuncionarios.map(funcionario=>(
                                             <option key={funcionario.id} value={funcionario.id}>{funcionario.name}</option>
-                                        ))
+                                        )):''
                                     }
                                 </select>
                                 <button type='submit'>Finalizar</button>
