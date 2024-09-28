@@ -41,6 +41,7 @@ function Monitoramento() {
             alert('Erro ao cadastrar: '+err);
         });
     };
+    // Cadastra serviço
     const cadastrarServico = (e) =>{
         e.preventDefault()
         axios.post(`${process.env.REACT_APP_API_URL}/addServiceFuncio`,{
@@ -53,6 +54,7 @@ function Monitoramento() {
             alert("Serviço Cadastrado!")
         })
     }
+    // Lista funcionários
     const fetchFuncionarios = async()=>{
         try {
             const response = await axios.post(`${process.env.REACT_APP_API_URL}/listUser`,{
@@ -64,10 +66,10 @@ function Monitoramento() {
             console.error('Erro ao buscar funcionários:', error);
         }
     }
-    // Função para buscar agendamentos
+    // lista agendamentos
     const fetchAgendamentos = async () => {
         try {
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}/orders/`); // URL da sua API
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/orders`); // URL da sua API
             setAgendamentos(response.data);
         } catch (error) {
             console.error('Erro ao buscar agendamentos:', error);

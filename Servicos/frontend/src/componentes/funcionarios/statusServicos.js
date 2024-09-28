@@ -7,7 +7,14 @@ function StatusServicos() {
     const [inforFuncionarios, setInforFuncionarios] = useState([]);
     const [retornoUpdate, setRetornoUpdate] = useState([]);
     const [funcionarioSelecionado, setFuncionarioSelecionado] = useState('')
-
+    const fetchAgendamentosPorStatus = async (e) => {
+        try {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/orders/${e}`); // URL da sua API
+            setAgendamentos(response.data);
+        } catch (error) {
+            console.error('Erro ao buscar agendamentos:', error);
+        }
+    };
     const fetchAgendamentos = async () => {
         try {
             const response = await axios.get(`${process.env.REACT_APP_API_URL}/orders`); // URL da sua API
@@ -75,8 +82,8 @@ function StatusServicos() {
             {/* Filtro por status */}
             <div className="filter-container">
                 <label htmlFor="statusFilter">Filtrar por status:</label>
-                <select id="statusFilter">
-                    <option value="todos">Todos</option>
+                <select id="statusFilter" onChange={(e)=>{fetchAgendamentosPorStatus(e.target.value)}}>
+                    <option value="">Todos</option>
                     <option value="PENDING">Pendente</option>
                     <option value="CONFIRMED">Ocupado</option>
                     <option value="CONCLUID">Concuído</option>
