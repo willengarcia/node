@@ -49,6 +49,9 @@ function Monitoramento() {
             price: priceServico,
             funcionarioID: funcionarioSelecionado
         })
+        .then(res=>{
+            alert("Serviço Cadastrado!")
+        })
     }
     const fetchFuncionarios = async()=>{
         try {
