@@ -22,7 +22,7 @@ rotas.post('/createService', new AddServicosUserController().handle) // o client
 rotas.post('/addServiceFuncio', new AddServicoController().handle) // Adiciona função/cargo do funcionário
 rotas.get('/listServiceClient/:id', new ListUserController().handle) // lista os servicos pedidos pelo client
 rotas.get('/listServices', new ListServicosController().handle)
-rotas.get('/orders', new ListOrdersController().handle);
+rotas.get('/orders/:status', new ListOrdersController().handle);
 
 // Order
 rotas.post('/updateOrder', new UpdateOrderPedidosController().handle)

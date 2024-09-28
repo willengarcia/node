@@ -44,7 +44,7 @@ model Order {
   employeeId   String?  // Campo opcional
   service      Service  @relation(fields: [serviceId], references: [id])
   serviceId    String
-  status       String   // e.g. "PENDING", "CONFIRMED", "CANCELLED"
+  status       OrderStatus  
   description  String?
   data         String
   hota         String

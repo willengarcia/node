@@ -15,35 +15,40 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ListOrdersService = void 0;
 const prisma_1 = __importDefault(require("../../prisma"));
 class ListOrdersService {
-    execute() {
-        return __awaiter(this, void 0, void 0, function* () {
+    execute(_a) {
+        return __awaiter(this, arguments, void 0, function* ({ status }) {
             // Listando pedidos e incluindo dados do serviço
-            const orders = yield prisma_1.default.order.findMany({
-                include: {
-                    service: {
-                        select: {
-                            name: true,
-                            description: true,
+            try {
+                const orders = yield prisma_1.default.order.findMany({
+                    include: {
+                        service: {
+                            select: {
+                                name: true,
+                                description: true,
+                            },
+                        },
+                        client: {
+                            select: {
+                                name: true
+                            }
+                        },
+                        employee: {
+                            select: {
+                                name: true,
+                                id: true,
+                            },
                         },
                     },
-                    client: {
-                        select: {
-                            name: true
-                        }
+                    orderBy: {
+                        // Ordenando pelo status usando um método alternativo
+                        status: status ? status : "asc",
                     },
-                    employee: {
-                        select: {
-                            name: true,
-                            id: true,
-                        },
-                    },
-                },
-                orderBy: {
-                    // Ordenando pelo status usando um método alternativo
-                    status: "asc"
-                },
-            });
-            return orders;
+                });
+                return orders;
+            }
+            catch (err) {
+                return err;
+            }
         });
     }
 }

@@ -48,7 +48,6 @@ function StatusServicos() {
             return 'Cancelado'
         }
     }
-
     const confirmarServico = async (e)=>{
         try{
             const response = await axios.post(`${process.env.REACT_APP_API_URL}/updateOrder`,{
@@ -78,8 +77,9 @@ function StatusServicos() {
                 <label htmlFor="statusFilter">Filtrar por status:</label>
                 <select id="statusFilter">
                     <option value="todos">Todos</option>
-                    <option value="disponivel">Disponível</option>
-                    <option value="ocupado">Ocupado</option>
+                    <option value="PENDING">Pendente</option>
+                    <option value="CONFIRMED">Ocupado</option>
+                    <option value="CONCLUID">Concuído</option>
                 </select>
             </div>
 
@@ -129,7 +129,7 @@ function StatusServicos() {
                                 <td colSpan="5">Nenhum agendamento encontrado</td>
                             </tr>
                         )}
-                        
+
                 </tbody>
             </table>
 

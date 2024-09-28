@@ -1,35 +1,41 @@
 import prismaClient from "../../prisma";
-
+interface Status{
+    status?: string
+}
 class ListOrdersService {
-    async execute() {
+    async execute({status}:Status) {
         // Listando pedidos e incluindo dados do serviço
-        const orders = await prismaClient.order.findMany({
-            include: {
-                service: {
-                    select: {
-                        name: true,
-                        description: true,
+        try{
+        
+            const orders = await prismaClient.order.findMany({
+                include: {
+                    service: {
+                        select: {
+                            name: true,
+                            description: true,
+                        },
+                    },
+                    client:{
+                        select:{
+                            name:true
+                        }
+                    },
+                    employee:{
+                        select:{
+                            name:true,
+                            id:true,
+                        },
                     },
                 },
-                client:{
-                    select:{
-                        name:true
-                    }
+                orderBy: {
+                    // Ordenando pelo status usando um método alternativo
+                    status:status?status as any:"asc",
                 },
-                employee:{
-                    select:{
-                        name:true,
-                        id:true,
-                    },
-                },
-            },
-            orderBy: {
-                // Ordenando pelo status usando um método alternativo
-                status:"asc"
-            },
-        });
-
-        return orders;
+            });
+            return orders
+        }catch(err){
+            return err
+        }
     }
 }
 

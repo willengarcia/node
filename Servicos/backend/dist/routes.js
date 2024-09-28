@@ -22,7 +22,7 @@ rotas.post('/createService', new AddServicosUserController_1.AddServicosUserCont
 rotas.post('/addServiceFuncio', new AddServicosController_1.AddServicoController().handle); // Adiciona função/cargo do funcionário
 rotas.get('/listServiceClient/:id', new ListUserController_1.ListUserController().handle); // lista os servicos pedidos pelo client
 rotas.get('/listServices', new ListServicosController_1.ListServicosController().handle);
-rotas.get('/orders', new ListServicosClientController_1.ListOrdersController().handle);
+rotas.get('/orders/:status', new ListServicosClientController_1.ListOrdersController().handle);
 // Order
 rotas.post('/updateOrder', new UpdateOrderPedidosController_1.UpdateOrderPedidosController().handle);
 //# sourceMappingURL=routes.js.map
