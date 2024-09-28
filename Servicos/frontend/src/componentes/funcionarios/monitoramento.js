@@ -111,6 +111,7 @@ function Monitoramento() {
                                 <th>Hora</th>
                                 <th>Cliente</th>
                                 <th>Serviço</th>
+                                <th>Agente</th>
                                 <th>Status</th>
                             </tr>
                             {agendamentos.map(agendamento => (
@@ -119,6 +120,7 @@ function Monitoramento() {
                                     <td>{agendamento.hota}</td>
                                     <td>{agendamento.client.name}</td>
                                     <td>{agendamento.service.name}</td>
+                                    <td>{agendamento.employee.name}</td>
                                     <td>
                                         <span className={`status ${agendamento.status.toLowerCase()}`}>
                                             {agendamento.status}
