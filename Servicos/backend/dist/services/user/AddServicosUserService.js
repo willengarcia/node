@@ -17,9 +17,6 @@ const prisma_1 = __importDefault(require("../../prisma"));
 class AddServicosUserService {
     execute(_a) {
         return __awaiter(this, arguments, void 0, function* ({ servicoId, description, dataTime, hora, userId }) {
-            if ((!servicoId) || (!description) || (!dataTime) || (!hora)) {
-                return { erro: 'Faltou colocar as entradas' };
-            }
             try {
                 const data = yield prisma_1.default.order.create({
                     data: {
@@ -28,7 +25,7 @@ class AddServicosUserService {
                         data: dataTime,
                         hota: hora,
                         description: description,
-                        status: 'PENDING'
+                        status: "PENDING"
                     },
                     select: {
                         id: true,
@@ -41,7 +38,7 @@ class AddServicosUserService {
                 return data;
             }
             catch (err) {
-                return err;
+                throw new Error('Erro ao solicitar serviço!');
             }
         });
     }

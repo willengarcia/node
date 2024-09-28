@@ -44,7 +44,7 @@ function Agendamento() {
 
     const createService = (e) => {
         e.preventDefault();
-        axios.post(`${process.env.URL}/createServiceUser`, {
+        axios.post(`${process.env.URL}/createService`, {
             servicoId: servicoId,
             description: descricao,
             dataTime: data,

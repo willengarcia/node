@@ -1,16 +1,13 @@
 import prismaClient from "../../prisma";
 interface AddService{
     servicoId: string, 
-    description:string, 
+    description?:string, 
     dataTime:string, 
     hora:string,
     userId:string
 }
 class AddServicosUserService{
     async execute({servicoId, description, dataTime, hora, userId}:AddService){
-        if((!servicoId)||(!description)||(!dataTime)||(!hora)){
-            return {erro:'Faltou colocar as entradas'}
-        }
         try{
             const data = await prismaClient.order.create({
                 data:{
@@ -19,7 +16,7 @@ class AddServicosUserService{
                     data: dataTime,
                     hota:hora,
                     description:description,
-                    status:'PENDING'
+                    status:"PENDING"
                 },
                 select:{
                     id:true,
@@ -31,7 +28,7 @@ class AddServicosUserService{
             })
             return data
         }catch(err){
-            return err
+            throw new Error('Erro ao solicitar serviço!')
         }
     }
 }

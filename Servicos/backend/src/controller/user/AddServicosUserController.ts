@@ -6,7 +6,7 @@ class AddServicosUserController{
         const {servicoId, description, dataTime, hora, userId} = req.body
         
         if((!servicoId)||(!dataTime)||(!hora)||(!userId)){
-            return {error:'Erro ao inserir os dados'}
+            return res.status(400).json({erro:'Erro ao inserir os dados!'})
         }
         try{
             const addServiceUserService = new AddServicosUserService()
