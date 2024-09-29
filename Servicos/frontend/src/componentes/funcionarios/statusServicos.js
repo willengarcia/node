@@ -4,11 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import './func.css';
 
 function StatusServicos() {
-    const [agendamentos, setAgendamentos] = useState([]);
+    const [agendamentos, setAgendamentos] = useState([]); // Array vazio inicialmente
     const [inforFuncionarios, setInforFuncionarios] = useState([]);
     const [retornoUpdate, setRetornoUpdate] = useState([]);
     const [funcionarioSelecionado, setFuncionarioSelecionado] = useState('');
-    const [statusSelecionado, setStatusSelecionado] = useState(''); // Estado para o status selecionado
     const navigator = useNavigate();
 
     const fetchAgendamentosPorStatus = async (status) => {
@@ -54,12 +53,8 @@ function StatusServicos() {
         }
     };
 
-    // Atualiza agendamentos quando o statusSelecionado mudar
     useEffect(() => {
-        fetchAgendamentosPorStatus(statusSelecionado);
-    }, [statusSelecionado]); // Dependência para disparar a busca quando o status for alterado
-
-    useEffect(() => {
+        fetchAgendamentosPorStatus(); // Chama para buscar todos os agendamentos inicialmente
         fetchFuncionarios();
     }, []);
 
@@ -70,10 +65,7 @@ function StatusServicos() {
             {/* Filtro por status */}
             <div className="filter-container">
                 <label htmlFor="statusFilter">Filtrar por status:</label>
-                <select
-                    id="statusFilter"
-                    onChange={(e) => setStatusSelecionado(e.target.value)} // Atualiza o estado de status
-                >
+                <select id="statusFilter" onChange={(e) => fetchAgendamentosPorStatus(e.target.value)}>
                     <option value="">Todos</option>
                     <option value="PENDING">Pendente</option>
                     <option value="CONFIRMED">Confirmado</option>
@@ -136,6 +128,49 @@ function StatusServicos() {
                     )}
                 </tbody>
             </table>
+
+            {/* Cards de serviços para mobile */}
+            <div id="servicosCards">
+                {agendamentos.length > 0 ? (
+                    agendamentos.map((agendamento) => (
+                        <div className="card" key={agendamento.id}>
+                            <div className="card-title">{agendamento.service.name}</div>
+                            <div className="card-content">
+                                <span className={`status ${agendamento.status === 'PENDING' ? 'disponivel' : 'ocupado'}`}>
+                                    {agendamento.status}
+                                </span>
+                            </div>
+                            <div className="card-content">
+                                <select 
+                                    value={funcionarioSelecionado}
+                                    onChange={(e) => setFuncionarioSelecionado(e.target.value)}
+                                    disabled={agendamento.employeeId} // Desabilita se já tiver um funcionário atribuído
+                                    required
+                                >
+                                    <option value={''} defaultChecked disabled>
+                                        {agendamento.employeeId ? 'Funcionário já atribuído' : 'Selecione o Funcionário'}
+                                    </option>
+                                    {inforFuncionarios.map(funcionario => (
+                                        <option key={funcionario.id} value={funcionario.id}>
+                                            {funcionario.name}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className="card-content">
+                                <input type="text" placeholder="Nome do cliente" value={agendamento.client.name} readOnly />
+                            </div>
+                            <div className="card-content">
+                                <button disabled={['CONFIRMED', 'CONCLUID'].includes(agendamento.status)} onClick={() => confirmarServico(agendamento.id)}>
+                                    {botaoConfirmar(agendamento)}
+                                </button>
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    <p>Nenhum agendamento encontrado</p>
+                )}
+            </div>
         </div>
     );
 }

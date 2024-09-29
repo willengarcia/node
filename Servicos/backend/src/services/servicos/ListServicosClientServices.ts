@@ -7,6 +7,7 @@ interface Status {
 
 class ListOrdersService {
     async execute({ status }: Status) {
+        console.log(status)
         try {
             const orders = await prismaClient.order.findMany({
                 where: {

@@ -17,6 +17,7 @@ const prisma_1 = __importDefault(require("../../prisma"));
 class ListOrdersService {
     execute(_a) {
         return __awaiter(this, arguments, void 0, function* ({ status }) {
+            console.log(status);
             try {
                 const orders = yield prisma_1.default.order.findMany({
                     where: Object.assign({}, (status && { status })),
