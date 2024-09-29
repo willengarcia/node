@@ -35,7 +35,7 @@ function Monitoramento() {
             setDescricaoServico('');
             setPriceServico('');
             setFuncionarioSelecionado('');
-            alert('Funcionário inserido com sucesso!');
+            alert('Funcionário inserido com sucesso! Atualize a página!');
         })
         .catch(err => {
             alert('Erro ao cadastrar: '+err);
@@ -51,7 +51,7 @@ function Monitoramento() {
             funcionarioID: funcionarioSelecionado
         })
         .then(res=>{
-            alert("Serviço Cadastrado!")
+            alert("Serviço Cadastrado! Atualize a página!")
         })
     }
     // Lista funcionários
@@ -114,7 +114,7 @@ function Monitoramento() {
                                 <th>Agente</th>
                                 <th>Status</th>
                             </tr>
-                            {agendamentos.length<0?agendamentos.map(agendamento => (
+                            {agendamentos.length>0?agendamentos.map(agendamento => (
                                 <tr key={agendamento.id}>
                                     <td>{agendamento.data}</td>
                                     <td>{agendamento.hota}</td>
