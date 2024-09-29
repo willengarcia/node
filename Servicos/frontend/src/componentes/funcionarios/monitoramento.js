@@ -102,7 +102,6 @@ function Monitoramento() {
                         <p id="canceledAppointments">1</p>
                     </div>
                 </div>
-                
                 <div className="appointments">
                     <h2>Agendamentos Recentes</h2>
                     <table id="appointmentsTable">
