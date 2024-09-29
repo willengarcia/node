@@ -84,7 +84,6 @@ function Monitoramento() {
         <>
             <div className="dashboard">
                 <h1>Painel de Monitoramento de Agendamento de Serviços</h1>
-                
                 <div className="stats">
                     <div className="stat-card">
                         <h3>Agendamentos Hoje</h3>
