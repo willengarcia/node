@@ -1,18 +1,14 @@
 import prismaClient from "../../prisma";
 import { OrderStatus } from "@prisma/client"; // Importe o enum correspondente
-
-interface Status {
-    status?: OrderStatus; // Use o tipo de enum em vez de string
+interface Status{
+    status?: string
 }
-
 class ListOrdersService {
-    async execute({ status }: Status) {
-        console.log(status)
-        try {
+    async execute({status}:Status) {
+        // Listando pedidos e incluindo dados do serviço
+        try{
+        
             const orders = await prismaClient.order.findMany({
-                where: {
-                    ...(status && { status }), // Usando o enum diretamente
-                },
                 include: {
                     service: {
                         select: {
@@ -20,25 +16,26 @@ class ListOrdersService {
                             description: true,
                         },
                     },
-                    client: {
-                        select: {
-                            name: true,
-                        },
+                    client:{
+                        select:{
+                            name:true
+                        }
                     },
-                    employee: {
-                        select: {
-                            name: true,
-                            id: true,
+                    employee:{
+                        select:{
+                            name:true,
+                            id:true,
                         },
                     },
                 },
                 orderBy: {
-                    status: "asc",
+                    // Ordenando pelo status usando um método alternativo
+                    status:status as any??"asc",
                 },
             });
-            return orders;
-        } catch (err) {
-            return err;
+            return orders
+        }catch(err){
+            return err
         }
     }
 }

@@ -14,8 +14,7 @@ const ListServicosClientServices_1 = require("../../services/servicos/ListServic
 class ListOrdersController {
     handle(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            // Capture o status diretamente dos parâmetros da requisição
-            const status = req.params.status; // Certifique-se de que seja do tipo OrderStatus
+            const status = req.params.status; // Presuma que isso esteja no formato correto
             try {
                 const listOrdersService = new ListServicosClientServices_1.ListOrdersService();
                 const orders = yield listOrdersService.execute({ status });
