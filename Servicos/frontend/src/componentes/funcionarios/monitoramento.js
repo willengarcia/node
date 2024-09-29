@@ -9,38 +9,9 @@ function Monitoramento() {
     const [descricaoServico, setDescricaoServico] = useState('') 
     const [priceServico, setPriceServico] = useState('')
     const [funcionarioSelecionado, setFuncionarioSelecionado] = useState('')
-    // funcionários
-    const [nome, setNome] = useState('');
-    const [email, setEmail] = useState('');
-    const [cell, setCell] = useState('');
-    const [password, setPassword] = useState('');
     // lista pedidos
     const [agendamentos, setAgendamentos] = useState([]); // Estado para armazenar agendamentos
     const [inforFuncionarios, setInforFuncionarios] = useState([]); // Estado para armazenar agendamentos
-    // cadastro funcionário
-    const cadastrar = (e) => {
-        e.preventDefault();
-        axios.post(`${process.env.REACT_APP_API_URL}/cadastroUsuario`, {
-            name: nome,
-            passwordUser: password,
-            emailUser: email,
-            celularUser: cell,
-            tipo: 'EMPLOYEE'
-        }, {
-            withCredentials: false
-        })
-        .then(res => {
-            console.log(res.data);
-            setNameServico('');
-            setDescricaoServico('');
-            setPriceServico('');
-            setFuncionarioSelecionado('');
-            alert('Funcionário inserido com sucesso! Atualize a página!');
-        })
-        .catch(err => {
-            alert('Erro ao cadastrar: '+err);
-        });
-    };
     // Cadastra serviço
     const cadastrarServico = (e) =>{
         e.preventDefault()
@@ -148,16 +119,6 @@ function Monitoramento() {
                 <article className='administracao'>
                     <h1>Administração</h1>
                     <section className="paiCadastroFuncionario">
-                        <article className='login'>
-                            <h1>Cadastro de Funcionários</h1>
-                            <form onSubmit={cadastrar}>
-                                <input required type="text" placeholder='Nome' value={nome} onChange={(e) => { setNome(e.target.value) }} />
-                                <input required type="email" placeholder='Email' value={email} onChange={(e) => { setEmail(e.target.value) }} />
-                                <input required type="tel" placeholder='(91)9 8888-8888' value={cell} onChange={(e) => { setCell(e.target.value) }} />
-                                <input required type='password' placeholder='Senha' value={password} onChange={(e) => { setPassword(e.target.value) }} />
-                                <button type='submit'>Finalizar</button>
-                            </form>  
-                        </article>
                         <article className='login'>
                             <h1>Cadastro de Serviços</h1>
                             <form onSubmit={cadastrarServico}>

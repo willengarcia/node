@@ -275,6 +275,15 @@ footer {
 .login a:hover {
   text-decoration: underline;
 }
+.radios {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.radios > label{
+  padding: 0;
+  margin: 0;
+}
 /* Responsividade */
 @media (max-width: 600px) {
   #contato {
