@@ -116,7 +116,10 @@ function Monitoramento() {
                             </tr>
                             {agendamentos.length>0?agendamentos.map(agendamento => (
                                 <tr key={agendamento.id}>
-                                    <td>{agendamento.data}</td>
+                                    <td>{(() => {
+                                        const [year, month, day] = agendamento.data.split('-');
+                                        return `${day}/${month}`;
+                                    })()}</td>
                                     <td>{agendamento.hota}</td>
                                     <td>{agendamento.client.name}</td>
                                     <td>{agendamento.service.name}</td>
@@ -148,10 +151,10 @@ function Monitoramento() {
                         <article className='login'>
                             <h1>Cadastro de Funcionários</h1>
                             <form onSubmit={cadastrar}>
-                                <input type="text" placeholder='Nome' value={nome} onChange={(e) => { setNome(e.target.value) }} />
-                                <input type="email" placeholder='Email' value={email} onChange={(e) => { setEmail(e.target.value) }} />
-                                <input type="tel" placeholder='(91)9 8888-8888' value={cell} onChange={(e) => { setCell(e.target.value) }} />
-                                <input type='password' placeholder='Senha' value={password} onChange={(e) => { setPassword(e.target.value) }} />
+                                <input required type="text" placeholder='Nome' value={nome} onChange={(e) => { setNome(e.target.value) }} />
+                                <input required type="email" placeholder='Email' value={email} onChange={(e) => { setEmail(e.target.value) }} />
+                                <input required type="tel" placeholder='(91)9 8888-8888' value={cell} onChange={(e) => { setCell(e.target.value) }} />
+                                <input required type='password' placeholder='Senha' value={password} onChange={(e) => { setPassword(e.target.value) }} />
                                 <button type='submit'>Finalizar</button>
                             </form>  
                         </article>

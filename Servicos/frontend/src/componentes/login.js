@@ -29,7 +29,7 @@ function Login(){
             
         })
         .catch(err=>{
-            console.log(err)
+            alert('Senha ou email incorretos! Contate o Administrador!: '+err)
         })
     }
     return(
@@ -38,11 +38,13 @@ function Login(){
                 <h1>Login</h1>
                 <form onSubmit={logar}>
                     <input
+                        required
                         placeholder='Email'
                         value={email}
                         onChange={(e)=>{setEmail(e.target.value)}}
                     />
                     <input
+                        required
                         type='password'
                         placeholder='Senha'
                         value={password}
