@@ -6,35 +6,29 @@ function Solicitacoes({ agendamentos }) {
         <div className="container">
             <div id="solicitacoes" className="panel">
                 <h2>Minhas Solicitações</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Serviço</th>
-                            <th>Descrição</th>
-                            <th>Data</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody id="solicitacoes-body">
-                        {agendamentos?.ordersAsClient?.map((order) => (
-                            <tr key={order.id}>
-                                <td className="idServico">{order.id}</td>
-                                <td>{order.service.name}</td>
-                                <td>{order.service.description}</td>
-                                <td>{new Date(order.createdAt).toLocaleDateString()}</td>
-                                <td>
+                <div className="cards-container">
+                    {agendamentos?.ordersAsClient?.map((order) => (
+                        <div key={order.id} className="card">
+                            <div className="card-header">
+                                <h3>ID: {order.id}</h3>
+                            </div>
+                            <div className="card-body">
+                                <p><strong>Serviço:</strong> {order.service.name}</p>
+                                <p><strong>Descrição:</strong> {order.service.description}</p>
+                                <p><strong>Data:</strong> {new Date(order.createdAt).toLocaleDateString()}</p>
+                                <p>
+                                    <strong>Status:</strong>
                                     <span className={`status status-${order.status.toLowerCase()}`}>
                                         {order.status === "PENDING" && "Pendente"}
                                         {order.status === "CONFIRMED" && "Em Andamento"}
                                         {order.status === "CANCELED" && "Cancelado"}
                                         {order.status === "CONCLUID" && "Concluído"}
                                     </span>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+                                </p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
     );
