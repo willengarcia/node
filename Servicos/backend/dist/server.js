@@ -11,7 +11,7 @@ require("dotenv/config");
 const app = (0, express_1.default)();
 const porta = process.env.PORT || 4000;
 const corsOptions = {
-    origin: 'https://servicos-bice.vercel.app', // Remova a barra final
+    origin: ['https://servicos-bice.vercel.app', 'http://localhost:3000'], // Remova a barra final
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
 };
