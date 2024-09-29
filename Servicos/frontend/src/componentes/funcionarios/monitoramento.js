@@ -116,7 +116,7 @@ function Monitoramento() {
                                 <th>Agente</th>
                                 <th>Status</th>
                             </tr>
-                            {agendamentos.map(agendamento => (
+                            {agendamentos.length<0?agendamentos.map(agendamento => (
                                 <tr key={agendamento.id}>
                                     <td>{agendamento.data}</td>
                                     <td>{agendamento.hota}</td>
@@ -129,7 +129,16 @@ function Monitoramento() {
                                         </span>
                                     </td>
                                 </tr>
-                            ))}
+                            )):
+                                <tr>
+                                    <td>Nulo</td>
+                                    <td>Nulo</td>
+                                    <td>Nulo</td>
+                                    <td>Nulo</td>
+                                    <td>Nulo</td>
+                                    <td>Nulo</td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                     <StatusServicos></StatusServicos>
