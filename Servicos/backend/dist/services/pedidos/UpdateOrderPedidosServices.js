@@ -16,7 +16,7 @@ exports.UpdateOrderPedidosService = void 0;
 const prisma_1 = __importDefault(require("../../prisma"));
 class UpdateOrderPedidosService {
     execute(_a) {
-        return __awaiter(this, arguments, void 0, function* ({ orderId, employeeId }) {
+        return __awaiter(this, arguments, void 0, function* ({ orderId, employeeId, status }) {
             const existService = yield prisma_1.default.order.findFirst({
                 where: {
                     id: orderId
@@ -41,7 +41,7 @@ class UpdateOrderPedidosService {
                     },
                     data: {
                         employeeId: employeeId,
-                        status: "CONFIRMED"
+                        status: status
                     },
                     select: {
                         client: {

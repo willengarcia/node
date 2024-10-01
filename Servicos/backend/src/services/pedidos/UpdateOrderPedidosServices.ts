@@ -1,11 +1,13 @@
 import { Or } from "@prisma/client/runtime/library";
 import prismaClient from "../../prisma";
+import { OrderStatus } from "@prisma/client";
 interface OrderId{
     orderId:string,
-    employeeId:string
+    employeeId:string,
+    status: OrderStatus
 }
 class UpdateOrderPedidosService{
-    async execute({orderId, employeeId}:OrderId){
+    async execute({orderId, employeeId, status}:OrderId){
         const existService = await prismaClient.order.findFirst({
             where:{
                 id:orderId
@@ -31,7 +33,7 @@ class UpdateOrderPedidosService{
                 },
                 data:{
                     employeeId:employeeId,
-                    status:"CONFIRMED"
+                    status: status
                 },
                 select:{
                     client:{

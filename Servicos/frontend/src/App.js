@@ -5,7 +5,8 @@ import Login from './componentes/login';
 import Inicial from './componentes/inicial';
 import Cadastro from './componentes/cadastro';
 import Agendamento from './componentes/clientes/agendamento';
-import Monitoramento from './componentes/funcionarios/monitoramento';
+import Monitoramento from './componentes/adm/monitoramento';
+import Solicitacao from './componentes/funcionario/solicitacao';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path='/cadastro' element={<Cadastro/>}/>
         <Route path='/agendamento' element={<Agendamento/>}/>
         <Route path='/adm' element={<Monitoramento/>}/>
+        <Route path='/funcionario' element={<Solicitacao/>}/>
       </Routes>
     </Router>
   );

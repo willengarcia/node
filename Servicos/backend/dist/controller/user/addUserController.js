@@ -10,12 +10,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AddUserController = void 0;
-const addUserService_1 = require("../../services/user/addUserService");
+const AddUserService_1 = require("../../services/user/AddUserService");
 class AddUserController {
     handle(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { name, passwordUser, emailUser, celularUser, tipo } = req.body;
-            const addFuncionarioService = new addUserService_1.AddUserService();
+            const addFuncionarioService = new AddUserService_1.AddUserService();
             try {
                 const usuario = yield addFuncionarioService.execute({ name, passwordUser, emailUser, celularUser, tipo });
                 return res.status(201).json(usuario); // Retorna o funcionário criado

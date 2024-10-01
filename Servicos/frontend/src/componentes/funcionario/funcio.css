@@ -1,0 +1,63 @@
+body {
+font-family: Arial, sans-serif;
+margin: 0;
+padding: 0;
+background-color: #f0f0f0;
+}
+.container {
+max-width: 1200px;
+margin: 0 auto;
+padding: 20px;
+}
+h1, h2 {
+color: #333;
+text-align: center;
+}
+.pedidos-grid, .feedback-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+gap: 20px;
+margin-top: 20px;
+}
+.pedido-card, .feedback-card {
+background-color: #fff;
+border-radius: 8px;
+box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+overflow: hidden;
+transition: transform 0.3s ease;
+}
+.pedido-card:hover, .feedback-card:hover {
+transform: translateY(-5px);
+}
+.pedido-header, .feedback-header {
+background-color: #007bff;
+color: #fff;
+padding: 10px;
+font-weight: bold;
+}
+.pedido-body, .feedback-body {
+padding: 15px;
+}
+.pedido-foto {
+width: 100%;
+height: 200px;
+object-fit: cover;
+}
+.pedido-info, .feedback-info {
+margin-top: 10px;
+}
+.pedido-info p, .feedback-info p {
+margin: 5px 0;
+}
+.pedido-descricao, .feedback-descricao {
+margin-top: 10px;
+font-style: italic;
+}
+.estrelas {
+color: #ffd700;
+font-size: 24px;
+}
+.section-divider {
+border-top: 2px solid #007bff;
+margin: 40px 0;
+}

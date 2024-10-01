@@ -44,7 +44,8 @@ function StatusServicos() {
         try {
             const response = await axios.post(`${process.env.REACT_APP_API_URL}/updateOrder`, {
                 orderId: agendamentoId,
-                employeeId: funcionarioSelecionado
+                employeeId: funcionarioSelecionado,
+                status:'CONFIRMED'
             });
             setRetornoUpdate(response.data);
             alert('Serviço confirmado, entre em contato com o cliente! Por favor, atualize a página!');

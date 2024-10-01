@@ -14,13 +14,13 @@ const UpdateOrderPedidosServices_1 = require("../../services/pedidos/UpdateOrder
 class UpdateOrderPedidosController {
     handle(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { orderId, employeeId } = req.body;
+            const { orderId, employeeId, status } = req.body;
             if ((!orderId) || (!employeeId)) {
                 return res.status(400).json({ erro: 'Entradas não inseridas' });
             }
             try {
                 const updateOrderPedidosService = new UpdateOrderPedidosServices_1.UpdateOrderPedidosService();
-                const insert = yield updateOrderPedidosService.execute({ orderId, employeeId });
+                const insert = yield updateOrderPedidosService.execute({ orderId, employeeId, status });
                 return res.status(200).json(insert);
             }
             catch (err) {
