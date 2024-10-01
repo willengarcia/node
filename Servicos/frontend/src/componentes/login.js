@@ -20,7 +20,7 @@ function Login(){
                 localStorage.setItem('clientId', res.data.userPedidosFeitos.id)
                 navigator('/agendamento')
             }else if(res.data.userPedidosFeitos.role ==='EMPLOYEE'){
-                navigator('/adm')
+                navigator('/funcionario')
             }else if(res.data.userPedidosFeitos.role === 'SUPERUSER'){
                 navigator('/adm')
             }else{
