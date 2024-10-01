@@ -20,8 +20,10 @@ function Login(){
                 localStorage.setItem('clientId', res.data.userPedidosFeitos.id)
                 navigator('/agendamento')
             }else if(res.data.userPedidosFeitos.role ==='EMPLOYEE'){
+                localStorage.setItem('clientId', res.data.userPedidosFeitos.id)
                 navigator('/funcionario')
             }else if(res.data.userPedidosFeitos.role === 'SUPERUSER'){
+                localStorage.setItem('clientId', res.data.userPedidosFeitos.id)
                 navigator('/adm')
             }else{
                 alert('Contate o administrador')
