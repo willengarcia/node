@@ -56,7 +56,7 @@ class UpdateOrderPedidosService {
                 return update;
             }
             catch (err) {
-                return { erro: err };
+                throw new Error(err);
             }
         });
     }
