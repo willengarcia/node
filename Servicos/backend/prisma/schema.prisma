@@ -31,7 +31,6 @@ model Service {
   employee    User       @relation("EmployeeServices", fields: [employeeId], references: [id])
   employeeId  String
   orders      Order[]    // Pedidos desse serviço
-  reviews     Review[]   // Avaliações associadas ao serviço
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
 }
@@ -48,6 +47,7 @@ model Order {
   description  String?
   data         String
   hota         String
+  review       Review?
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }
@@ -56,12 +56,13 @@ model Review {
   id        String     @id @default(uuid())
   client    User       @relation(fields: [clientId], references: [id])
   clientId  String
-  service   Service    @relation(fields: [serviceId], references: [id])
-  serviceId String
+  order     Order      @relation(fields: [orderId], references: [id]) // Avaliação vinculada a um pedido específico
+  orderId   String     @unique
   rating    Int        @default(0) // Avaliação de 1 a 5
   comment   String?    // Comentário opcional
   createdAt DateTime   @default(now())
 }
+
 
 model Notification {
   id        String     @id @default(uuid())

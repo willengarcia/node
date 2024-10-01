@@ -31,6 +31,17 @@ function Solicitacao(){
     useEffect(() => {
         fetchAgendamentos(); // Chama a função ao montar o componente
     }, []);
+    const statusBotao = (agendamento)=>{
+        if(agendamento.status === 'CONFIRMED'){
+            return <button onClick={(e)=>{confirmarServico(agendamento.id)}}>Concluir</button>
+        }else if(agendamento.status === 'PENDING'){
+            return <button>Pedente</button>
+        }else if(agendamento.status === 'CONCLUID'){
+            return <button>Concluído</button>
+        }else{
+            return <button>Cancelado</button>
+        }
+    }
     return (
         <>
             <div className="container">
@@ -54,7 +65,7 @@ function Solicitacao(){
                                         </div>
                                         <h4 className="pedido-descricao">{agendamento.description}</h4>
                                         {
-                                            agendamento.status === 'CONFIRMED'?<button onClick={(e)=>{confirmarServico(agendamento.id)}}>Concluir</button>:<button>Concluído</button>
+                                            statusBotao(agendamento)
                                         }
                                     </div>
                                 </div>

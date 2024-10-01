@@ -16,6 +16,7 @@ function Solicitacoes({ agendamentos }) {
                                 <p><strong>Serviço:</strong> {order.service.name}</p>
                                 <p><strong>Descrição:</strong> {order.service.description}</p>
                                 <p><strong>Data:</strong> {new Date(order.createdAt).toLocaleDateString()}</p>
+                                <p><strong>Preço:</strong> </p>
                                 <p>
                                     <strong>Status:</strong>
                                     <span className={`status status-${order.status.toLowerCase()}`}>
