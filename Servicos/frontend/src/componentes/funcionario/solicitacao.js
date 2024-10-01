@@ -5,8 +5,6 @@ import './funcio.css'
 
 function Solicitacao(){
     const [agendamentos, setAgendamentos] = useState([]); // Estado para armazenar agendamentos
-    const [retornoUpdate, setRetornoUpdate] = useState([]);
-    const [idFuncionario, setIdFuncionario] = useState('');
     const fetchAgendamentos = async () => {
         try {
             const response = await axios.get(`${process.env.REACT_APP_API_URL}/orders`); // URL da sua API
@@ -17,9 +15,10 @@ function Solicitacao(){
     };
     const confirmarServico = async (agendamentoId) => {
         try {
+            const id = localStorage.getItem('clientId')
             const response = await axios.post(`${process.env.REACT_APP_API_URL}/updateOrder`, {
                 orderId: agendamentoId,
-                employeeId: idFuncionario,
+                employeeId: id,
                 status:'CONCLUID'
             });
             setAgendamentos(response.data);
@@ -30,7 +29,6 @@ function Solicitacao(){
     };
     // chama a função de fetchAgendamentos assim que a página carrega
     useEffect(() => {
-        setIdFuncionario(localStorage.getItem('clientId'))
         fetchAgendamentos(); // Chama a função ao montar o componente
     }, []);
     return (
