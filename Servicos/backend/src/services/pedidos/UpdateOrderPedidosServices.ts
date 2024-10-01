@@ -1,10 +1,9 @@
 import { Or } from "@prisma/client/runtime/library";
 import prismaClient from "../../prisma";
-import { OrderStatus } from "@prisma/client";
 interface OrderId{
     orderId:string,
     employeeId:string,
-    status: OrderStatus
+    status: "PENDING" | "CONFIRMED" | "CANCELED" |"CONCLUID"
 }
 class UpdateOrderPedidosService{
     async execute({orderId, employeeId, status}:OrderId){
@@ -33,7 +32,7 @@ class UpdateOrderPedidosService{
                 },
                 data:{
                     employeeId:employeeId,
-                    status: status
+                    status: status as any
                 },
                 select:{
                     client:{
