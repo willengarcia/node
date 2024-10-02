@@ -74,6 +74,27 @@ function Agendamento() {
             tratarServicos(data);
         };
         fetchServicos();
+        const handlePopState = () => {
+            localStorage.removeItem('authToken'); // Altere para o item que deseja remover
+            localStorage.removeItem('clientId')
+        };
+
+        // Função para limpar o localStorage quando o usuário fecha a aba/janela
+        const handleBeforeUnload = () => {
+            localStorage.clear(); // Limpa todo o localStorage (ou use removeItem se quiser remover algo específico)
+        };
+
+        // Ouve o evento "popstate" para detectar a navegação para trás
+        window.addEventListener('popstate', handlePopState);
+
+        // Ouve o evento "beforeunload" para detectar o fechamento da aba ou janela
+        window.addEventListener('beforeunload', handleBeforeUnload);
+
+        // Remove os event listeners ao desmontar o componente para evitar vazamentos de memória
+        return () => {
+            window.removeEventListener('popstate', handlePopState);
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
     }, []);
 
     return (
