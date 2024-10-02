@@ -21,6 +21,7 @@ function Solicitacoes({ agendamentos }) {
             })
             .then(res => {
                 alert('Enviado');
+                togglePopup()
             })
             .catch(err => {
                 alert('Erro ao comentar: ' + err);
