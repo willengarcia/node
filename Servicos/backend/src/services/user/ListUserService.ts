@@ -24,14 +24,15 @@ class ListUserService{
                       service: {
                         select: {
                           name: true,
-                          description: true
-                        }
+                          description: true,
+                          price:true,
+                        },
                       },
                       employee: {
                         select: {
                           name: true,
                           email: true
-                        }
+                        },
                       },
                       status: true,
                       createdAt: true,

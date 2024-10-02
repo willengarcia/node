@@ -11,6 +11,7 @@ const ListUserFuncioController_1 = require("./controller/user/ListUserFuncioCont
 const ListServicosController_1 = require("./controller/servicos/ListServicosController");
 const ListServicosClientController_1 = require("./controller/servicos/ListServicosClientController");
 const UpdateOrderPedidosController_1 = require("./controller/pedidos/UpdateOrderPedidosController");
+const AddReviewController_1 = require("./controller/avaliacao/AddReviewController");
 const rotas = (0, express_1.Router)();
 exports.rotas = rotas;
 // Usários
@@ -25,4 +26,6 @@ rotas.get('/listServices', new ListServicosController_1.ListServicosController()
 // Order
 rotas.post('/updateOrder', new UpdateOrderPedidosController_1.UpdateOrderPedidosController().handle);
 rotas.get('/orders/:status?', new ListServicosClientController_1.ListOrdersController().handle);
+//Review
+rotas.post('/addReview', new AddReviewController_1.AddReviewController().handle);
 //# sourceMappingURL=routes.js.map

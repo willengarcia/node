@@ -10,6 +10,7 @@ import { ListUserFuncioController } from "./controller/user/ListUserFuncioContro
 import { ListServicosController } from "./controller/servicos/ListServicosController";
 import { ListOrdersController } from "./controller/servicos/ListServicosClientController";
 import { UpdateOrderPedidosController } from "./controller/pedidos/UpdateOrderPedidosController";
+import { AddReviewController } from "./controller/avaliacao/AddReviewController";
 const rotas = Router()
 
 // Usários
@@ -27,4 +28,6 @@ rotas.get('/listServices', new ListServicosController().handle)
 rotas.post('/updateOrder', new UpdateOrderPedidosController().handle)
 rotas.get('/orders/:status?', new ListOrdersController().handle);
 
+//Review
+rotas.post('/addReview', new AddReviewController().handle)
 export {rotas}
