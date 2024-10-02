@@ -18,15 +18,15 @@ function Login(){
         .then(res=>{
             if(res.data.userPedidosFeitos.role === 'CLIENT'){
                 localStorage.setItem('clientId', res.data.userPedidosFeitos.id)
-                localStorage.setItem('token', res.data.userPedidosFeitos.token)
+                localStorage.setItem('token', res.data.token)
                 navigator('/agendamento')
             }else if(res.data.userPedidosFeitos.role ==='EMPLOYEE'){
                 localStorage.setItem('clientId', res.data.userPedidosFeitos.id)
-                localStorage.setItem('token', res.data.userPedidosFeitos.token)
+                localStorage.setItem('token', res.data.token)
                 navigator('/funcionario')
             }else if(res.data.userPedidosFeitos.role === 'SUPERUSER'){
                 localStorage.setItem('clientId', res.data.userPedidosFeitos.id)
-                localStorage.setItem('token', res.data.userPedidosFeitos.token)
+                localStorage.setItem('token', res.data.token)
                 navigator('/adm')
             }else{
                 alert('Contate o administrador')
