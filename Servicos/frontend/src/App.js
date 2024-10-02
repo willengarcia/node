@@ -7,6 +7,7 @@ import Cadastro from './componentes/cadastro';
 import Agendamento from './componentes/clientes/agendamento';
 import Monitoramento from './componentes/adm/monitoramento';
 import Solicitacao from './componentes/funcionario/solicitacao';
+import PrivateRoute from '../../../Trello/frontend/src/Componentes/rotaPrivada';
 
 function App() {
   return (
@@ -15,9 +16,26 @@ function App() {
         <Route path='/' element={<Inicial/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/cadastro' element={<Cadastro/>}/>
-        <Route path='/agendamento' element={<Agendamento/>}/>
-        <Route path='/adm' element={<Monitoramento/>}/>
-        <Route path='/funcionario' element={<Solicitacao/>}/>
+
+        <Route 
+        path='/agendamento' 
+        element={
+          <PrivateRoute>
+            <Agendamento token/>
+          </PrivateRoute>
+        }/>
+        <Route 
+        path='/adm' 
+        element={
+          <PrivateRoute>
+            <Monitoramento token/>
+          </PrivateRoute>}/>
+        <Route 
+        path='/funcionario' 
+        element={
+          <PrivateRoute>
+            <Solicitacao token/>
+          </PrivateRoute>}/>
       </Routes>
     </Router>
   );
