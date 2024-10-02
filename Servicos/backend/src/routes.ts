@@ -11,6 +11,7 @@ import { ListServicosController } from "./controller/servicos/ListServicosContro
 import { ListOrdersController } from "./controller/servicos/ListServicosClientController";
 import { UpdateOrderPedidosController } from "./controller/pedidos/UpdateOrderPedidosController";
 import { AddReviewController } from "./controller/avaliacao/AddReviewController";
+import { ListReviewController } from "./controller/avaliacao/ListReviewController";
 const rotas = Router()
 
 // Usários
@@ -30,5 +31,5 @@ rotas.get('/orders/:status?', new ListOrdersController().handle);
 
 //Review
 rotas.post('/addReview', new AddReviewController().handle)
-rotas.get('/listReview/:funcionarioId', new AddReviewController().handle)
+rotas.get('/listReview/:funcionarioId', new ListReviewController().handle)
 export {rotas}
