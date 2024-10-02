@@ -29,7 +29,7 @@ rotas.get('/listServices', new ListServicosController().handle)
 // Order
 rotas.post('/updateOrder', new UpdateOrderPedidosController().handle) // atulaiza para confirmar pedido
 rotas.get('/orders/:status?', new ListOrdersController().handle); // lista os pedidos por status opcionalmente
-rotas.get('/orders/:funcionarioId', new ListOrdersToFuncionarioController().handle); // lista os pedidos por status opcionalmente
+rotas.get('/orders/funcionario/:funcionarioId', new ListOrdersToFuncionarioController().handle); // lista os pedidos por status opcionalmente
 
 
 //Review

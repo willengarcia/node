@@ -28,7 +28,7 @@ rotas.get('/listServices', new ListServicosController_1.ListServicosController()
 // Order
 rotas.post('/updateOrder', new UpdateOrderPedidosController_1.UpdateOrderPedidosController().handle); // atulaiza para confirmar pedido
 rotas.get('/orders/:status?', new ListServicosClientController_1.ListOrdersController().handle); // lista os pedidos por status opcionalmente
-rotas.get('/orders/:funcionarioId', new ListOrderToFuncionarioController_1.ListOrdersToFuncionarioController().handle); // lista os pedidos por status opcionalmente
+rotas.get('/orders/funcionario/:funcionarioId', new ListOrderToFuncionarioController_1.ListOrdersToFuncionarioController().handle); // lista os pedidos por status opcionalmente
 //Review
 rotas.post('/addReview', new AddReviewController_1.AddReviewController().handle); // Adiciona uma avaliação
 rotas.get('/listReview/:funcionarioId', new ListReviewController_1.ListReviewController().handle); // lista as avaliações por funcionário

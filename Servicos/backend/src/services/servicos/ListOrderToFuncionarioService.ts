@@ -30,10 +30,6 @@ class ListOrdersToFuncionarioService {
                         },
                     },
                 },
-                orderBy: {
-                    // Ordenando pelo status usando um método alternativo
-                    status:"asc",
-                },
             });
             return orders
         }catch(err){
