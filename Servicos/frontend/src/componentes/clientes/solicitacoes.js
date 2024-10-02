@@ -70,8 +70,9 @@ function Solicitacoes({ agendamentos }) {
                                     <textarea id="description" value={comment} onChange={(e) => { setComment(e.target.value) }}></textarea>
                                     <label htmlFor="number">De 1 a 5:</label>
                                     <input type="number" id="number" required value={avaliable} onChange={(e) => { setAvaliable(e.target.value) }} min='0' max='5' />
+                                    <button className="botaoPopUpEnviar" type="submit">Enviar</button>
                                 </form>
-                                <button className="botaoPopUpEnviar" type="submit">Enviar</button>
+                                
                             </div>
                         </div>
                     )}
