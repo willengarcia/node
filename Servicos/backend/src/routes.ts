@@ -30,4 +30,5 @@ rotas.get('/orders/:status?', new ListOrdersController().handle);
 
 //Review
 rotas.post('/addReview', new AddReviewController().handle)
+rotas.get('/listReview/:funcionarioId', new AddReviewController().handle)
 export {rotas}

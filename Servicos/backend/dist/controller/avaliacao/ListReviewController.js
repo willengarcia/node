@@ -9,25 +9,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ListUserController = void 0;
-const ListUserService_1 = require("../../services/user/ListUserService");
-class ListUserController {
+exports.ListReviewController = void 0;
+const ListReviewServices_1 = require("../../services/avaliacao/ListReviewServices");
+class ListReviewController {
     handle(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const id = req.params.id;
-            if (!id) {
-                return res.status(400).json({ erro: 'Não foi possível receber ID: ' + id });
-            }
+            const funcionarioId = req.params.funcionarioId;
             try {
-                const bd = new ListUserService_1.ListUserService();
-                const get = yield bd.execute({ id });
-                return res.json(get);
+                const listReviewservice = new ListReviewServices_1.ListReviewService();
+                const lista = yield listReviewservice.execute({ funcionarioId });
+                return res.status(200).json(lista);
             }
-            catch (err) {
-                return res.status(400).json({ erro: err.message });
+            catch (error) {
+                res.status(400).json(error);
             }
         });
     }
 }
-exports.ListUserController = ListUserController;
-//# sourceMappingURL=ListUserController.js.map
+exports.ListReviewController = ListReviewController;
+//# sourceMappingURL=ListReviewController.js.map

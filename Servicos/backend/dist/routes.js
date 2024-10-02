@@ -28,4 +28,5 @@ rotas.post('/updateOrder', new UpdateOrderPedidosController_1.UpdateOrderPedidos
 rotas.get('/orders/:status?', new ListServicosClientController_1.ListOrdersController().handle);
 //Review
 rotas.post('/addReview', new AddReviewController_1.AddReviewController().handle);
+rotas.get('/listReview/:funcionarioId', new AddReviewController_1.AddReviewController().handle);
 //# sourceMappingURL=routes.js.map

@@ -5,6 +5,7 @@ import './funcio.css'
 
 function Solicitacao(){
     const [agendamentos, setAgendamentos] = useState([]); // Estado para armazenar agendamentos
+    const [review, setReview] = useState([])
     const fetchAgendamentos = async () => {
         try {
             const response = await axios.get(`${process.env.REACT_APP_API_URL}/orders`); // URL da sua API
@@ -13,6 +14,15 @@ function Solicitacao(){
             console.error('Erro ao buscar agendamentos:', error);
         }
     };
+    const fetchReview = async ()=>{
+        try {
+            const funcionarioId = localStorage.getItem('clientId')
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/listReview/${funcionarioId}`)
+            setReview(response.data)
+        } catch (error) {
+            console.log('Erro ao buscar avaliações: '+error)
+        }
+    }
     const confirmarServico = async (agendamentoId) => {
         try {
             const id = localStorage.getItem('clientId')
@@ -30,6 +40,7 @@ function Solicitacao(){
     // chama a função de fetchAgendamentos assim que a página carrega
     useEffect(() => {
         fetchAgendamentos(); // Chama a função ao montar o componente
+        fetchReview();
         const handlePopState = () => {
             localStorage.removeItem('authToken'); // Altere para o item que deseja remover
             localStorage.removeItem('clientId')
@@ -101,13 +112,20 @@ function Solicitacao(){
                 <h2>Feedback dos Clientes</h2>
                 <div className="feedback-grid" id="feedbackGrid">
                     {/* Inserido automaticamente */}
-                    <div className="feedback-card">
-                        <div className="feedback-header">Ana Rodrigues</div>
-                        <div className="feedback-body">
-                        <div className="estrelas">★★★★★</div>
-                        <h5 className="feedback-descricao">Excelente atendimento! Meu pedido foi resolvido rapidamente.</h5>
+                    {review.length >0?review.map(avali =>(
+                        <div className="feedback-card" id={avali.id}>
+                            <div className="feedback-header" id={avali.client.id}>Cliente: {avali.client.name} | Serviço: {avali.order.service.name}</div>
+                            <div className="feedback-body">
+                                    {avali.rating === 5 && <div className="estrelas">★★★★★</div>}
+                                    {avali.rating === 4 && <div className="estrelas">★★★★</div>}
+                                    {avali.rating === 3 && <div className="estrelas">★★★</div>}
+                                    {avali.rating === 2 && <div className="estrelas">★★</div>}
+                                    {avali.rating === 1 && <div className="estrelas">★</div>}
+                                    {avali.rating === 0 && <div className="estrelas">👎</div>}
+                                <h5 className="feedback-descricao">{avali.comment || 'Sem comentários!'}</h5>
+                            </div>
                         </div>
-                    </div>
+                    )):<p>Sem Avaliações ainda</p>}
                 </div>
             </div>
         </>
