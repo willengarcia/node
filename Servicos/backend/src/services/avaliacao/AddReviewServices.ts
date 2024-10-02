@@ -1,7 +1,7 @@
 import prismaClient from "../../prisma";
 interface InforReview{
     clientId:string
-    rating:number
+    rating:string
     comment?:string
     orderId:string
 }
@@ -16,10 +16,11 @@ class AddReviewServices{
             return {erro:'Pedido não existe!'}
         }
         try {
+            const nota = parseInt(rating)
             const review = await prismaClient.review.create({
                 data:{
                     clientId:clientId,
-                    rating:rating,
+                    rating:nota,
                     comment:comment,
                     orderId:orderId
                 },
