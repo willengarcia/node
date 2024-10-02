@@ -7,7 +7,8 @@ import Cadastro from './componentes/cadastro';
 import Agendamento from './componentes/clientes/agendamento';
 import Monitoramento from './componentes/adm/monitoramento';
 import Solicitacao from './componentes/funcionario/solicitacao';
-import PrivateRoute from '../../../Trello/frontend/src/Componentes/rotaPrivada';
+import PrivateRoute from './componentes/rotaPrivada';
+
 
 function App() {
   return (
