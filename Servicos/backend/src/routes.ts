@@ -12,6 +12,7 @@ import { ListOrdersController } from "./controller/servicos/ListServicosClientCo
 import { UpdateOrderPedidosController } from "./controller/pedidos/UpdateOrderPedidosController";
 import { AddReviewController } from "./controller/avaliacao/AddReviewController";
 import { ListReviewController } from "./controller/avaliacao/ListReviewController";
+import { ListOrdersToFuncionarioController } from "./controller/servicos/ListOrderToFuncionarioController";
 const rotas = Router()
 
 // Usários
@@ -26,10 +27,12 @@ rotas.get('/listServiceClient/:id', new ListUserController().handle) // lista os
 rotas.get('/listServices', new ListServicosController().handle)
 
 // Order
-rotas.post('/updateOrder', new UpdateOrderPedidosController().handle)
-rotas.get('/orders/:status?', new ListOrdersController().handle);
+rotas.post('/updateOrder', new UpdateOrderPedidosController().handle) // atulaiza para confirmar pedido
+rotas.get('/orders/:status?', new ListOrdersController().handle); // lista os pedidos por status opcionalmente
+rotas.get('/orders/:funcionarioId', new ListOrdersToFuncionarioController().handle); // lista os pedidos por status opcionalmente
+
 
 //Review
-rotas.post('/addReview', new AddReviewController().handle)
-rotas.get('/listReview/:funcionarioId', new ListReviewController().handle)
+rotas.post('/addReview', new AddReviewController().handle) // Adiciona uma avaliação
+rotas.get('/listReview/:funcionarioId', new ListReviewController().handle) // lista as avaliações por funcionário
 export {rotas}
