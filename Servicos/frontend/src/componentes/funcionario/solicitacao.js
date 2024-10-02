@@ -8,7 +8,8 @@ function Solicitacao(){
     const [review, setReview] = useState([])
     const fetchAgendamentos = async () => {
         try {
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}/orders`); // URL da sua API
+            const employeeId = localStorage.getItem('clientId')
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/orders/${employeeId}`); // URL da sua API
             setAgendamentos(response.data);
         } catch (error) {
             console.error('Erro ao buscar agendamentos:', error);
