@@ -11,23 +11,24 @@ class ListOrdersToFuncionarioService {
                 where:{
                     employeeId:funcionarioId,
                 },
-                include: {
+                select: {
+                    urlImages: true,
                     service: {
                         select: {
                             name: true,
                             description: true,
                         },
                     },
-                    client:{
-                        select:{
-                            name:true,
-                            celular:true,
-                        }
+                    client: {
+                        select: {
+                            name: true,
+                            celular: true,
+                        },
                     },
-                    employee:{
-                        select:{
-                            name:true,
-                            id:true,
+                    employee: {
+                        select: {
+                            name: true,
+                            id: true,
                         },
                     },
                 },

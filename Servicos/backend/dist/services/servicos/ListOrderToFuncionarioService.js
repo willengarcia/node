@@ -23,7 +23,8 @@ class ListOrdersToFuncionarioService {
                     where: {
                         employeeId: funcionarioId,
                     },
-                    include: {
+                    select: {
+                        urlImages: true,
                         service: {
                             select: {
                                 name: true,
@@ -34,7 +35,7 @@ class ListOrdersToFuncionarioService {
                             select: {
                                 name: true,
                                 celular: true,
-                            }
+                            },
                         },
                         employee: {
                             select: {

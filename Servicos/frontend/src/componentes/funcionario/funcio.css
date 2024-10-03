@@ -39,9 +39,14 @@ font-weight: bold;
 padding: 15px;
 }
 .pedido-foto {
-width: 100%;
-height: 200px;
-object-fit: cover;
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.3s ease; /* Transição suave para o zoom */
+}
+.pedido-foto:hover {
+transform: scale(1.1); /* Aumenta a imagem em 10% ao passar o mouse */
+z-index: 1; /* Garante que a imagem fique na frente */
 }
 .pedido-info, .feedback-info {
 margin-top: 10px;

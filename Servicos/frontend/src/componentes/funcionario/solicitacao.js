@@ -101,7 +101,9 @@ function Solicitacao(){
                                         const [year, month, day] = agendamento.data.split('-');
                                         return `${day}/${month}/${year}`;
                                     })()} - {agendamento.hota}</div>
-                                    {/* <img className="pedido-foto" src="https://websimsystems.com/employee-management/images/monitor.jpg" alt="Imagem do pedido: Solicito a compra de um novo monitor para meu computador." width="300" height="200"></img> */}
+                                    {
+                                        agendamento.url?<img className="pedido-foto" src={agendamento.url} alt="Erro ao carregar imagem" width="300" height="200"></img>:null
+                                    }
                                     <div className="pedido-body">
                                         <div className="pedido-info">
                                             <p><strong>Solicitante:</strong>{agendamento.client.name}</p>
