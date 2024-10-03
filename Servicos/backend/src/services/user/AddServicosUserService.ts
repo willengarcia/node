@@ -54,7 +54,7 @@ class AddServicosUserService {
             return data;
 
         } catch (err) {
-            throw new Error('Erro ao solicitar serviço!');
+            throw new Error('Erro ao solicitar serviço!: '+err);
         }
     }
 }
