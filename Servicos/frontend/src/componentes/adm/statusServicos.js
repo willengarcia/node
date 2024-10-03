@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import './func.css';
 
 function StatusServicos() {
     const [agendamentos, setAgendamentos] = useState([]); // Array vazio inicialmente
     const [inforFuncionarios, setInforFuncionarios] = useState([]);
-    const [retornoUpdate, setRetornoUpdate] = useState([]);
+    const [, setRetornoUpdate] = useState([]);
     const [funcionarioSelecionado, setFuncionarioSelecionado] = useState('');
-    const navigator = useNavigate();
 
     const fetchAgendamentosPorStatus = async (status) => {
         try {

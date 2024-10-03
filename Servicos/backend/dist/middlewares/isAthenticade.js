@@ -12,6 +12,7 @@ function isAuthenticated(req, res, next) {
     try {
         const { sub } = (0, jsonwebtoken_1.verify)(token, process.env.JWT_SECRET);
         req.user_id = sub;
+        return next();
     }
     catch (err) {
         return res.status(401).end();

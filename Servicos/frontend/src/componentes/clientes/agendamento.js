@@ -8,7 +8,7 @@ function Agendamento() {
     const [userId, setUserId] = useState('');
     const [Agendamento, setAgendamentos] = useState([]);
     const [listServices, setListService] = useState([]);
-    const [select, setSelect] = useState('');
+    const [, setSelect] = useState('');
     const [descricao, setDescricao] = useState('');
     const [data, setData] = useState('');
     const [time, setTime] = useState('');
