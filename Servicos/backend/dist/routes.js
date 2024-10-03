@@ -28,7 +28,7 @@ rotas.post('/cadastroUsuario', new addUserController_1.AddUserController().handl
 rotas.post('/loginClient', new AuthUserClientController_1.AuthUserClientController().handle); // loga o usuario e no front redireciona por tipo
 rotas.post('/listUser', new ListUserFuncioController_1.ListUserFuncioController().handle); // lista os usuários confome o filtro colocado
 // Servicos
-rotas.post('/createService', new AddServicosUserController_1.AddServicosUserController().handle); // o client cria um serviço
+rotas.post('/createService', upload.single('image'), new AddServicosUserController_1.AddServicosUserController().handle); // o client cria um serviço
 rotas.post('/addServiceFuncio', new AddServicosController_1.AddServicoController().handle); // Adiciona função/cargo do funcionário
 rotas.get('/listServiceClient/:id', new ListUserController_1.ListUserController().handle); // lista os servicos pedidos pelo client
 rotas.get('/listServices', new ListServicosController_1.ListServicosController().handle);

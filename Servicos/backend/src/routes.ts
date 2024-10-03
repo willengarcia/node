@@ -25,7 +25,7 @@ rotas.post('/loginClient', new AuthUserClientController().handle) // loga o usua
 rotas.post('/listUser', new ListUserFuncioController().handle) // lista os usuários confome o filtro colocado
 
 // Servicos
-rotas.post('/createService', new AddServicosUserController().handle) // o client cria um serviço
+rotas.post('/createService', upload.single('image'), new AddServicosUserController().handle) // o client cria um serviço
 rotas.post('/addServiceFuncio', new AddServicoController().handle) // Adiciona função/cargo do funcionário
 rotas.get('/listServiceClient/:id', new ListUserController().handle) // lista os servicos pedidos pelo client
 rotas.get('/listServices', new ListServicosController().handle)

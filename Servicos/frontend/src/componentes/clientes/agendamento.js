@@ -1,4 +1,4 @@
- import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './cliente.css';
 import Solicitacoes from './solicitacoes';
 import axios from 'axios';
@@ -12,13 +12,13 @@ function Agendamento() {
     const [descricao, setDescricao] = useState('');
     const [data, setData] = useState('');
     const [time, setTime] = useState('');
-    const [image, setImage] = useState('');
+    const [image, setImage] = useState(null); // Armazena o arquivo de imagem
 
     const listAgendamentos = async (id) => {
-        try{
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}/listServiceClient/${id}`)
-            return response.data
-        }catch(err){
+        try {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/listServiceClient/${id}`);
+            return response.data;
+        } catch (err) {
             console.log(err);
             return [];
         }
@@ -39,58 +39,60 @@ function Agendamento() {
     };
 
     const tratarServicos = (data) => {
-        setListService(data)
+        setListService(data);
     };
 
-    const createService = (e) => {
+    const createService = async (e) => {
         e.preventDefault();
-        axios.post(`${process.env.REACT_APP_API_URL}/createService`, {
-            servicoId: servicoId,
-            description: descricao,
-            dataTime: data,
-            hora: time,
-            userId: userId
-            // falta colocar a imagem, tanto no backend, quanto no front
-        })
-            .then(res => {
-                alert('Agendamento feito!');
-            })
-            .catch(err => {
-                alert('Erro ao agendar Serviço: ' + err);
+
+        const formData = new FormData(); // Cria o objeto FormData
+        formData.append('servicoId', servicoId);
+        formData.append('description', descricao);
+        formData.append('dataTime', data);
+        formData.append('hora', time);
+        formData.append('userId', userId);
+
+        if (image) {
+            formData.append('image', image); // Adiciona a imagem ao FormData, se existir
+        }
+
+        try {
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/createService`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data', // Define o cabeçalho correto para upload de arquivos
+                },
             });
+
+            alert('Agendamento feito!');
+        } catch (err) {
+            alert('Erro ao agendar Serviço: ' + err);
+        }
     };
 
     useEffect(() => {
-        setUserId(localStorage.getItem('clientId'))
-        // listAgendamentos(clientId);
-        // tratarDados(Agendamento);
-        const fetchAgendamentos = async ()=>{
-            const data = await listAgendamentos(localStorage.getItem('clientId'))
-            tratarAgendamentos(data)
-        }
-        fetchAgendamentos()
+        setUserId(localStorage.getItem('clientId'));
+        const fetchAgendamentos = async () => {
+            const data = await listAgendamentos(localStorage.getItem('clientId'));
+            tratarAgendamentos(data);
+        };
+        fetchAgendamentos();
         const fetchServicos = async () => {
             const data = await listServicos();
             tratarServicos(data);
         };
         fetchServicos();
         const handlePopState = () => {
-            localStorage.removeItem('authToken'); // Altere para o item que deseja remover
-            localStorage.removeItem('clientId')
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('clientId');
         };
 
-        // Função para limpar o localStorage quando o usuário fecha a aba/janela
         const handleBeforeUnload = () => {
-            localStorage.clear(); // Limpa todo o localStorage (ou use removeItem se quiser remover algo específico)
+            localStorage.clear();
         };
 
-        // Ouve o evento "popstate" para detectar a navegação para trás
         window.addEventListener('popstate', handlePopState);
-
-        // Ouve o evento "beforeunload" para detectar o fechamento da aba ou janela
         window.addEventListener('beforeunload', handleBeforeUnload);
 
-        // Remove os event listeners ao desmontar o componente para evitar vazamentos de memória
         return () => {
             window.removeEventListener('popstate', handlePopState);
             window.removeEventListener('beforeunload', handleBeforeUnload);
@@ -105,7 +107,7 @@ function Agendamento() {
                     <label htmlFor="service">Serviço:</label>
                     <select onChange={(e) => {
                         setSelect(e.target.value);
-                        setServicoId(e.target.value); // Atualiza o servicoId aqui
+                        setServicoId(e.target.value);
                     }}>
                         <option value="" defaultChecked>Selecione um item</option>
                         {listServices.map(service => (
@@ -113,17 +115,17 @@ function Agendamento() {
                         ))}
                     </select>
                     <label htmlFor="description">Descrição:</label>
-                    <textarea id="description" required value={descricao} onChange={(e) => { setDescricao(e.target.value) }}></textarea>
+                    <textarea id="description" required value={descricao} onChange={(e) => { setDescricao(e.target.value); }}></textarea>
                     <label htmlFor="date">Data:</label>
-                    <input type="date" id="date" required value={data} onChange={(e) => { setData(e.target.value) }} />
+                    <input type="date" id="date" required value={data} onChange={(e) => { setData(e.target.value); }} />
                     <label htmlFor="time">Horário:</label>
-                    <input type="time" id="time" required value={time} onChange={(e) => { setTime(e.target.value) }} />
+                    <input type="time" id="time" required value={time} onChange={(e) => { setTime(e.target.value); }} />
                     <label htmlFor="image">Imagem:</label>
-                    <input type="file" id="image" accept="image/*" onChange={(e) => { setImage(e.target.files[0]) }} />
+                    <input type="file" id="image" accept="image/*" onChange={(e) => { setImage(e.target.files[0]); }} />
                     <button className='botaoAgendamento' type='submit'>Agendar Serviço</button>
                 </form>
             </div>
-            <Solicitacoes agendamentos={Agendamento}/>
+            <Solicitacoes agendamentos={Agendamento} />
         </>
     );
 }
