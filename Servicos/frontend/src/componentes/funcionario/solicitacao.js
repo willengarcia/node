@@ -9,7 +9,11 @@ function Solicitacao(){
     const fetchAgendamentos = async () => {
         try {
             const employeeId = localStorage.getItem('clientId')
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}/orders/funcionario/${employeeId}`); // URL da sua API
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/orders/funcionario/${employeeId}`,{
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            }); // URL da sua API
             setAgendamentos(response.data);
         } catch (error) {
             console.error('Erro ao buscar agendamentos:', error);
@@ -18,7 +22,11 @@ function Solicitacao(){
     const fetchReview = async ()=>{
         try {
             const funcionarioId = localStorage.getItem('clientId')
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}/listReview/${funcionarioId}`)
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/listReview/${funcionarioId}`,{
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            })
             setReview(response.data)
         } catch (error) {
             console.log('Erro ao buscar avaliações: '+error)
@@ -31,6 +39,10 @@ function Solicitacao(){
                 orderId: agendamentoId,
                 employeeId: id,
                 status:'CONCLUID'
+            },{
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
             });
             setAgendamentos(response.data);
             alert('Serviço confirmado, entre em contato com o cliente! Por favor, atualize a página!');

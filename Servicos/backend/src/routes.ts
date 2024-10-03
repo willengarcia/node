@@ -22,21 +22,21 @@ const upload = multer({ storage: storage });
 // Usários
 rotas.post('/cadastroUsuario', new AddUserController().handle) // cadastra usuario, e no front coloca o tipo
 rotas.post('/loginClient', new AuthUserClientController().handle) // loga o usuario e no front redireciona por tipo
-rotas.post('/listUser', new ListUserFuncioController().handle) // lista os usuários confome o filtro colocado
+rotas.post('/listUser', isAuthenticated, new ListUserFuncioController().handle) // lista os usuários confome o filtro colocado
 
 // Servicos
-rotas.post('/createService', upload.single('image'), new AddServicosUserController().handle) // o client cria um serviço
-rotas.post('/addServiceFuncio', new AddServicoController().handle) // Adiciona função/cargo do funcionário
-rotas.get('/listServiceClient/:id', new ListUserController().handle) // lista os servicos pedidos pelo client
-rotas.get('/listServices', new ListServicosController().handle)
+rotas.post('/createService', isAuthenticated, upload.single('image'), new AddServicosUserController().handle) // o client cria um serviço
+rotas.post('/addServiceFuncio', isAuthenticated, new AddServicoController().handle) // Adiciona função/cargo do funcionário
+rotas.get('/listServiceClient/:id', isAuthenticated, new ListUserController().handle) // lista os servicos pedidos pelo client
+rotas.get('/listServices', isAuthenticated, new ListServicosController().handle)
 
 // Order
-rotas.post('/updateOrder', new UpdateOrderPedidosController().handle) // atulaiza para confirmar pedido
-rotas.get('/orders/:status?', new ListOrdersController().handle); // lista os pedidos por status opcionalmente
-rotas.get('/orders/funcionario/:funcionarioId', new ListOrdersToFuncionarioController().handle); // lista os pedidos por status opcionalmente
+rotas.post('/updateOrder', isAuthenticated, new UpdateOrderPedidosController().handle) // atulaiza para confirmar pedido
+rotas.get('/orders/:status?', isAuthenticated, new ListOrdersController().handle); // lista os pedidos por status opcionalmente
+rotas.get('/orders/funcionario/:funcionarioId', isAuthenticated, new ListOrdersToFuncionarioController().handle); // lista os pedidos por status opcionalmente
 
 
 //Review
-rotas.post('/addReview', new AddReviewController().handle) // Adiciona uma avaliação
-rotas.get('/listReview/:funcionarioId', new ListReviewController().handle) // lista as avaliações por funcionário
+rotas.post('/addReview', isAuthenticated, new AddReviewController().handle) // Adiciona uma avaliação
+rotas.get('/listReview/:funcionarioId', isAuthenticated, new ListReviewController().handle) // lista as avaliações por funcionário
 export {rotas}

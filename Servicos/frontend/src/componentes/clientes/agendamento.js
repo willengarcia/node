@@ -16,7 +16,11 @@ function Agendamento() {
 
     const listAgendamentos = async (id) => {
         try {
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}/listServiceClient/${id}`);
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/listServiceClient/${id}`,{
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            });
             return response.data;
         } catch (err) {
             console.log(err);
@@ -26,7 +30,11 @@ function Agendamento() {
 
     const listServicos = async () => {
         try {
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}/listServices`);
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/listServices`,{
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            });
             return response.data;
         } catch (err) {
             console.log(err);
@@ -59,6 +67,7 @@ function Agendamento() {
         try {
             const response = await axios.post(`${process.env.REACT_APP_API_URL}/createService`, formData, {
                 headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
                     'Content-Type': 'multipart/form-data', // Define o cabeçalho correto para upload de arquivos
                 },
             });

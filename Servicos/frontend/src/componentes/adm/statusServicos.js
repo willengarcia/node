@@ -13,7 +13,11 @@ function StatusServicos() {
     const fetchAgendamentosPorStatus = async (status) => {
         try {
             const url = status ? `${process.env.REACT_APP_API_URL}/orders/${status}` : `${process.env.REACT_APP_API_URL}/orders`;
-            const response = await axios.get(url); // URL da sua API
+            const response = await axios.get(url,{
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            }); // URL da sua API
             setAgendamentos(response.data);
         } catch (error) {
             console.error('Erro ao buscar agendamentos:', error);
@@ -24,6 +28,10 @@ function StatusServicos() {
         try {
             const response = await axios.post(`${process.env.REACT_APP_API_URL}/listUser`, {
                 tipo: "EMPLOYEE"
+            },{
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
             });
             setInforFuncionarios(response.data);
         } catch (error) {
@@ -46,6 +54,10 @@ function StatusServicos() {
                 orderId: agendamentoId,
                 employeeId: funcionarioSelecionado,
                 status:'CONFIRMED'
+            },{
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
             });
             setRetornoUpdate(response.data);
             alert('Serviço confirmado, entre em contato com o cliente! Por favor, atualize a página!');

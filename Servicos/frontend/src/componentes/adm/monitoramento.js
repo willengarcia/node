@@ -20,6 +20,10 @@ function Monitoramento() {
             description: descricaoServico,
             price: priceServico,
             funcionarioID: funcionarioSelecionado
+        },{
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
         })
         .then(res=>{
             alert("Serviço Cadastrado! Atualize a página!")
@@ -30,6 +34,10 @@ function Monitoramento() {
         try {
             const response = await axios.post(`${process.env.REACT_APP_API_URL}/listUser`,{
                 tipo:"EMPLOYEE"
+            },{
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
             }); // URL da sua API
             setInforFuncionarios(response.data)
             
@@ -40,7 +48,11 @@ function Monitoramento() {
     // lista agendamentos
     const fetchAgendamentos = async () => {
         try {
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}/orders`); // URL da sua API
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/orders`,{
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            }); // URL da sua API
             setAgendamentos(response.data);
         } catch (error) {
             console.error('Erro ao buscar agendamentos:', error);

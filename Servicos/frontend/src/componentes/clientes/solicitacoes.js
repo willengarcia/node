@@ -18,6 +18,10 @@ function Solicitacoes({ agendamentos }) {
                 rating:avaliable,
                 comment:comment,
                 orderId:localStorage.getItem('orderId')
+            },{
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
             })
             .then(res => {
                 alert('Enviado');
