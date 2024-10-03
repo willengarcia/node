@@ -102,7 +102,7 @@ function Solicitacao(){
                                         return `${day}/${month}/${year}`;
                                     })()} - {agendamento.hota}</div>
                                     {
-                                        agendamento.url?<img className="pedido-foto" src={agendamento.url} alt="Erro ao carregar imagem" width="300" height="200"></img>:null
+                                        agendamento.urlImages?<img className="pedido-foto" src={agendamento.urlImages} alt="Erro ao carregar imagem" width="300" height="200"></img>:null
                                     }
                                     <div className="pedido-body">
                                         <div className="pedido-info">

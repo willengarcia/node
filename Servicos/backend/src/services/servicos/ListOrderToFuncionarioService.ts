@@ -13,6 +13,8 @@ class ListOrdersToFuncionarioService {
                 },
                 select: {
                     urlImages: true,
+                    data:true,
+                    hota:true,
                     service: {
                         select: {
                             name: true,
