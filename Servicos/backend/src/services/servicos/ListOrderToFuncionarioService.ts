@@ -20,7 +20,8 @@ class ListOrdersToFuncionarioService {
                     },
                     client:{
                         select:{
-                            name:true
+                            name:true,
+                            celular:true,
                         }
                     },
                     employee:{

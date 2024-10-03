@@ -11,13 +11,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ListOrdersController = void 0;
 const ListServicosClientServices_1 = require("../../services/servicos/ListServicosClientServices");
+const client_1 = require("@prisma/client"); // Certifique-se de importar o enum
 class ListOrdersController {
     handle(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const status = req.params.status; // Presuma que isso esteja no formato correto
+            // O status pode vir dos parâmetros da rota ou da query string
+            const status = req.params.status || req.query.status;
+            // Verificar se o status fornecido corresponde a um valor válido do enum OrderStatus
+            let statusOrder;
+            if (status && Object.values(client_1.OrderStatus).includes(status)) {
+                statusOrder = status;
+            }
             try {
                 const listOrdersService = new ListServicosClientServices_1.ListOrdersService();
-                const orders = yield listOrdersService.execute({ status });
+                const orders = yield listOrdersService.execute({ status: statusOrder });
                 return res.json(orders);
             }
             catch (err) {
