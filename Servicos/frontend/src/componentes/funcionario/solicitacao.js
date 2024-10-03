@@ -112,8 +112,8 @@ function Solicitacao(){
 
                 <h2>Feedback dos Clientes</h2>
                 <div className="feedback-grid" id="feedbackGrid">
-                    {/* Inserido automaticamente */}
-                    {review.length >0?review.map(avali =>(
+                    {
+                    review.length >0?review.map(avali =>(
                         <div className="feedback-card" id={avali.id}>
                             <div className="feedback-header" id={avali.client.id}>Cliente: {avali.client.name} | Serviço: {avali.order.service.name}</div>
                             <div className="feedback-body">
@@ -126,7 +126,8 @@ function Solicitacao(){
                                 <h5 className="feedback-descricao">{avali.comment || 'Sem comentários!'}</h5>
                             </div>
                         </div>
-                    )):<p>Sem Avaliações ainda</p>}
+                    )):<p>Sem Avaliações ainda</p>
+                    }
                 </div>
             </div>
         </>

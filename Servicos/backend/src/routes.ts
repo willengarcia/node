@@ -15,6 +15,10 @@ import { ListReviewController } from "./controller/avaliacao/ListReviewControlle
 import { ListOrdersToFuncionarioController } from "./controller/servicos/ListOrderToFuncionarioController";
 const rotas = Router()
 
+// Configurar o multer para armazenar em memória
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
 // Usários
 rotas.post('/cadastroUsuario', new AddUserController().handle) // cadastra usuario, e no front coloca o tipo
 rotas.post('/loginClient', new AuthUserClientController().handle) // loga o usuario e no front redireciona por tipo

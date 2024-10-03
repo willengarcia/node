@@ -48,6 +48,7 @@ model Order {
   data         String
   hota         String
   review       Review?
+  urlImages    String?
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }

@@ -15,16 +15,26 @@ class AddServicosUserController {
     handle(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { servicoId, description, dataTime, hora, userId } = req.body;
+            // Validação dos campos obrigatórios
             if ((!servicoId) || (!dataTime) || (!hora) || (!userId)) {
                 return res.status(400).json({ erro: 'Erro ao inserir os dados!' });
             }
             try {
                 const addServiceUserService = new AddServicosUserService_1.AddServicosUserService();
-                const pedido = yield addServiceUserService.execute({ servicoId, description, dataTime, hora, userId });
+                // Verifica se a imagem foi enviada, se não, envia undefined
+                const imageBuffer = req.file ? req.file.buffer : undefined;
+                const pedido = yield addServiceUserService.execute({
+                    servicoId,
+                    description,
+                    dataTime,
+                    hora,
+                    userId,
+                    imageBuffer // Buffer da imagem ou undefined
+                });
                 return res.json(pedido);
             }
             catch (err) {
-                return res.status(400).json({ error: err });
+                return res.status(400).json({ error: err.message || 'Erro ao processar o pedido.' });
             }
         });
     }
