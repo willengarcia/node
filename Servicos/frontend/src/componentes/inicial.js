@@ -3,8 +3,8 @@ import '../App.css'
 import Header from './header';
 import Main from './main';
 import Footer from './footer';
-
-function Inicial(){
+import { Analytics } from "@vercel/analytics/react"
+function Inicial({children}){
     const [botaoAtivo, setBotaoAtivo] = useState(false);
     // Função para alternar o estado do botão
     const toggleMenu = () => {
@@ -44,6 +44,7 @@ function Inicial(){
         <Header ativo = {botaoAtivo}></Header>
         <Main ativo = {botaoAtivo}/>
         <Footer ativo = {botaoAtivo}></Footer>
+        <Analytics/>
     </>        
     )
 
