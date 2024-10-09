@@ -70,6 +70,7 @@ function Cadastro() {
                         onChange={(e) => setEmail(e.target.value)} 
                     />
                     <input 
+                        required
                         type="tel" 
                         placeholder='(91)9 8888-8888' 
                         value={cell} 
