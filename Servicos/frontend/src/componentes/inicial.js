@@ -63,7 +63,7 @@ function Inicial({children}){
                 <h1>Explore Nossos Serviços</h1>
                 <p>Seja Bem-Vindo ao Serviço Expresso</p>
                 <p>Sua solução completa em serviços profissionais</p>
-                <button>Entrar</button>
+                <button onClick={()=>{botaoAgendarLogin()}}>Entrar</button>
             </header>
             <main className='corpo'>
                 <section id='cards-servicos'>
