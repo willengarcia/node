@@ -3,7 +3,7 @@ import { Request, response, Response } from "express";
 class GetApiPagamento{
     async handle(req:Request, res:Response){
         const information = await new Payment({
-            accessToken: process.env.ACCES_TOKEN
+            accessToken: process.env.ACCESS_TOKEN
         })
             .get({
                 id: req.headers.paymentid as string

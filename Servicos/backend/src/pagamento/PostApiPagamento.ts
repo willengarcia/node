@@ -6,7 +6,7 @@ class PostApiPagamento{
         try{
             if(req.body.action === 'payment.updated'){
                 await axios({
-                    url: '/returnPagamento',
+                    url: 'https://services-zeta-gold.vercel.app/returnPagamento',
                     headers:{
                         paymentid:req.body.data.id
                     }

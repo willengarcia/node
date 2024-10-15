@@ -15,7 +15,7 @@ class GetApiPagamento {
     handle(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const information = yield new mercadopago_1.Payment({
-                accessToken: process.env.ACCES_TOKEN
+                accessToken: process.env.ACCESS_TOKEN
             })
                 .get({
                 id: req.headers.paymentid

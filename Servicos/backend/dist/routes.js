@@ -43,7 +43,7 @@ rotas.get('/orders/funcionario/:funcionarioId', isAthenticade_1.isAuthenticated,
 //Review
 rotas.post('/addReview', isAthenticade_1.isAuthenticated, new AddReviewController_1.AddReviewController().handle); // Adiciona uma avaliação
 rotas.get('/listReview/:funcionarioId', isAthenticade_1.isAuthenticated, new ListReviewController_1.ListReviewController().handle); // lista as avaliações por funcionário
-rotas.get('/returnPagamento', isAthenticade_1.isAuthenticated, new GetApiPagamento_1.GetApiPagamento().handle);
-rotas.put('/createPagamento', isAthenticade_1.isAuthenticated, new PutApiPagamento_1.PutApiPagamento().handle);
-rotas.post('/atualizadoPagamento', isAthenticade_1.isAuthenticated, new PostApiPagamento_1.PostApiPagamento().handle);
+rotas.get('/returnPagamento', new GetApiPagamento_1.GetApiPagamento().handle);
+rotas.put('/createPagamento', new PutApiPagamento_1.PutApiPagamento().handle);
+rotas.post('/atualizadoPagamento', new PostApiPagamento_1.PostApiPagamento().handle);
 //# sourceMappingURL=routes.js.map
