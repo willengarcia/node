@@ -43,7 +43,7 @@ rotas.get('/orders/funcionario/:funcionarioId', isAuthenticated, new ListOrdersT
 rotas.post('/addReview', isAuthenticated, new AddReviewController().handle) // Adiciona uma avaliação
 rotas.get('/listReview/:funcionarioId', isAuthenticated, new ListReviewController().handle) // lista as avaliações por funcionário
 
-rotas.get('/returnPagamento', isAuthenticated, new GetApiPagamento().handle)
-rotas.put('/createPagamento', isAuthenticated, new PutApiPagamento().handle)
-rotas.post('/atualizadoPagamento', isAuthenticated, new PostApiPagamento().handle)
+rotas.get('/returnPagamento', new GetApiPagamento().handle)
+rotas.put('/createPagamento', new PutApiPagamento().handle)
+rotas.post('/atualizadoPagamento', new PostApiPagamento().handle)
 export {rotas}
