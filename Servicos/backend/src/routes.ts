@@ -13,6 +13,10 @@ import { UpdateOrderPedidosController } from "./controller/pedidos/UpdateOrderPe
 import { AddReviewController } from "./controller/avaliacao/AddReviewController";
 import { ListReviewController } from "./controller/avaliacao/ListReviewController";
 import { ListOrdersToFuncionarioController } from "./controller/servicos/ListOrderToFuncionarioController";
+import { Payment } from "mercadopago";
+import { PutApiPagamento } from "./pagamento/PutApiPagamento";
+import { GetApiPagamento } from "./pagamento/GetApiPagamento";
+import { PostApiPagamento } from "./pagamento/PostApiPagamento";
 const rotas = Router()
 
 // Configurar o multer para armazenar em memória
@@ -35,8 +39,11 @@ rotas.post('/updateOrder', isAuthenticated, new UpdateOrderPedidosController().h
 rotas.get('/orders/:status?', isAuthenticated, new ListOrdersController().handle); // lista os pedidos por status opcionalmente
 rotas.get('/orders/funcionario/:funcionarioId', isAuthenticated, new ListOrdersToFuncionarioController().handle); // lista os pedidos por status opcionalmente
 
-
 //Review
 rotas.post('/addReview', isAuthenticated, new AddReviewController().handle) // Adiciona uma avaliação
 rotas.get('/listReview/:funcionarioId', isAuthenticated, new ListReviewController().handle) // lista as avaliações por funcionário
+
+rotas.get('/returnPagamento', isAuthenticated, new GetApiPagamento().handle)
+rotas.put('/createPagamento', isAuthenticated, new PutApiPagamento().handle)
+rotas.post('/atualizadoPagamento', isAuthenticated, new PostApiPagamento().handle)
 export {rotas}

@@ -19,6 +19,9 @@ const UpdateOrderPedidosController_1 = require("./controller/pedidos/UpdateOrder
 const AddReviewController_1 = require("./controller/avaliacao/AddReviewController");
 const ListReviewController_1 = require("./controller/avaliacao/ListReviewController");
 const ListOrderToFuncionarioController_1 = require("./controller/servicos/ListOrderToFuncionarioController");
+const PutApiPagamento_1 = require("./pagamento/PutApiPagamento");
+const GetApiPagamento_1 = require("./pagamento/GetApiPagamento");
+const PostApiPagamento_1 = require("./pagamento/PostApiPagamento");
 const rotas = (0, express_1.Router)();
 exports.rotas = rotas;
 // Configurar o multer para armazenar em memória
@@ -40,4 +43,7 @@ rotas.get('/orders/funcionario/:funcionarioId', isAthenticade_1.isAuthenticated,
 //Review
 rotas.post('/addReview', isAthenticade_1.isAuthenticated, new AddReviewController_1.AddReviewController().handle); // Adiciona uma avaliação
 rotas.get('/listReview/:funcionarioId', isAthenticade_1.isAuthenticated, new ListReviewController_1.ListReviewController().handle); // lista as avaliações por funcionário
+rotas.get('/returnPagamento', isAthenticade_1.isAuthenticated, new GetApiPagamento_1.GetApiPagamento().handle);
+rotas.put('/createPagamento', isAthenticade_1.isAuthenticated, new PutApiPagamento_1.PutApiPagamento().handle);
+rotas.post('/atualizadoPagamento', isAthenticade_1.isAuthenticated, new PostApiPagamento_1.PostApiPagamento().handle);
 //# sourceMappingURL=routes.js.map
