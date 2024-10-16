@@ -33,7 +33,7 @@ class PutApiPagamento {
                     },
                 };
                 // Step 6: Make the request
-                return payment.create({ body }).then((response) => res.send({ response: response.point_of_interaction.transaction_data.ticket_url })).catch(console.log);
+                return payment.create({ body }).then((response) => res.send({ url: response.point_of_interaction.transaction_data.ticket_url, pixCopiaCola: response.point_of_interaction.transaction_data.qr_code })).catch(console.log);
             }
             catch (err) {
                 throw new Error('Erro: ' + err);
