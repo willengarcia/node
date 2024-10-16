@@ -1,6 +1,7 @@
 import {MercadoPagoConfig, Payment} from "mercadopago";
 import { Request, Response } from "express";
 import axios from 'axios'
+import { json } from "stream/consumers";
 class PostApiPagamento{
     async handle(req:Request, res:Response){
         try{
@@ -16,7 +17,7 @@ class PostApiPagamento{
                   // Verifica se r e r.response existem antes de acessar r.response.status
                   if (r && r.response && r.response.status === 'approved') {
                     console.log(r);
-                    return r;
+                    return json(r);
                   } else {
                     console.error('Pagamento não aprovado ou resposta inválida');
                     return { error: 'Pagamento não aprovado ou resposta inválida' };

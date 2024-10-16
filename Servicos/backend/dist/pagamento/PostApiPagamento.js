@@ -14,25 +14,38 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PostApiPagamento = void 0;
 const axios_1 = __importDefault(require("axios"));
+const consumers_1 = require("stream/consumers");
 class PostApiPagamento {
     handle(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 if (req.body.action === 'payment.updated') {
                     yield (0, axios_1.default)({
-                        url: 'https://services-zeta-gold.vercel.app/returnPagamento',
+                        url: '/returnPagamento',
                         headers: {
                             paymentid: req.body.data.id
                         }
                     })
                         .then(x => x.data)
                         .then((r) => __awaiter(this, void 0, void 0, function* () {
-                        if (r.response.status === 'approved') {
+                        // Verifica se r e r.response existem antes de acessar r.response.status
+                        if (r && r.response && r.response.status === 'approved') {
                             console.log(r);
-                            return r;
+                            return (0, consumers_1.json)(r);
+                        }
+                        else {
+                            console.error('Pagamento não aprovado ou resposta inválida');
+                            return { error: 'Pagamento não aprovado ou resposta inválida' };
                         }
                     }))
-                        .catch(console.log);
+                        .catch((err) => {
+                        console.error('Erro ao acessar o pagamento:', err);
+                        return { error: 'Erro ao acessar o pagamento' };
+                    });
+                }
+                else {
+                    console.error('Ação não é "payment.updated"');
+                    return { error: 'Ação inválida' };
                 }
             }
             catch (err) {
