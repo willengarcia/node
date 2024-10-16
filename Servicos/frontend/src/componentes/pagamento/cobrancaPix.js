@@ -1,0 +1,101 @@
+import {React, useState, useEffect} from 'react'
+import axios from 'axios'
+import './pagamento.css'
+
+export default function CobrancaPix(){
+  const [data, setData] = useState([]); // Dados dos serviços
+  const [selectedClient, setSelectedClient] = useState(null); // Cliente selecionado
+  const [email, setEmail] = useState(''); // Email do cliente
+  const [descricao, setDescricao] = useState(''); // Descrição do serviço
+  const [valor, setValor] = useState('')
+  const [pixUrl, setPixUrl] = useState('');
+  const [pixCopiaCola, setPixCopiaCola] = useState('');
+
+  const filtrarAgendamentos = async () => {
+    try {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/orders`,{
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        }); // URL da sua API
+        setData(response.data);
+    } catch (error) {
+        console.error('Erro ao buscar agendamentos:', error);
+    }
+};
+
+   // Filtra os serviços com status "CONFIRMED"
+  useEffect(() => {
+    filtrarAgendamentos()
+  }, []);
+
+  // Função para lidar com a seleção do cliente
+  const handleClientSelect = (client) => {
+    setSelectedClient(client);
+    setEmail(client.client.email);
+    setDescricao(client.service.description);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const data = {
+      email,
+      descricao,
+      valor
+    };
+
+    try {
+      const response = await axios.put(`${process.env.REACT_APP_API_URL}/createPagamento`, data);
+      if (response.data) {
+        setPixUrl(response.data.url);
+        setPixCopiaCola(response.data.pixCopiaCola);
+      }
+    } catch (err) {
+      console.error('Erro ao criar o pagamento', err);
+    }
+  };
+  return (
+    <article className="login">
+      <h1>Pedido de Pagamento via Pix</h1>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="clientSelect">Selecione um Cliente:</label>
+        <select
+          id="clientSelect"
+          onChange={(e) => handleClientSelect(data[e.target.value])}
+          value={selectedClient ? selectedClient.id : ''}
+        >
+          <option value="">Selecione um cliente</option>
+          {data.map((client, index) => (
+            <option key={client.id} value={index}>
+              {client.client.name}
+            </option>
+          ))}
+        </select>
+        <label htmlFor="email">Email:</label>
+        <input
+          type="email"
+          id="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <label htmlFor="descricao">Descrição do Serviço:</label>
+        <textarea
+          id="descricao"
+          value={descricao}
+          onChange={(e) => setDescricao(e.target.value)}
+          required
+        />
+        <label>Valor (R$):</label>
+        <input
+          type="number"
+          value={valor}
+          onChange={(e) => setValor(e.target.value)}
+          required
+        />
+        <button type="submit">Solicitar Pagamento</button>
+      </form>
+    </article>
+  );
+};

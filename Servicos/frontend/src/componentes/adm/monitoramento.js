@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './func.css';
 import StatusServicos from './statusServicos';
+import CobrancaPix from '../pagamento/cobrancaPix';
 
 function Monitoramento() {
     // servico
@@ -171,7 +172,9 @@ function Monitoramento() {
                                 <button type='submit'>Finalizar</button>
                             </form>  
                         </article>
+                        <CobrancaPix/>
                     </section>
+                    
                 </article>
             </div>
         </>

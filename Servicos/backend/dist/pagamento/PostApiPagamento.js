@@ -14,14 +14,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PostApiPagamento = void 0;
 const axios_1 = __importDefault(require("axios"));
-const consumers_1 = require("stream/consumers");
 class PostApiPagamento {
     handle(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                console.log(req.body);
                 if (req.body.action === 'payment.updated') {
                     yield (0, axios_1.default)({
-                        url: 'https://services-zeta-gold.vercel.app/returnPagamento',
+                        url: 'http://localhost:3333/returnPagamento',
                         headers: {
                             paymentid: req.body.data.id
                         }
@@ -31,7 +31,7 @@ class PostApiPagamento {
                         // Verifica se r e r.response existem antes de acessar r.response.status
                         if (r && r.response && r.response.status === 'approved') {
                             console.log(r);
-                            return (0, consumers_1.json)(r);
+                            return res.json(r);
                         }
                         else {
                             console.error('Pagamento não aprovado ou resposta inválida');

@@ -309,6 +309,7 @@ html{
   padding: 10px;
   border: 1px solid #dddfe2;
   border-radius: 4px;
+  width: auto;
 }
 .login button {
   background-color: #1877f2;

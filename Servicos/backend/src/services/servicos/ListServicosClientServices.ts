@@ -24,6 +24,7 @@ class ListOrdersService {
                     client: {
                         select: {
                             name: true,
+                            email:true,
                         },
                     },
                     employee: {

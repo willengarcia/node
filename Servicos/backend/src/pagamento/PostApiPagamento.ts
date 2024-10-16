@@ -5,9 +5,10 @@ import { json } from "stream/consumers";
 class PostApiPagamento{
     async handle(req:Request, res:Response){
         try{
+          console.log(req.body)
             if(req.body.action === 'payment.updated') {
                 await axios({
-                  url: 'https://services-zeta-gold.vercel.app/returnPagamento',
+                  url: 'http://localhost:3333/returnPagamento',
                   headers: {
                     paymentid: req.body.data.id
                   }
@@ -17,7 +18,7 @@ class PostApiPagamento{
                   // Verifica se r e r.response existem antes de acessar r.response.status
                   if (r && r.response && r.response.status === 'approved') {
                     console.log(r);
-                    return json(r);
+                    return res.json(r);
                   } else {
                     console.error('Pagamento não aprovado ou resposta inválida');
                     return { error: 'Pagamento não aprovado ou resposta inválida' };

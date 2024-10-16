@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "build": "prisma migrate deploy && tsc",
+    "build": "tsc",
     "start": "node dist/server.js",
     "postinstall": "prisma generate"
   },
