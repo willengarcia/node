@@ -76,9 +76,6 @@ function Monitoramento() {
         // Ouve o evento "popstate" para detectar a navegação para trás
         window.addEventListener('popstate', handlePopState);
 
-        // Ouve o evento "beforeunload" para detectar o fechamento da aba ou janela
-        window.addEventListener('beforeunload', handleBeforeUnload);
-
         // Remove os event listeners ao desmontar o componente para evitar vazamentos de memória
         return () => {
             window.removeEventListener('popstate', handlePopState);

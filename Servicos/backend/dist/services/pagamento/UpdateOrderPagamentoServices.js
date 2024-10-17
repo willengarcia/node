@@ -12,36 +12,38 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateOrderPedidosService = void 0;
+exports.UpdateOrderPagamentoService = void 0;
 const prisma_1 = __importDefault(require("../../prisma"));
-class UpdateOrderPedidosService {
+class UpdateOrderPagamentoService {
     execute(_a) {
-        return __awaiter(this, arguments, void 0, function* ({ orderId, employeeId, status, urlPix, linkPix }) {
+        return __awaiter(this, arguments, void 0, function* ({ orderId, clientId, urlPix, linkPix }) {
             const existService = yield prisma_1.default.order.findFirst({
                 where: {
                     id: orderId
                 }
             });
             if (!existService) {
-                return { erro: 'Serviço não existe na base de dados' };
+                throw new Error('Serviço não encontrado');
             }
-            const existFuncionario = yield prisma_1.default.user.findMany({
+            const isConfirmed = yield prisma_1.default.order.findFirst({
                 where: {
-                    role: "EMPLOYEE",
-                    id: employeeId
-                }
+                    id: existService.id,
+                    status: 'CONFIRMED',
+                    clientId: clientId,
+                },
             });
-            if (!existFuncionario) {
-                return { erro: 'Usuário não foi achado, ou não é funcionário!' };
+            if (!isConfirmed) {
+                throw new Error('surto');
             }
             try {
                 const update = yield prisma_1.default.order.update({
                     where: {
                         id: existService.id,
+                        AND: {
+                            clientId: clientId,
+                        },
                     },
                     data: {
-                        employeeId: employeeId,
-                        status: status,
                         linkPix: linkPix,
                         urlPix: urlPix,
                     },
@@ -53,15 +55,17 @@ class UpdateOrderPedidosService {
                                 celular: true,
                             },
                         },
+                        urlPix: true,
+                        linkPix: true,
                     },
                 });
                 return update;
             }
             catch (err) {
-                throw new Error(err);
+                throw new Error('Erro ao inserir a url do pagamento: ' + err);
             }
         });
     }
 }
-exports.UpdateOrderPedidosService = UpdateOrderPedidosService;
-//# sourceMappingURL=UpdateOrderPedidosServices.js.map
+exports.UpdateOrderPagamentoService = UpdateOrderPagamentoService;
+//# sourceMappingURL=UpdateOrderPagamentoServices.js.map

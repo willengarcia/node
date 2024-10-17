@@ -49,6 +49,8 @@ model Order {
   hota         String
   review       Review?
   urlImages    String?
+  urlPix       String?
+  linkPix      String?
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }
@@ -63,7 +65,6 @@ model Review {
   comment   String?    // Comentário opcional
   createdAt DateTime   @default(now())
 }
-
 
 model Notification {
   id        String     @id @default(uuid())

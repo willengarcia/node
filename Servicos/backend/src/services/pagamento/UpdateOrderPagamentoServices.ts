@@ -1,40 +1,39 @@
-import { link } from "fs";
 import prismaClient from "../../prisma";
-interface OrderId{
-    orderId:string,
-    employeeId:string,
-    status: "PENDING" | "CONFIRMED" | "CANCELED" | "CONCLUID",
+interface infor{
+    orderId: string,
+    clientId: string,
     urlPix?: string,
     linkPix?: string;
 }
-class UpdateOrderPedidosService{
-    async execute({orderId, employeeId, status, urlPix, linkPix}:OrderId){
+class UpdateOrderPagamentoService{
+    async execute({orderId, clientId, urlPix, linkPix}:infor){
         const existService = await prismaClient.order.findFirst({
             where:{
                 id:orderId
             }
         })
         if(!existService){
-            return {erro:'Serviço não existe na base de dados'}
+            throw new Error('Serviço não encontrado');
         }
-        const existFuncionario = await prismaClient.user.findMany({
+        const isConfirmed = await prismaClient.order.findFirst({
             where:{
-                role:"EMPLOYEE",
-                id:employeeId
-            }
+                id:existService.id,
+                status:'CONFIRMED',
+                clientId:clientId,
+            },
         })
-        if(!existFuncionario){
-            return {erro:'Usuário não foi achado, ou não é funcionário!'}
+        if(!isConfirmed){
+            throw new Error('surto')
         }
-
         try{
             const update = await prismaClient.order.update({
                 where:{
                     id:existService.id,
+                    AND:{
+                        clientId:clientId,
+                    },
                 },
                 data:{
-                    employeeId:employeeId,
-                    status: status as any,
                     linkPix:linkPix,
                     urlPix:urlPix,
                 },
@@ -46,14 +45,16 @@ class UpdateOrderPedidosService{
                             celular:true,
                         },
                     },
+                    urlPix:true,
+                    linkPix:true,
                 },
             })
             return update
         }catch(err){
-            throw new Error(err)
+            throw new Error('Erro ao inserir a url do pagamento: '+err)
         }
 
 
     }
 }
-export { UpdateOrderPedidosService }
+export { UpdateOrderPagamentoService }

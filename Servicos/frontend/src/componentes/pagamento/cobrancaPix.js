@@ -5,15 +5,17 @@ import './pagamento.css'
 export default function CobrancaPix(){
   const [data, setData] = useState([]); // Dados dos serviços
   const [selectedClient, setSelectedClient] = useState(null); // Cliente selecionado
+  const [orderId, setOrderId] = useState('') // id do serviço
+  const [clientId, setClientId] = useState('') // id do client
+  const [pixUrl, setPixUrl] = useState('');
+  const [pixCopiaCola, setPixCopiaCola] = useState('');
   const [email, setEmail] = useState(''); // Email do cliente
   const [descricao, setDescricao] = useState(''); // Descrição do serviço
   const [valor, setValor] = useState('')
-  const [pixUrl, setPixUrl] = useState('');
-  const [pixCopiaCola, setPixCopiaCola] = useState('');
 
   const filtrarAgendamentos = async () => {
     try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/orders`,{
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/orders/CONFIRMED`,{
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
@@ -22,15 +24,17 @@ export default function CobrancaPix(){
     } catch (error) {
         console.error('Erro ao buscar agendamentos:', error);
     }
-};
+  };
 
-   // Filtra os serviços com status "CONFIRMED"
+  // Filtra os serviços com status "CONFIRMED"
   useEffect(() => {
     filtrarAgendamentos()
   }, []);
 
   // Função para lidar com a seleção do cliente
   const handleClientSelect = (client) => {
+    setOrderId(client.id)
+    setClientId(client.clientId)
     setSelectedClient(client);
     setEmail(client.client.email);
     setDescricao(client.service.description);
@@ -38,7 +42,6 @@ export default function CobrancaPix(){
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const data = {
       email,
       descricao,
@@ -50,6 +53,19 @@ export default function CobrancaPix(){
       if (response.data) {
         setPixUrl(response.data.url);
         setPixCopiaCola(response.data.pixCopiaCola);
+        const res = await axios.post(`${process.env.REACT_APP_API_URL}/updatePagamento`, {
+            orderId: orderId,
+            clientId: clientId,
+            urlPix: response.data.url,
+            linkPix: response.data.pixCopiaCola
+        },{
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+        alert('Criação de Link para pagamento feito com sucesso, entre em contato com o cliente para realizar o pagamento!')
+      }else {
+        console.error('Dados de pagamento incompletos');
       }
     } catch (err) {
       console.error('Erro ao criar o pagamento', err);

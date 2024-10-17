@@ -9,25 +9,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateOrderPedidosController = void 0;
-const UpdateOrderPedidosServices_1 = require("../../services/pedidos/UpdateOrderPedidosServices");
-class UpdateOrderPedidosController {
+exports.UpdateOrderPagamentoController = void 0;
+const UpdateOrderPagamentoServices_1 = require("../../services/pagamento/UpdateOrderPagamentoServices");
+class UpdateOrderPagamentoController {
     handle(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { orderId, employeeId, status, urlPix, linkPix } = req.body;
-            if ((!orderId) || (!employeeId)) {
+            const { orderId, clientId, urlPix, linkPix } = req.body;
+            if ((!orderId) || (!clientId)) {
                 return res.status(400).json({ erro: 'Entradas não inseridas' });
             }
             try {
-                const updateOrderPedidosService = new UpdateOrderPedidosServices_1.UpdateOrderPedidosService();
-                const insert = yield updateOrderPedidosService.execute({ orderId, employeeId, status, urlPix, linkPix });
+                const updateOrderPagamentoService = new UpdateOrderPagamentoServices_1.UpdateOrderPagamentoService();
+                const insert = yield updateOrderPagamentoService.execute({ orderId, clientId, urlPix, linkPix });
                 return res.status(200).json(insert);
             }
             catch (err) {
-                return res.status(405).json(err);
+                return res.status(500).json({ erro: err.message });
             }
         });
     }
 }
-exports.UpdateOrderPedidosController = UpdateOrderPedidosController;
-//# sourceMappingURL=UpdateOrderPedidosController.js.map
+exports.UpdateOrderPagamentoController = UpdateOrderPagamentoController;
+//# sourceMappingURL=UpdateOrderPagamentoController.js.map

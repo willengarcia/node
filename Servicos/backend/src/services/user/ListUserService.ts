@@ -37,6 +37,8 @@ class ListUserService{
                       status: true,
                       createdAt: true,
                       updatedAt: true,
+                      urlPix:true,
+                      linkPix:true,
                     },
                   },
                 },

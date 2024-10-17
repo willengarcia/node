@@ -34,6 +34,15 @@ function Solicitacoes({ agendamentos }) {
             alert('Erro ao receber: '+error)
         }
     }
+    const copiar = (texto)=>{
+        navigator.clipboard.writeText(texto)
+          .then(() => {
+            alert("Texto copiado para a área de transferência!");
+        })
+          .catch(err => {
+            console.error("Erro ao copiar texto: ", err);
+        });
+    }
     return (
         <div className="container">
             <div id="solicitacoes" className="panel">
@@ -49,6 +58,7 @@ function Solicitacoes({ agendamentos }) {
                                 <p><strong>Descrição:</strong> {order.service.description}</p>
                                 <p><strong>Data:</strong> {new Date(order.createdAt).toLocaleDateString()}</p>
                                 <p><strong>Preço Média:</strong> R${order.service.price || '50.00'} </p>
+
                                 <p>
                                     <strong>Status:</strong>
                                     <span className={`status status-${order.status.toLowerCase()}`}>
@@ -58,6 +68,8 @@ function Solicitacoes({ agendamentos }) {
                                         {order.status === "CONCLUID" && "Concluído"}
                                     </span>
                                 </p>
+                                {order.status === "CONFIRMED" && <p><strong>QrCorde: </strong><a href={order.urlPix} target="_blanck">Mercado Pago</a></p>}
+                                {order.status === "CONFIRMED" && <p className="pixCola"><strong>Copia Cola: </strong><img src="./../../interface.png"></img> <span className="pix" onClick={()=>copiar(document.querySelector('.pix').innerText)}> {order.linkPix} </span></p>}
                                 {order.status === "PENDING" && <button className='botaoAgendamento'>Aguarde</button>}
                                 {order.status === "CONFIRMED" && <button className='botaoAgendamento'>Aguarde</button>}
                                 {order.status === "CANCELED" && <button className='botaoAgendamento'>Reenviar</button>}

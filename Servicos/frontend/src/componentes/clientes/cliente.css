@@ -200,18 +200,25 @@ width: 300px;
     top: 10px;
 }
 .popup-content .botaoPopUpEnviar {
-    margin-top: 10px;
-    padding: 10px;
-    border: none;
-    background: #007BFF;
-    color: white;
-    border-radius: 5px;
+margin-top: 10px;
+padding: 10px;
+border: none;
+background: #007BFF;
+color: white;
+border-radius: 5px;
+cursor: pointer;
+}
+
+.popup-content .botaoPopUpEnviar:hover {
+background: #0056b3;
+}
+.pixCola {
+    width: auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
     cursor: pointer;
-  }
-  
-  .popup-content .botaoPopUpEnviar:hover {
-    background: #0056b3;
-  }
+}
 @media (max-width: 768px) {
     .card {
         width: calc(100% - 32px); /* Largura do card para mobile (1 por linha) */
