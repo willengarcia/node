@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { CircularProgress } from '@mui/material';
 import './func.css';
 import StatusServicos from './statusServicos';
 import CobrancaPix from '../pagamento/cobrancaPix';
 
 function Monitoramento() {
+    const [loading, setLoading] = useState(false)
     // servico
     const [nameServico, setNameServico] = useState('')
     const [descricaoServico, setDescricaoServico] = useState('') 
@@ -14,21 +16,28 @@ function Monitoramento() {
     const [agendamentos, setAgendamentos] = useState([]); // Estado para armazenar agendamentos
     const [inforFuncionarios, setInforFuncionarios] = useState([]); // Estado para armazenar agendamentos
     // Cadastra serviço
-    const cadastrarServico = (e) =>{
+    const cadastrarServico = async(e) =>{
         e.preventDefault()
-        axios.post(`${process.env.REACT_APP_API_URL}/addServiceFuncio`,{
-            name: nameServico,
-            description: descricaoServico,
-            price: priceServico,
-            funcionarioID: funcionarioSelecionado
-        },{
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
-            }
-        })
-        .then(res=>{
-            alert("Serviço Cadastrado! Atualize a página!")
-        })
+        setLoading(true)
+        try{
+            const res = await axios.post(`${process.env.REACT_APP_API_URL}/addServiceFuncio`,{
+                name: nameServico,
+                description: descricaoServico,
+                price: priceServico,
+                funcionarioID: funcionarioSelecionado
+            },{
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+            .then(res=>{
+                alert("Serviço Cadastrado! Atualize a página!")
+            })
+        }catch(err){
+            alert('Algo deu errado: '+err)
+        }finally{
+            setLoading(false)
+        }
     }
     // Lista funcionários
     const fetchFuncionarios = async()=>{
@@ -166,13 +175,17 @@ function Monitoramento() {
                                         )):''
                                     }
                                 </select>
-                                <button type='submit'>Finalizar</button>
+                                <button type='submit'>{loading?'Finalizando...':'Cadastrar'}</button>
                             </form>  
                         </article>
                         <CobrancaPix/>
                     </section>
-                    
                 </article>
+                {loading && (
+                    <div className="loading-overlay">
+                        <CircularProgress color="inherit" />
+                    </div>
+                )}
             </div>
         </>
     );

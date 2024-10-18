@@ -157,6 +157,21 @@
 .containerStatus .hidden {
     display: none;
 }
+/* Estilo para centralizar o CircularProgress */
+.loading-overlay {
+    position: fixed; /* Ocupa a tela inteira */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5); /* Fundo semitransparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Para ficar acima do conteúdo */
+    backdrop-filter: blur(5px); /* Embaçar o fundo */
+}
+  
 
 @media (min-width: 768px) {
     .containerStatus .card {

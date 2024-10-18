@@ -1,8 +1,9 @@
 import {React, useState, useEffect} from 'react'
 import axios from 'axios'
-import './pagamento.css'
+import { CircularProgress } from '@mui/material';
 
 export default function CobrancaPix(){
+  const [loading, setLoading] = useState(false)
   const [data, setData] = useState([]); // Dados dos serviços
   const [selectedClient, setSelectedClient] = useState(null); // Cliente selecionado
   const [orderId, setOrderId] = useState('') // id do serviço
@@ -42,6 +43,7 @@ export default function CobrancaPix(){
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true)
     const data = {
       email,
       descricao,
@@ -69,6 +71,8 @@ export default function CobrancaPix(){
       }
     } catch (err) {
       console.error('Erro ao criar o pagamento', err);
+    }finally{
+      setLoading(false)
     }
   };
   return (
@@ -110,8 +114,13 @@ export default function CobrancaPix(){
           onChange={(e) => setValor(e.target.value)}
           required
         />
-        <button type="submit">Solicitar Pagamento</button>
+        <button type="submit">{loading?'Aguarde':'Solicitar Pagamento'}</button>
       </form>
+      {loading && (
+        <div className="loading-overlay">
+            <CircularProgress color="inherit" />
+        </div>
+      )}
     </article>
   );
 };

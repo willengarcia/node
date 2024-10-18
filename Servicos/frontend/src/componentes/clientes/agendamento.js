@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './cliente.css';
 import Solicitacoes from './solicitacoes';
+import { CircularProgress } from '@mui/material';
 import axios from 'axios';
 
 function Agendamento() {
+    const [loading, setLoading] = useState(false)
     const [servicoId, setServicoId] = useState('');
     const [userId, setUserId] = useState('');
     const [Agendamento, setAgendamentos] = useState([]);
@@ -52,7 +54,7 @@ function Agendamento() {
 
     const createService = async (e) => {
         e.preventDefault();
-
+        setLoading(true)
         const formData = new FormData(); // Cria o objeto FormData
         formData.append('servicoId', servicoId);
         formData.append('description', descricao);
@@ -75,6 +77,8 @@ function Agendamento() {
             alert('Agendamento feito!');
         } catch (err) {
             alert('Erro ao agendar Serviço: ' + err);
+        }finally{
+            setLoading(false)
         }
     };
 
@@ -125,10 +129,15 @@ function Agendamento() {
                     <input type="time" id="time" required value={time} onChange={(e) => { setTime(e.target.value); }} />
                     <label htmlFor="image">Imagem:</label>
                     <input type="file" id="image" accept="image/*" onChange={(e) => { setImage(e.target.files[0]); }} />
-                    <button className='botaoAgendamento' type='submit'>Agendar Serviço</button>
+                    <button className='botaoAgendamento' type='submit'>{loading?'Agendando...':'Agendar Serviço'}</button>
                 </form>
             </div>
             <Solicitacoes agendamentos={Agendamento} />
+            {loading && (
+                <div className="loading-overlay">
+                    <CircularProgress color="inherit" />
+                </div>
+            )}
         </>
     );
 }

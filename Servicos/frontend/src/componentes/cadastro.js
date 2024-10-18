@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import '../App.css'
 import { useNavigate } from 'react-router-dom';
+import { CircularProgress } from '@mui/material';
 import axios from 'axios';
 
 function Cadastro() {
+    const [loading, setLoading] = useState(false)
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
     const [cell, setCell] = useState('');
@@ -11,21 +13,28 @@ function Cadastro() {
     const [radio, setRadio] = useState('');
     const navigate = useNavigate();
 
-    const cadastrar = (e) => {
+    const cadastrar = async (e) => {
         e.preventDefault();
-        axios.post(`${process.env.REACT_APP_API_URL}/cadastroUsuario`, {
-            name: nome, 
-            passwordUser: password, 
-            emailUser: email, 
-            celularUser: cell,
-            tipo: radio
-        })
-        .then(res => {
-            navigate('/login');
-        })
-        .catch(err => {
-            alert('Erro ao se cadastrar: ' + err);
-        });
+        setLoading(true)
+        try{
+            const res = await axios.post(`${process.env.REACT_APP_API_URL}/cadastroUsuario`, {
+                name: nome, 
+                passwordUser: password, 
+                emailUser: email, 
+                celularUser: cell,
+                tipo: radio
+            })
+            .then(res => {
+                navigate('/login');
+            })
+            .catch(err => {
+                alert('Erro ao se cadastrar: ' + err);
+            });
+        }catch(err){
+            alert('Algo deu errado: '+err)
+        }finally{
+            setLoading(false)
+        }
     };
 
     return (
@@ -82,9 +91,14 @@ function Cadastro() {
                         value={password} 
                         onChange={(e) => setPassword(e.target.value)} 
                     />
-                    <button type='submit'>Finalizar</button>
+                    <button type='submit' disabled={loading}>{loading?'Cadastrando...':'Cadastrar'}</button>
                 </form>  
             </article>
+            {loading && (
+                <div className="loading-overlay">
+                    <CircularProgress color="inherit" />
+                </div>
+            )}
         </section>
     );
 }
