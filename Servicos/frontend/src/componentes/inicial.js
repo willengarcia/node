@@ -6,7 +6,9 @@ function Inicial({children}){
     const [menuAberto, setMenuAberto] = useState(false);
     const navigator = useNavigate()
     const alternarMenu = () => {
-      setMenuAberto(!menuAberto); // Alterna o estado do menu entre aberto e fechado
+        if(window.innerHeight>=600){
+            setMenuAberto(!menuAberto); // Alterna o estado do menu entre aberto e fechado
+        }
     };        
     const botaoAgendarLogin = ()=>{
         navigator('/login')
@@ -72,28 +74,28 @@ function Inicial({children}){
                         <h3>Limpeza Residencial</h3>
                         <p>Mantenha sua casa impecável com nossa equipe especializada.</p>
                         <hr></hr>
-                        <h4>~R$70 <span className='duvida'>?</span></h4>
+                        <h4>R$ ~ 70,00 <span className='duvida'>?</span></h4>
                         <button className='botao-agendar' onClick={()=>{botaoAgendarLogin()}}>Agendar</button>
                     </article>
                     <article className='service'>
                         <h3>Reparos Gerais</h3>
                         <p>Soluções rápidas e eficientes para pequenos reparos domésticos.</p>
                         <hr></hr>
-                        <h4>~R$80 <span className='duvida'>?</span></h4>
+                        <h4>R$ ~ 80,00 <span className='duvida'>?</span></h4>
                         <button className='botao-agendar' onClick={()=>{botaoAgendarLogin()}}>Agendar</button>
                     </article>
                     <article className='service'>
                         <h3>Jardinagem</h3>
                         <p>Cuide do seu jardim com nossos serviços de paisagismo e manutenção.</p>
                         <hr></hr>
-                        <h4>~R$50 <span className='duvida'>?</span></h4>
+                        <h4>R$ ~ 50,00 <span className='duvida'>?</span></h4>
                         <button className='botao-agendar' onClick={()=>{botaoAgendarLogin()}}>Agendar</button>
                     </article>
                     <article className='service'>
                         <h3>Suporte de TI</h3>
                         <p>Assistência técnica para seus dispositivos eletrônicos.</p>
                         <hr></hr>
-                        <h4>~R$100 <span className='duvida'>?</span></h4>
+                        <h4>R$ ~ 100,00 <span className='duvida'>?</span></h4>
                         <button className='botao-agendar' onClick={()=>{botaoAgendarLogin()}}>Agendar</button>
                     </article>
                 </section>

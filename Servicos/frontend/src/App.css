@@ -12,7 +12,6 @@ html{
 }
 .menu {
   position: relative;
-
   display: flex;
   flex-direction: column;
 }
@@ -149,6 +148,9 @@ html{
   background-color: var(--cor-botoes);
   color: white;
 }
+.service .botao-agendar, .sobreDetalhes button {
+  background-color: rgb(241, 182, 133);
+}
 /* Sobre */
 #sobre {
   display: flex;
@@ -177,7 +179,6 @@ html{
 .sobreDetalhes button {
   padding: .5rem 3rem;
   margin-top: 2rem;
-  background-color: transparent;
   border: 1px solid rgb(236, 6, 6);
   border-radius: 50px;
   color: rgb(99, 0, 0);
@@ -370,7 +371,7 @@ html{
 }
 
 /* Responsividade */
-@media (max-width: 600px) {
+@media (max-width: 800px) {
   #contato {
       padding: 20px;
   }
@@ -387,5 +388,95 @@ html{
   }
   .conteudo.ativo{
     display: none;
+  }
+}
+@media (min-width:800px){
+  .menu-botao {
+    display: none;
+  }
+  .listaMenu{
+    display: flex;
+    max-height: fit-content;
+    opacity: 1;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+  .listaMenu li {
+    padding: .5rem;
+  }
+  .listaMenu li:nth-child(3){
+    display: none;
+  }
+  .listaMenu li:nth-child(4){
+    display: none;
+  }
+  .listaMenu li:nth-child(5){
+    display: none;
+  }
+  .cabecaInicial{
+    height: 90dvh;
+    background-attachment: fixed;
+  }
+  .cabecaInicial >h1{
+    font-size: 60px;
+  }
+  .cabecaInicial >p{
+    font-size: 25px;
+  }
+  .corpo #cards-servicos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 1fr);
+    justify-content: space-around;
+    flex-wrap: wrap ;
+  }
+  .corpo #cards-servicos > h2 {
+    text-align: left;
+    font-size: 30px;
+    grid-column-start: 1;
+    grid-column-end: 5;
+  }
+  .corpo #cards-servicos .service {
+    border-radius: 10px;
+
+  }
+  #sobre .imagemParalax {
+    display: none;
+  }
+  #sobre > .sobreDetalhes {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 70dvh;
+    background-image: url(assets/pexels-anna-nekrashevich-6204266.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+  .sobreDetalhes h2 {
+    font-size: 50px;
+    text-decoration: underline;
+  }
+  .sobreDetalhes p{
+    font-size: 20px;
+    
+  }
+  #avaliacoes{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-content: space-around;
+    gap: 1rem
+  }
+  #avaliacoes .avaliacao{
+    border: 1px solid red;
+    border-radius: 10px;
+  }
+  #avaliacoes > h2 {
+    text-align: left;
+    font-size: 30px;
+    grid-column-start: 1;
+    grid-column-end: 5;
   }
 }
