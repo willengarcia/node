@@ -1,0 +1,93 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                  String      @id @default(uuid())
+  name                String
+  email               String      @unique
+  password            String
+  superUser           Boolean?
+  teams               UserTeam[] // Relacionamento com a tabela intermediária de equipes
+  createdAt           DateTime    @default(now())
+  updatedAt           DateTime    @updatedAt
+  finalizedChecklists Checklist[] @relation("FinalizedBy") // Relacionamento com checklists finalizados
+}
+
+model Checklist {
+  id            String          @id @default(uuid())
+  team          Team            @relation(fields: [teamId], references: [id])
+  teamId        String // Chave estrangeira para Team
+  userTeam      UserTeam        @relation(fields: [userTeamId], references: [id])
+  userTeamId    String // Relaciona com UserTeam
+  categories    Category[] // Relacionamento com as categorias do checklist
+  status        ChecklistStatus @default(ONGOING) // Status do checklist (Em Andamento, Finalizado, Recusado)
+  finalizedBy   User?           @relation("FinalizedBy", fields: [finalizedById], references: [id])
+  finalizedById String? // ID do superusuário que finalizou ou recusou o checklist
+  finalizedAt   DateTime? // Data de finalização ou recusa do checklist
+  createdAt     DateTime        @default(now()) // Data de criação
+}
+
+model Team {
+  id         String      @id @default(uuid())
+  name       String
+  location   String?
+  users      UserTeam[] // Relacionamento com a tabela intermediária
+  checklists Checklist[] // Relacionamento com checklists da equipe
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+}
+
+model UserTeam {
+  id         String      @id @default(uuid())
+  user       User        @relation(fields: [userId], references: [id])
+  userId     String // Chave estrangeira para User
+  team       Team        @relation(fields: [teamId], references: [id])
+  teamId     String // Chave estrangeira para Team
+  images     Image[] // Relacionamento de um-para-muitos com a tabela Image
+  checklists Checklist[] // Checklists criados pelo usuário para essa equipe
+  createdAt  DateTime    @default(now()) // Data de criação
+
+  @@unique([userId, teamId]) // Impede duplicação de pares usuário-equipe
+}
+
+model Category {
+  id          String    @id @default(uuid())
+  name        String // Nome da categoria criada pelo usuário (ex: "Alimentação")
+  checklist   Checklist @relation(fields: [checklistId], references: [id])
+  checklistId String // Chave estrangeira para Checklist
+  entries     Entry[] // Entradas (ou temas) dentro da categoria
+  createdAt   DateTime  @default(now())
+}
+
+model Entry {
+  id          String   @id @default(uuid())
+  category    Category @relation(fields: [categoryId], references: [id])
+  categoryId  String // Chave estrangeira para Category
+  title       String // Nome ou título do tema (ex: "Recibo de almoço")
+  imageUrl    String? // URL da imagem, ex: foto do recibo
+  value       Float? // Valor associado (ex: valor do recibo)
+  description String? // Descrição adicional
+  createdAt   DateTime @default(now())
+}
+
+model Image {
+  id         String   @id @default(uuid())
+  url        String // URL da imagem
+  userTeam   UserTeam @relation(fields: [userTeamId], references: [id])
+  userTeamId String // Relaciona com UserTeam
+  isVerified Boolean  @default(false) // Campo de verificação
+  createdAt  DateTime @default(now())
+}
+
+// Enum para o status do checklist
+enum ChecklistStatus {
+  ONGOING // Em Andamento
+  FINALIZED // Finalizado
+  REJECTED // Recusado
+}
