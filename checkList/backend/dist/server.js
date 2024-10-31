@@ -11,7 +11,7 @@ const app = (0, express_1.default)();
 const porta = process.env.PORT || 4000;
 // Middleware para permitir CORS
 const corsOptions = {
-    origin: 'http://localhost:3000', // Remova a barra final
+    origin: ['https://checklist-khaki.vercel.app', 'http://localhost:3000'], // Remova a barra final
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
     credentials: true, // Permite cookies e credenciais, se necessário
 };
