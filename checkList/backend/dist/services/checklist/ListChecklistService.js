@@ -8,22 +8,35 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ListEquipeController = void 0;
-const ListEquipeServices_1 = require("../../services/equipe/ListEquipeServices");
-class ListEquipeController {
-    handle(req, res) {
+exports.ListChecklistService = void 0;
+const prisma_1 = __importDefault(require("../../prisma"));
+class ListChecklistService {
+    execute() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const listEquipeService = new ListEquipeServices_1.ListEquipeService();
-                const execute = yield listEquipeService.execute();
-                return res.status(200).json(execute);
+                const execute = yield prisma_1.default.checklist.findMany({
+                    select: {
+                        id: true,
+                        status: true,
+                        finalizedAt: true,
+                        team: {
+                            select: {
+                                name: true
+                            }
+                        }
+                    }
+                });
+                return execute;
             }
             catch (error) {
-                return res.status(500).json(error);
+                return { error: error };
             }
         });
     }
 }
-exports.ListEquipeController = ListEquipeController;
-//# sourceMappingURL=ListEquipeController.js.map
+exports.ListChecklistService = ListChecklistService;
+//# sourceMappingURL=ListChecklistService.js.map

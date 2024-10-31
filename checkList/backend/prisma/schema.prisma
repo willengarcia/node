@@ -21,6 +21,7 @@ model User {
 
 model Checklist {
   id            String          @id @default(uuid())
+  name          String     
   team          Team            @relation(fields: [teamId], references: [id])
   teamId        String // Chave estrangeira para Team
   userTeam      UserTeam        @relation(fields: [userTeamId], references: [id])

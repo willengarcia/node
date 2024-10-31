@@ -9,21 +9,26 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ListEquipeController = void 0;
-const ListEquipeServices_1 = require("../../services/equipe/ListEquipeServices");
-class ListEquipeController {
+exports.CreateEntryController = void 0;
+const CreateEntryService_1 = require("../../services/entry/CreateEntryService");
+class CreateEntryController {
     handle(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            const { categoryId, title, valueText, description } = req.body;
+            if ((!categoryId) || (!title) || (!valueText)) {
+                return res.status(401).json({ error: 'Atributos is undefined' });
+            }
+            const value = parseFloat(valueText);
             try {
-                const listEquipeService = new ListEquipeServices_1.ListEquipeService();
-                const execute = yield listEquipeService.execute();
+                const createEntryService = new CreateEntryService_1.CreateEntryService();
+                const execute = yield createEntryService.execute({ categoryId, title, value, description });
                 return res.status(200).json(execute);
             }
             catch (error) {
-                return res.status(500).json(error);
+                res.status(500).json(error);
             }
         });
     }
 }
-exports.ListEquipeController = ListEquipeController;
-//# sourceMappingURL=ListEquipeController.js.map
+exports.CreateEntryController = CreateEntryController;
+//# sourceMappingURL=CreateEntryController.js.map

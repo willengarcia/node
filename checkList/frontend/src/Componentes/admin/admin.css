@@ -1,0 +1,196 @@
+/* Estilos gerais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+}
+
+.paiListaEquipe {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.sair {
+    align-self: flex-end;
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 6px;
+    background-color: #ff4b4b;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+}
+
+.sair:hover {
+    background-color: #d43e3e;
+}
+
+.paiCadastroAdd {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    width: 100%;
+    max-width: 900px;
+}
+
+.cadastrarEquipe, .addUser, .updateUser {
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    transition: transform 0.3s ease;
+}
+
+.cadastrarEquipe:hover, .addUser:hover, .updateUser:hover {
+    transform: translateY(-5px);
+}
+
+.cadastrarEquipe h1, .addUser h1, .updateUser h1 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    text-align: center;
+    color: #333;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 0.5rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+input[type="text"],
+select {
+    padding: 0.75rem;
+    border: 1px solid #dcdcdc;
+    border-radius: 6px;
+    font-size: 1rem;
+    width: 100%;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+select:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+button[type="submit"] {
+    padding: 0.75rem;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Lista de Equipes */
+.listarEquipe {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    max-width: 600px;
+}
+
+.equipe-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.equipe-card:hover {
+    transform: translateY(-5px);
+}
+
+.equipe-card h2 {
+    font-size: 1.2rem;
+    color: #007bff;
+    margin-bottom: 0.5rem;
+}
+
+.equipe-card p {
+    font-size: 1rem;
+    color: #555;
+    margin: 0.25rem 0;
+}
+
+.equipe-card button {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.equipe-card button:hover {
+    background-color: #0056b3;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .paiCadastroAdd {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .sair {
+        align-self: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .sair {
+        font-size: 0.9rem;
+        padding: 0.4rem 0.8rem;
+    }
+
+    .cadastrarEquipe h1, .addUser h1, .updateUser h1 {
+        font-size: 1.25rem;
+    }
+
+    input[type="text"],
+    select,
+    button[type="submit"] {
+        font-size: 0.9rem;
+    }
+
+    .equipe-card h2, .equipe-card p {
+        font-size: 0.9rem;
+    }
+
+    .equipe-card button {
+        font-size: 0.85rem;
+    }
+}

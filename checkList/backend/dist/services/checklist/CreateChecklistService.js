@@ -16,18 +16,37 @@ exports.CreateChecklistService = void 0;
 const prisma_1 = __importDefault(require("../../prisma"));
 class CreateChecklistService {
     execute(_a) {
-        return __awaiter(this, arguments, void 0, function* ({ teamId, userTeamId }) {
+        return __awaiter(this, arguments, void 0, function* ({ name, teamId, userTeamId }) {
             try {
+                // Verificar se o teamId e o userTeamId existem
+                const teamExists = yield prisma_1.default.team.findUnique({
+                    where: { id: teamId }
+                });
+                const userExists = yield prisma_1.default.userTeam.findUnique({
+                    where: { id: userTeamId }
+                });
+                if (!teamExists) {
+                    return { success: false, error: "O ID da equipe não existe. TeamId: " + teamId };
+                }
+                if (!userExists) {
+                    return { success: false, error: "O ID do usuário não existe. UserTeamId: " + userTeamId };
+                }
+                // Criar o checklist se ambos os IDs forem válidos
                 const checklist = yield prisma_1.default.checklist.create({
                     data: {
-                        team: { connect: { id: teamId } },
-                        userTeam: { connect: { id: userTeamId } },
+                        name: name,
+                        teamId: teamId,
+                        userTeamId: userTeamId,
                     },
+                    select: {
+                        name: true,
+                    }
                 });
-                return checklist;
+                return { success: true, checklist };
             }
             catch (error) {
-                return error;
+                console.error("Erro ao criar checklist:", error);
+                return { success: false, error: "Erro ao criar checklist" };
             }
         });
     }

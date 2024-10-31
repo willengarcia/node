@@ -9,14 +9,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ListEquipeController = void 0;
-const ListEquipeServices_1 = require("../../services/equipe/ListEquipeServices");
-class ListEquipeController {
+exports.ListChecklistController = void 0;
+const ListChecklistService_1 = require("../../services/checklist/ListChecklistService");
+class ListChecklistController {
     handle(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const listEquipeService = new ListEquipeServices_1.ListEquipeService();
-                const execute = yield listEquipeService.execute();
+                const listChecklistService = new ListChecklistService_1.ListChecklistService();
+                const execute = yield listChecklistService.execute();
                 return res.status(200).json(execute);
             }
             catch (error) {
@@ -25,5 +25,5 @@ class ListEquipeController {
         });
     }
 }
-exports.ListEquipeController = ListEquipeController;
-//# sourceMappingURL=ListEquipeController.js.map
+exports.ListChecklistController = ListChecklistController;
+//# sourceMappingURL=ListChecklistController.js.map

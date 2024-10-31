@@ -14,17 +14,24 @@ const CreateChecklistService_1 = require("../../services/checklist/CreateCheckli
 class CreateChecklistController {
     handle(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { teamId, userTeamId } = req.body;
-            if ((!teamId) || (!userTeamId)) {
-                return res.status(401).json({ error: 'Atributos undefined' });
+            const { teamId, userTeamId, name } = req.body;
+            // Validação dos dados de entrada
+            if (!teamId || !userTeamId || !name) {
+                return res.status(400).json({ error: 'Atributos undefined' });
             }
             try {
                 const createChecklistService = new CreateChecklistService_1.CreateChecklistService();
-                const execute = createChecklistService.execute({ teamId, userTeamId });
-                return res.status(200).json({ execute });
+                const result = yield createChecklistService.execute({ name, teamId, userTeamId });
+                if (result.success) {
+                    return res.status(201).json(result.checklist);
+                }
+                else {
+                    return res.status(500).json({ error: result.error });
+                }
             }
             catch (error) {
-                return res.status(500).json({ error });
+                console.error("Erro no controlador:", error);
+                return res.status(500).json({ error: "Erro interno do servidor" });
             }
         });
     }

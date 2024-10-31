@@ -9,21 +9,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ListEquipeController = void 0;
-const ListEquipeServices_1 = require("../../services/equipe/ListEquipeServices");
-class ListEquipeController {
+exports.InsertEquipeUserController = void 0;
+const InsertEquipeUserService_1 = require("../../services/equipe/InsertEquipeUserService");
+class InsertEquipeUserController {
     handle(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            const { userId, teamId } = req.body;
+            if ((!userId) || (!teamId)) {
+                return res.status(401).json({ error: 'Inserções são Undefined' });
+            }
             try {
-                const listEquipeService = new ListEquipeServices_1.ListEquipeService();
-                const execute = yield listEquipeService.execute();
+                const insertEquipeUserService = new InsertEquipeUserService_1.InsertEquipeUserService();
+                const execute = yield insertEquipeUserService.execute({ userId, teamId });
                 return res.status(200).json(execute);
             }
             catch (error) {
-                return res.status(500).json(error);
+                return res.status(500).json({ error: error });
             }
         });
     }
 }
-exports.ListEquipeController = ListEquipeController;
-//# sourceMappingURL=ListEquipeController.js.map
+exports.InsertEquipeUserController = InsertEquipeUserController;
+//# sourceMappingURL=InsertEquipeUserController.js.map

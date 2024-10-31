@@ -1,0 +1,188 @@
+/* Reset e Tipografia */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f7f9fc;
+    color: #333;
+}
+
+/* Estrutura dos Containers */
+article, section {
+    width: 100%;
+    max-width: 750px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* Títulos */
+h1, h2, h3 {
+    color: #444;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+h1 {
+    font-size: 1.8rem;
+    text-align: center;
+    color: #0073e6;
+    border-bottom: 3px solid #0073e6;
+    padding-bottom: 0.5rem;
+}
+
+h2 {
+    font-size: 1.4rem;
+    color: #005bb5;
+    margin-bottom: 1rem;
+}
+
+/* Formulários */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+label {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+input[type="text"],
+input[type="number"],
+select,
+textarea,
+input[type="file"] {
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #f5f7fa;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #0073e6;
+    box-shadow: 0 0 4px rgba(0, 115, 230, 0.3);
+}
+
+/* Botões */
+button {
+    padding: 0.8rem;
+    background-color: #0073e6;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+button:hover {
+    background-color: #005bb5;
+    transform: scale(1.02);
+}
+
+button:disabled {
+    background-color: #bbb;
+    cursor: not-allowed;
+}
+
+/* Listagem de Checklists */
+.checklist-item {
+    background-color: #f0f4f9;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-top: 1rem;
+    border-left: 4px solid #0073e6;
+    transition: transform 0.2s ease;
+}
+
+.checklist-item:hover {
+    transform: translateY(-3px);
+}
+
+.checklist-item h3 {
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.checklist-item p {
+    font-size: 0.95rem;
+    color: #555;
+    margin-top: 0.5rem;
+}
+
+.checklist-item button {
+    padding: 0.6rem;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    margin-top: 0.5rem;
+}
+
+/* Textarea e Listagem de Entradas */
+textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.entry-list div {
+    margin-top: 1rem;
+    background-color: #fff;
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid #e1e5ea;
+}
+
+.entry-list h2 {
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.entry-list h3 {
+    font-size: 1rem;
+    color: #666;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    article, section {
+        padding: 1.5rem;
+    }
+
+    h1 {
+        font-size: 1.6rem;
+    }
+
+    h2 {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.4rem;
+    }
+
+    h2 {
+        font-size: 1.2rem;
+    }
+
+    input, select, textarea {
+        font-size: 0.9rem;
+    }
+
+    button {
+        font-size: 0.9rem;
+    }
+}

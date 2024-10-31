@@ -1,12 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Login from './Componentes/login'; // Importa o componente de Login
-import CadastroUser from './Componentes/cadastroUser';
+import Login from './Componentes/login/login'; // Importa o componente de Login
+import CadastroUser from './Componentes/login/cadastroUser';
 import PrivateRoute from './Componentes/rotaPrivada'; // Importando o componente de rota protegida
-import Lojas from './Componentes/lojas';
-import Imagens from './Componentes/imagens';
-import AdicionarImagens from './Componentes/adicionarImagens';
-import AdicionarUser from './Componentes/adicionarUser';
+import Admin from './Componentes/admin/admin';
+import AdicionarUserEquipe from './Componentes/admin/adicionarUserEquipe'
+import ListarChecklist from './Componentes/equipe/listarChecklist';
 
 
 function App() {
@@ -19,23 +18,15 @@ function App() {
           path="/Lojas" 
           element={
             <PrivateRoute>
-              <Lojas token />
+              <Admin token />
             </PrivateRoute>
           } 
         />
         <Route 
-          path="/Imagens" 
+          path="/checklist" 
           element={
             <PrivateRoute>
-              <Imagens token />
-            </PrivateRoute>
-          } 
-        />
-        <Route 
-          path="/Trello" 
-          element={
-            <PrivateRoute>
-              <AdicionarImagens token />
+              <ListarChecklist token />
             </PrivateRoute>
           } 
         />
@@ -43,7 +34,7 @@ function App() {
           path="/addUser" 
           element={
             <PrivateRoute>
-              <AdicionarUser token />
+              <AdicionarUserEquipe token />
             </PrivateRoute>
           } 
         />

@@ -9,14 +9,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ListEquipeController = void 0;
-const ListEquipeServices_1 = require("../../services/equipe/ListEquipeServices");
-class ListEquipeController {
+exports.ListCategoryToChecklistController = void 0;
+const ListCategoryToChecklistService_1 = require("../../services/category/ListCategoryToChecklistService");
+class ListCategoryToChecklistController {
     handle(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            const idChecklist = req.params.idChecklist;
+            if (!idChecklist) {
+                return res.status(401).json({ error: 'Id é undefined' });
+            }
             try {
-                const listEquipeService = new ListEquipeServices_1.ListEquipeService();
-                const execute = yield listEquipeService.execute();
+                const listCategoryToChecklistController = new ListCategoryToChecklistService_1.ListCategoryToChecklistService();
+                const execute = yield listCategoryToChecklistController.execute({ idChecklist });
                 return res.status(200).json(execute);
             }
             catch (error) {
@@ -25,5 +29,5 @@ class ListEquipeController {
         });
     }
 }
-exports.ListEquipeController = ListEquipeController;
-//# sourceMappingURL=ListEquipeController.js.map
+exports.ListCategoryToChecklistController = ListCategoryToChecklistController;
+//# sourceMappingURL=ListCategoryToChecklistController.js.map
