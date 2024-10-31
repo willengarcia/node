@@ -31,13 +31,13 @@ function Login() {
           localStorage.setItem('userId', response.data.id); // Armazena o ID do usuário
           localStorage.setItem('superUser', response.data.superUser)
           setErrorMessage(''); // Limpa a mensagem de erro, caso exista
-          navigate('/Trello')
+          navigate('/checklist')
         }else{
           setToken(response.data.token);
           localStorage.setItem('authToken', response.data.token); // Armazena o token
           localStorage.setItem('userId', response.data.id); // Armazena o ID do usuário
           setErrorMessage(''); // Limpa a mensagem de erro, caso exista
-          navigate('/Lojas'); // Redireciona para a página desejada após o login
+          navigate('/admin'); // Redireciona para a página desejada após o login
         }
       })
       .catch(error => {

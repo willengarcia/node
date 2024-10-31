@@ -4,7 +4,6 @@ import Login from './Componentes/login/login'; // Importa o componente de Login
 import CadastroUser from './Componentes/login/cadastroUser';
 import PrivateRoute from './Componentes/rotaPrivada'; // Importando o componente de rota protegida
 import Admin from './Componentes/admin/admin';
-import AdicionarUserEquipe from './Componentes/admin/adicionarUserEquipe'
 import ListarChecklist from './Componentes/equipe/listarChecklist';
 
 
@@ -15,7 +14,7 @@ function App() {
         <Route path="/" element={<Login/>} />
         <Route path='/cadastro/user' element={<CadastroUser/>} />
         <Route 
-          path="/Lojas" 
+          path="/admin" 
           element={
             <PrivateRoute>
               <Admin token />
@@ -27,14 +26,6 @@ function App() {
           element={
             <PrivateRoute>
               <ListarChecklist token />
-            </PrivateRoute>
-          } 
-        />
-        <Route 
-          path="/addUser" 
-          element={
-            <PrivateRoute>
-              <AdicionarUserEquipe token />
             </PrivateRoute>
           } 
         />
