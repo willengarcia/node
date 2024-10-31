@@ -1,7 +1,6 @@
 import prismaClient from "../../prisma";
 import { compare } from "bcryptjs";
 import {sign} from 'jsonwebtoken' // gerar token
-
 interface AuthRequest{
     email: string;
     password: string;
