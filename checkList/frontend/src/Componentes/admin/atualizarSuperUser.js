@@ -38,7 +38,7 @@ function UpdateSuperUser() {
 
   useEffect(() => {
     if (localStorage.getItem('superUser') === 'false') {
-      navigate('/Trello'); // Redireciona usuário comum
+      navigate('/'); // Redireciona usuário comum
     } else {
       const fetchUser = async () => {
         try {

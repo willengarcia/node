@@ -29,9 +29,8 @@ function Login() {
         if(response.data.superUser === false){
           localStorage.setItem('authToken', response.data.token); // Armazena o token
           localStorage.setItem('userId', response.data.id); // Armazena o ID do usuário
-          localStorage.setItem('superUser', response.data.superUser)
           setErrorMessage(''); // Limpa a mensagem de erro, caso exista
-          navigate('/checklist')
+          navigate('/equipe')
         }else{
           setToken(response.data.token);
           localStorage.setItem('authToken', response.data.token); // Armazena o token
@@ -56,7 +55,8 @@ function Login() {
   };
 
   return (
-    <article className='login'>
+    <section id='login' style={{height:'100dvh', display:'flex', justifyContent:'center', alignItems:'center'}}>
+      <article className='login'>
       <h1>Login</h1>
       <form onSubmit={login}>
         <input
@@ -77,6 +77,7 @@ function Login() {
         <p>Não tem uma conta? <a href='/cadastro/user'>Cadastre-se</a></p>
       </div>
     </article>
+    </section>
   );
 }
 

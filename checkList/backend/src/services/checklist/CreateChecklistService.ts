@@ -25,7 +25,6 @@ class CreateChecklistService {
             if (!userExists) {
                 return { success: false, error: "O ID do usuário não existe. UserTeamId: " + userTeamId};
             }
-
             // Criar o checklist se ambos os IDs forem válidos
             const checklist = await prismaClient.checklist.create({
                 data: {

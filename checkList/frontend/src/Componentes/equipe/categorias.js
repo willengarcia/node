@@ -3,6 +3,7 @@ import axios from 'axios';
 import ListarEntry from './listarEntry';
 
 function Categorias() {
+    const [showEntry, setShowEntry] = useState(false);
     const [categoria, setCategoria] = useState('');
     const [categorias, setCategorias] = useState([]);
     const [categoriaSelecionada, setCategoriaSelecionada] = useState('')
@@ -63,6 +64,9 @@ function Categorias() {
                     }
                 }
             )
+            setNome(' ')
+            setValor(' ')
+            setDescricao(' ')
             return response.data
         } catch (error) {
             
@@ -86,13 +90,16 @@ function Categorias() {
         const data = await fetchCategorias();
         tratarDados(data);
     };
+    const fecharCategorias = () => {
+        setShowEntry(false);
+    };
 
     useEffect(() => {
         atualizarLista();
     }, []);
 
     return (
-        <section>
+        <section className='equipe'>
             <div>
                 <form onSubmit={criarCategorias}>
                     <label>Categoria</label>
@@ -103,27 +110,34 @@ function Categorias() {
                     />
                     <button type='submit'>Criar</button>
                 </form>
-                <form onSubmit={criarEntry}>
-                    {categorias.length > 0 ? (
-                        <select onChange={(e)=>setCategoriaSelecionada(e.target.value)}>
-                            <option defaultChecked value={null}>Selecione uma categoria</option>
-                            {categorias.map((itens) => (
-                            <option key={itens.id} value={itens.id}>{itens.name}</option>
-                            ))}
-                        </select>
-                    ) : (
-                        <p>Nenhuma categoria encontrada</p>
-                    )}
-                    <label>Nome:</label>
-                    <input type='text' placeholder='Ex: Almoço' required value={nome} onChange={(e)=>setNome(e.target.value)}></input>
-                    <label>Valor:</label>
-                    <input type='number' placeholder='55.50' required value={valor} onChange={(e)=>setValor(e.target.value)}></input>
-                    <textarea value={descricao} onChange={(e)=>setDescricao(e.target.value)}></textarea>
-                    <input type='file'></input>
-                    <button type='submit'>Inserir</button>
-                </form>
+                <button onClick={()=>{setShowEntry(true)}} style={{backgroundColor:'green', display:'block', margin:'1rem auto'}}>Adicionar Informações</button>
             </div>
-            <ListarEntry></ListarEntry>
+            {showEntry && (
+                <div className="modal-overlay-entry">
+                    <div className="modal-content-entry">
+                        <button className="close-button-entry" onClick={fecharCategorias}>X</button>
+                        <form onSubmit={criarEntry}>
+                            {categorias.length > 0 ? (
+                                <select onChange={(e)=>setCategoriaSelecionada(e.target.value)}>
+                                    <option defaultChecked value={null}>Selecione uma categoria</option>
+                                    {categorias.map((itens) => (
+                                    <option key={itens.id} value={itens.id}>{itens.name}</option>
+                                    ))}
+                                </select>
+                            ) : (
+                                <p>Nenhuma categoria encontrada</p>
+                            )}
+                            <label>Nome:</label>
+                            <input type='text' placeholder='Ex: Almoço' required value={nome} onChange={(e)=>setNome(e.target.value)}></input>
+                            <label>Valor:</label>
+                            <input type='number' placeholder='55.50' required value={valor} onChange={(e)=>setValor(e.target.value)}></input>
+                            <textarea value={descricao} onChange={(e)=>setDescricao(e.target.value)}></textarea>
+                            <input type='file'></input>
+                            <button type='submit'>Inserir</button>
+                        </form>
+                    </div>
+                </div>
+            )}
         </section>
     );
 }

@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Categorias from './categorias';
-import './equipe.css'
+import './equipe.css';
 
 function ListarChecklist() {
     const [chekclistName, setChecklistName] = useState('');
     const [infoChecklist, setInfoChecklist] = useState([]);
-    const navigate = useNavigate();
+    const [showCategorias, setShowCategorias] = useState(false);
 
     const listarChecklist = async () => {
         const token = localStorage.getItem('authToken');
@@ -65,9 +64,15 @@ function ListarChecklist() {
         const data = await listarChecklist();
         tratarDados(data);
     };
-    const pegarId = (idChecklist)=>{
-        localStorage.setItem('idChecklist', idChecklist)
-    }
+
+    const pegarId = (idChecklist) => {
+        localStorage.setItem('idChecklist', idChecklist);
+        setShowCategorias(true); // Exibe o modal de Categorias
+    };
+
+    const fecharCategorias = () => {
+        setShowCategorias(false);
+    };
 
     useEffect(() => {
         atualizarLista();
@@ -97,12 +102,20 @@ function ListarChecklist() {
                             <h3>{itens.name}</h3>
                             <p>Status: {itens.status}</p>
                             <p>Finalizado em: {itens.finalizado ? itens.finalizado : 'Em andamento'}</p>
-                            {itens.status === 'ONGOING'?<button onClick={()=>pegarId(itens.id)}>Entrar</button>:<button disabled>Finalizado</button>}
+                            {itens.status === 'ONGOING' ? <button onClick={() => pegarId(itens.id)}>Entrar</button> : <button disabled>Finalizado</button>}
                         </div>
                     )) : <p>Nenhum checklist encontrado.</p>
                 }
             </article>
-            <Categorias></Categorias>
+
+            {showCategorias && (
+                <div className="modal-overlay-categoria">
+                    <div className="modal-content-categoria">
+                        <button className="close-button-categoria" onClick={fecharCategorias}>X</button>
+                        <Categorias />
+                    </div>
+                </div>
+            )}
         </>
     );
 }

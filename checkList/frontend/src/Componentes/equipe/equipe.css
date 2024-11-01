@@ -12,7 +12,7 @@ body {
 }
 
 /* Estrutura dos Containers */
-article, section {
+article, section.equipe {
     width: 100%;
     max-width: 750px;
     margin: 2rem auto;
@@ -152,6 +152,71 @@ textarea {
 .entry-list h3 {
     font-size: 1rem;
     color: #666;
+}
+
+/* Efeito */
+.modal-overlay-categoria {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Efeito de escurecimento */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content-categoria {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    position: relative;
+    width: 80%;
+    max-width: 500px;
+}
+
+.close-button-categoria {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: gray;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.modal-overlay-entry {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Efeito de escurecimento */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content-entry {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    position: relative;
+    width: 80%;
+    max-width: 500px;
+}
+
+.close-button-entry {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: gray;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
 }
 
 /* Responsividade */

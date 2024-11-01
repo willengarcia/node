@@ -5,6 +5,7 @@ import CadastroUser from './Componentes/login/cadastroUser';
 import PrivateRoute from './Componentes/rotaPrivada'; // Importando o componente de rota protegida
 import Admin from './Componentes/admin/admin';
 import ListarChecklist from './Componentes/equipe/listarChecklist';
+import Equipe from './Componentes/equipe/equipe';
 
 
 function App() {
@@ -18,6 +19,14 @@ function App() {
           element={
             <PrivateRoute>
               <Admin token />
+            </PrivateRoute>
+          } 
+        />
+        <Route 
+          path="/equipe" 
+          element={
+            <PrivateRoute>
+              <Equipe token />
             </PrivateRoute>
           } 
         />

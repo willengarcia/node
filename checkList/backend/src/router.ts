@@ -14,6 +14,7 @@ import { ListChecklistController } from "./controllers/checklist/ListChecklistCo
 import { ListCategoryToChecklistController } from "./controllers/category/ListCategoryToChecklistController";
 import { CreateEntryController } from "./controllers/entry/CreateEntryController";
 import { ListEntryController } from "./controllers/entry/ListEntryController";
+import { ListEquipeToUserController } from "./controllers/equipe/ListEquipeToUserController";
 
 // Configurar o multer para armazenar em memória
 const storage = multer.memoryStorage();
@@ -30,6 +31,7 @@ router.put('/update/user/:userId', isAuthenticated, new UpdateUserController().h
 // ROTA EQUIPE
 router.post('/create/equipe', isAuthenticated, new CreateEquipeController().handle)
 router.get('/list/equipe', new ListEquipeController().handle)
+router.get('/list/equipe/user/:idUser', new ListEquipeToUserController().handle)
 router.post('/insert/user/equipe', new InsertEquipeUserController().handle)
 
 // ROTA CHECKLIST

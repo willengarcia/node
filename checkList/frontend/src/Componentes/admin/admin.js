@@ -43,10 +43,9 @@ function Equipes() {
                             Authorization: `Bearer ${token}`
                         }
                     });
-                    
                     const equipesData = response.data.map(team => ({
                         teamId: team.teamId,
-                        userTeamId: team.userTeams[0].userTeamId,
+                        userTeamId: team.userTeams.length > 0 ? team.userTeams[0].userTeamId : null,
                         name: team.teamName,
                         location: team.teamLocation
                     }));

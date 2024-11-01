@@ -42,7 +42,7 @@ function AdicionarUserEquipe() {
 
     useEffect(() => {
         if (localStorage.getItem('superUser') === 'false') {
-            navigate('/Trello');
+            navigate('/');
         } else {
             const fetchTeams = async () => {
                 try {
@@ -53,7 +53,7 @@ function AdicionarUserEquipe() {
 
                     const teamsData = response.data.map((team) => ({
                         teamId: team.teamId,
-                        userTeamId: team.userTeams[0].userTeamId,
+                        userTeamId: team.userTeams.length > 0 ? team.userTeams[0].userTeamId : null,
                         name: team.teamName,
                         location: team.teamLocation
                     }));
