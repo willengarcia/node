@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './admin.css'
 
-function AdicionarUserEquipe() {
+function AdicionarUserEquipe(props) {
     const [userId, setUserId] = useState('');
     const [teamId, setTeamId] = useState('');
     const [teams, setTeams] = useState([]);
@@ -20,7 +20,6 @@ function AdicionarUserEquipe() {
 
     const addUserToTeam = async (e) => {
         e.preventDefault();
-
         try {
             await axios.post(
                 `${process.env.REACT_APP_API}/insert/user/equipe`,

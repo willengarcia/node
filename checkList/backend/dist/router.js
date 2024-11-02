@@ -43,6 +43,6 @@ router.get('/list/chekclist', new ListChecklistController_1.ListChecklistControl
 router.post('/create/category', isAuthenticated_1.isAuthenticated, new CreateCategoryController_1.CreateCategoryController().handle);
 router.get('/list/category/:idChecklist', new ListCategoryToChecklistController_1.ListCategoryToChecklistController().handle);
 // ROTA ENTRY
-router.post('/create/entry', isAuthenticated_1.isAuthenticated, new CreateEntryController_1.CreateEntryController().handle);
+router.post('/create/entry', isAuthenticated_1.isAuthenticated, upload.single('image'), new CreateEntryController_1.CreateEntryController().handle);
 router.get('/list/entry/:categoryId', isAuthenticated_1.isAuthenticated, new ListEntryController_1.ListEntryController().handle);
 //# sourceMappingURL=router.js.map

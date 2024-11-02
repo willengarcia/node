@@ -1,34 +1,42 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { CircularProgress } from '@mui/material';
 import axios from 'axios';
 import AdicionarUser from './adicionarUserEquipe';
 import UpdateSuperUser from './atualizarSuperUser';
 import './admin.css'
 
 function Equipes() {
+    const [loading, setLoading] = useState(false)
     const [nomeEquipe, setNomeEquipe] = useState('');
     const [localizacao, setLocalizacao] = useState('');
     const navigator = useNavigate();
     const [equipes, setEquipes] = useState([]);
 
-    const cadastrarEquipe = (e) => {
+    const cadastrarEquipe = async (e) => {
         e.preventDefault();
-        axios.post(`${process.env.REACT_APP_API}/create/equipe`, {
-            name: nomeEquipe,
-            location: localizacao
-        }, {
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('authToken')}`
-            }
-        })
-        .then(response => {
-            alert('Equipe Cadastrada!');
-            setNomeEquipe('');
-            setLocalizacao('');
-        })
-        .catch(error => {
-            alert("Erro: " + error);
-        });
+        setLoading(true)
+        try {
+            const res = await axios.post(`${process.env.REACT_APP_API}/create/equipe`, {
+                name: nomeEquipe,
+                location: localizacao
+            }, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+                }
+            })
+            .then(response => {
+                setNomeEquipe('');
+                setLocalizacao('');
+            })
+            .catch(error => {
+                return error
+            });
+        } catch (error) {
+            alert("Erro: " + error)
+        }finally{
+            setLoading(false)
+        }
     };
 
     useEffect(() => {
@@ -83,7 +91,7 @@ function Equipes() {
                         <button type='submit'>Cadastrar</button>
                     </form>
                 </article>
-                <AdicionarUser />
+                <AdicionarUser/>
                 <UpdateSuperUser />
             </div>
             <div className='listarEquipe'>
@@ -96,6 +104,11 @@ function Equipes() {
                     </div>
                 ))}
             </div>
+            {loading && (
+                <div className="loading-overlay">
+                    <CircularProgress color="inherit" />
+                </div>
+            )}
         </section>
     );
 }

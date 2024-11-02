@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import ListarEntry from './listarEntry';
+import { useNavigate } from 'react-router-dom';
+
 
 function Categorias() {
     const [showEntry, setShowEntry] = useState(false);
@@ -10,6 +11,8 @@ function Categorias() {
     const [nome, setNome] = useState('')
     const [valor, setValor] = useState('')
     const [descricao, setDescricao] = useState('')
+    const [image, setImage] = useState(null); // Armazena o arquivo de imagem
+    const navigate = useNavigate();
 
     const fetchCategorias = async () => {
         const idChecklist = localStorage.getItem('idChecklist');
@@ -50,17 +53,22 @@ function Categorias() {
     };
     const criarEntry = async (e) =>{
         e.preventDefault()
+        const formData = new FormData();
+        formData.append('categoryId', categoriaSelecionada) 
+        formData.append('title', nome)
+        formData.append('valueText', valor) 
+        formData.append('description', descricao) 
+        if (image) {
+            formData.append('image', image); // Adiciona a imagem ao FormData, se existir
+        }
         try {
             const response = await axios.post(`${process.env.REACT_APP_API}/create/entry`,
-                {
-                    categoryId: categoriaSelecionada,
-                    title:nome,
-                    valueText:valor,
-                    description:descricao
-                },
+                formData,
                 {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+                        'Content-Type': 'multipart/form-data'
+
                     }
                 }
             )
@@ -111,6 +119,7 @@ function Categorias() {
                     <button type='submit'>Criar</button>
                 </form>
                 <button onClick={()=>{setShowEntry(true)}} style={{backgroundColor:'green', display:'block', margin:'1rem auto'}}>Adicionar Informações</button>
+                <button onClick={()=>{navigate('/informacoes')}} style={{backgroundColor:'green', display:'block', margin:'1rem auto'}}>Acessar Informações</button>
             </div>
             {showEntry && (
                 <div className="modal-overlay-entry">
@@ -132,7 +141,7 @@ function Categorias() {
                             <label>Valor:</label>
                             <input type='number' placeholder='55.50' required value={valor} onChange={(e)=>setValor(e.target.value)}></input>
                             <textarea value={descricao} onChange={(e)=>setDescricao(e.target.value)}></textarea>
-                            <input type='file'></input>
+                            <input type='file' accept="image/*" onChange={(e) => { setImage(e.target.files[0]); }}></input>
                             <button type='submit'>Inserir</button>
                         </form>
                     </div>

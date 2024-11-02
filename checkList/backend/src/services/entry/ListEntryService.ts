@@ -15,6 +15,7 @@ class ListEntryService{
                     title:true,
                     value:true,
                     description:true,
+                    imageUrl:true
                 },
             })
             return execute

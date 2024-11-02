@@ -1,19 +1,23 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { CircularProgress } from '@mui/material';
 import { useState } from  'react'
 import '../../App.css';
 
 
 
 function CadastroUser() {
+  const [loading, setLoading] = useState(false)
   const [nome, setNome] = useState('')
   const [email, setEmail] = useState('')
   const [senha, setSenha] = useState('')
   const navigate = useNavigate()
-  const cadastro = (e)=>{
+  const cadastro = async (e)=>{
     e.preventDefault()
-    axios.post(`${process.env.REACT_APP_API}/cadastrar/usuario`,{
+    setLoading(true)
+    try {
+      const res = await axios.post(`${process.env.REACT_APP_API}/cadastrar/usuario`,{
         name:nome,
         email:email,
         senha:senha,
@@ -23,19 +27,28 @@ function CadastroUser() {
       navigate('/'); // Redireciona para a página inicial ou qualquer outra página
     })
     .catch(error=>{
-      alert('Contate o Administrador: '+error)
+      return error
     })
+    } catch (error) {
+      alert('Erro:', error)
+    }finally{
+      setLoading(false)
+    }
   }
   return (
     <article className='login'>
       <h1>Cadastro</h1>
       <form onSubmit={cadastro}>
-        <input placeholder='Nome' onChange={(e)=>{setNome(e.target.value)}} value={nome}></input>
-        <input placeholder='Email' onChange={(e)=>{setEmail(e.target.value)}} value={email}></input>
-        <input type='password' placeholder='Senha'onChange={(e)=>{setSenha(e.target.value)}} value={senha}></input>
+        <input type='text' required placeholder='Nome' onChange={(e)=>{setNome(e.target.value)}} value={nome}></input>
+        <input type='email' required placeholder='Email' onChange={(e)=>{setEmail(e.target.value)}} value={email}></input>
+        <input type='password' required placeholder='Senha'onChange={(e)=>{setSenha(e.target.value)}} value={senha}></input>
         <button type='submit'>Finalizar</button>
       </form>
-      
+      {loading && (
+          <div className="loading-overlay">
+              <CircularProgress color="inherit" />
+          </div>
+      )}
     </article>
   );
 }

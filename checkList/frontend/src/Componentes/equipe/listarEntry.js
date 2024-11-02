@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import './equipe.css'
 
 function ListarEntry() {
     const [entrys, setEntrys] = useState([])
@@ -22,7 +23,6 @@ function ListarEntry() {
         }
     };
 
-
     const tratarDados = (data) => {
         if (data.length === 0) {
             console.log('Nenhuma categoria encontrada');
@@ -31,7 +31,8 @@ function ListarEntry() {
             const result = data.map((list) => ({
                 titulo: list.title,
                 valor: list.value,
-                descricao: list.description
+                descricao: list.description,
+                imageUrl: list.imageUrl
             }));
             setEntrys(result);
         }
@@ -47,15 +48,16 @@ function ListarEntry() {
     }, []);
 
     return (
-        <section>
+        <section className='equipe'>
             <div>
                 {
-                    entrys.length > 0 ? entrys.map((list)=>(
-                        <di>
+                    entrys.length > 0 ? entrys.map((list, indice)=>(
+                        <div key={indice}>
                             <h2>{list.titulo}</h2>
                             <h3>{list.valor}</h3>
                             <h3>{list.descricao}</h3>
-                        </di>
+                            <img src={list.imageUrl} width={300} height={400} alt='Comprovante'></img>
+                        </div>
                         
                     )):<p>Não há Valores</p>
                 }

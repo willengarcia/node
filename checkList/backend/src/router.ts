@@ -43,7 +43,7 @@ router.post('/create/category', isAuthenticated, new CreateCategoryController().
 router.get('/list/category/:idChecklist', new ListCategoryToChecklistController().handle)
 
 // ROTA ENTRY
-router.post('/create/entry', isAuthenticated, new CreateEntryController().handle)
+router.post('/create/entry', isAuthenticated, upload.single('image'), new CreateEntryController().handle)
 router.get('/list/entry/:categoryId', isAuthenticated, new ListEntryController().handle)
 
 export { router };

@@ -13,10 +13,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateEntryService = void 0;
+const cloudinary_1 = __importDefault(require("../../config/cloudinary"));
 const prisma_1 = __importDefault(require("../../prisma"));
+const stream_1 = require("stream");
 class CreateEntryService {
     execute(_a) {
-        return __awaiter(this, arguments, void 0, function* ({ categoryId, title, value, description }) {
+        return __awaiter(this, arguments, void 0, function* ({ categoryId, title, value, description, imageBuffer }) {
             const existCategory = yield prisma_1.default.category.findFirst({
                 where: {
                     id: categoryId
@@ -35,12 +37,27 @@ class CreateEntryService {
                 return { sucess: false, message: 'Titulo para essa Categoria já existe!' };
             }
             try {
+                let imageUrl;
+                if (imageBuffer) {
+                    imageUrl = yield new Promise((resolve, reject) => {
+                        const uploadStream = cloudinary_1.default.uploader.upload_stream({
+                            resource_type: 'image',
+                        }, (error, result) => {
+                            if (error)
+                                return reject(error);
+                            resolve((result === null || result === void 0 ? void 0 : result.secure_url) || '');
+                        });
+                        const stream = stream_1.Readable.from([imageBuffer]);
+                        stream.pipe(uploadStream).on('error', (error) => reject(error));
+                    });
+                }
                 const execute = yield prisma_1.default.entry.create({
                     data: {
                         categoryId: categoryId,
                         title: title,
                         value: value,
-                        description: description
+                        description: description,
+                        imageUrl: imageUrl
                     },
                     select: {
                         title: true,

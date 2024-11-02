@@ -38,7 +38,7 @@ function Equipe() {
 
     return (
         <article className='equipe'>
-            <h1>Adicionar Usuário à Equipe</h1>
+            <h1>Acessar as Equipes</h1>
             <div className='listarEquipe'>
                 {equipes.map(equipe => (
                     <div key={equipe.teamId} className="equipe-card" id={equipe.teamId}>

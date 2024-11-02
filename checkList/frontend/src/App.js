@@ -6,6 +6,7 @@ import PrivateRoute from './Componentes/rotaPrivada'; // Importando o componente
 import Admin from './Componentes/admin/admin';
 import ListarChecklist from './Componentes/equipe/listarChecklist';
 import Equipe from './Componentes/equipe/equipe';
+import ListarEntry from './Componentes/equipe/listarEntry';
 
 
 function App() {
@@ -35,6 +36,14 @@ function App() {
           element={
             <PrivateRoute>
               <ListarChecklist token />
+            </PrivateRoute>
+          } 
+        />
+        <Route 
+          path="/informacoes" 
+          element={
+            <PrivateRoute>
+              <ListarEntry token />
             </PrivateRoute>
           } 
         />
