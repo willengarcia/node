@@ -48,15 +48,17 @@ function ListarEntry() {
     }, []);
 
     return (
-        <section className='equipe'>
-            <div>
+        <section className='equipe-ilustracao-container'>
+            <h1 style={{color:'#0073e6', fontWeight:'700', fontSize:'3rem'}}>Dados do Checklist </h1>
+            <div className='equipe-ilustracao'>
                 {
                     entrys.length > 0 ? entrys.map((list, indice)=>(
-                        <div key={indice}>
-                            <h2>{list.titulo}</h2>
-                            <h3>{list.valor}</h3>
-                            <h3>{list.descricao}</h3>
+                        <div key={indice} className='ilustracoes'>
                             <img src={list.imageUrl} width={300} height={400} alt='Comprovante'></img>
+                            <h2 style={{color:'black', fontWeight:'400', fontSize:'1.5rem', margin:'1rem 0'}}>{list.titulo}</h2>
+                            <h3 style={{color:'green', fontWeight:'600', fontSize:'1.3rem'}}>R$ {list.valor}</h3>
+                            <h3 style={{color:'black', fontWeight:'200', fontSize:'1rem'}}>{list.descricao}</h3>
+                            
                         </div>
                         
                     )):<p>Não há Valores</p>

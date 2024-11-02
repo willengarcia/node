@@ -11,7 +11,7 @@ function ListarChecklist() {
     const listarChecklist = async () => {
         const token = localStorage.getItem('authToken');
         try {
-            const response = await axios.get(`${process.env.REACT_APP_API}/list/chekclist`, {
+            const response = await axios.get(`${process.env.REACT_APP_API}/list/checklist/team/${localStorage.getItem('teamId')}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             return response.data;

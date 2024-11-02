@@ -21,6 +21,7 @@ const ListCategoryToChecklistController_1 = require("./controllers/category/List
 const CreateEntryController_1 = require("./controllers/entry/CreateEntryController");
 const ListEntryController_1 = require("./controllers/entry/ListEntryController");
 const ListEquipeToUserController_1 = require("./controllers/equipe/ListEquipeToUserController");
+const ListChecklistToTeamController_1 = require("./controllers/checklist/ListChecklistToTeamController");
 // Configurar o multer para armazenar em memória
 const storage = multer_1.default.memoryStorage();
 const upload = (0, multer_1.default)({ storage: storage });
@@ -39,6 +40,7 @@ router.post('/insert/user/equipe', new InsertEquipeUserController_1.InsertEquipe
 // ROTA CHECKLIST
 router.post('/create/checklist', isAuthenticated_1.isAuthenticated, new CreateChecklistController_1.CreateChecklistController().handle);
 router.get('/list/chekclist', new ListChecklistController_1.ListChecklistController().handle);
+router.get('/list/checklist/team/:idTeam', isAuthenticated_1.isAuthenticated, new ListChecklistToTeamController_1.ListChecklistToTeamController().handle);
 // ROTA CATEGORY
 router.post('/create/category', isAuthenticated_1.isAuthenticated, new CreateCategoryController_1.CreateCategoryController().handle);
 router.get('/list/category/:idChecklist', new ListCategoryToChecklistController_1.ListCategoryToChecklistController().handle);
