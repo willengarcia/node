@@ -9,6 +9,7 @@ npm i typescript - D > adiciona o typescript como ambiente de desenvolvimento
 npx tsc --init > onde vai configurações
 npm add @types/express -D > type do express
 npm add ts-node-dev -D > coloca no arquivo package.json, dentro de script: "dev": "ts-node-dev --transpile-only src/server.ts"
+npm install cors
 npm run dev
 
 conceitos das rotas:

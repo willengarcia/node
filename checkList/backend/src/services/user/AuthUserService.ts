@@ -23,7 +23,8 @@ class AuthUserService{
             throw new Error('Usuário/Senha está incorreto')
         }
 
-        const token = sign({
+        const token = sign(
+            {
             name: user.name, // dados do payload
             email:user.email
         }, process.env.JWT_SECRET, { // chave secreta
