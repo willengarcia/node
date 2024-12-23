@@ -10,6 +10,7 @@ html{
   --cor-titulos: rgb(173, 8, 8);
   --cor-botoes: rgb(206, 124, 56);
 }
+
 .menu {
   position: relative;
   display: flex;
@@ -51,39 +52,48 @@ html{
 .cabecaInicial{
   height: 15rem;
   background-color: var(--cor-backeground);
-  background-image: url(./assets/background-header-md.jpg);
-  background-position: center center;
+  background-image: url(./assets/background-header-md.png);
+  background-position: right;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
 }
 .cabecaInicial > h1 {
-  color: white;
+  color: rgb(2, 2, 2);
   text-align: center;
+  margin-top: 2rem;
   width: 80%;
+  font-weight: 300;
+  text-decoration: underline;
 }
-.cabecaInicial > p {
-  color: white;
+.cabecaInicial > div{
+  padding: 1rem;
+}
+.cabecaInicial > div > p {
+  color: rgb(0, 0, 0);
+  font-size: x-large;
+  text-decoration: underline;
+  text-shadow: 1px 2px 3px rgb(126, 120, 120);
 }
 .cabecaInicial > button{
   padding: .5rem 3rem;
-  margin-top: 2rem;
   background-color: transparent;
-  border: 1px solid white;
+  border: 1px solid rgb(39, 37, 37);
   border-radius: 50px;
-  color: rgb(237, 238, 243);
-  font-weight: bold;
-  font-size: 16px;
+  color: rgb(24, 23, 70);
+  font-weight: 500;
+  font-size: 18px;
   transition: all .5s;
   cursor: pointer;
 }
 .cabecaInicial > button:hover{
-  background-color: var(--cor-botoes);
+  background-color: rgb(92, 92, 128);
   border: none;
   transform: scale(105%);
+  color: white;
 }
 /* Corpo */
 .corpo {
@@ -94,6 +104,7 @@ html{
 .corpo > #cards-servicos{
   display: flex;
   padding: 1rem;
+  flex-wrap: wrap;
   flex-direction: column;
   justify-content: center;
 }
@@ -140,9 +151,10 @@ html{
   background-color: transparent;
   border: 1px solid rgb(236, 6, 6);
   color: rgb(99, 0, 0);
-  font-weight: 100;
+  font-weight: 300;
   font-size: 16px;
   transition: all .5s;
+  border-radius: 10px;
 }
 .service button:hover{
   background-color: var(--cor-botoes);
@@ -157,9 +169,9 @@ html{
   flex-direction: column;
 }
 #sobre .imagemParalax{
-  height: 30dvh;
-  background-color: black;
-  background-image: url(./assets/background-sobre-md.jpg);
+  height: 35dvh;
+  background-color: var(--cor-backeground);
+  background-image: url(./assets/sobre.png);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -372,6 +384,42 @@ html{
 
 /* Responsividade */
 @media (max-width: 800px) {
+  .cabecaInicial{
+    height: 20rem;
+  }
+  .cabecaInicial > div{
+    padding: .5rem;
+  }
+  .cabecaInicial > div > p {
+    color: rgb(17, 7, 75);
+    font-size: 18px;
+    text-align: center;
+  }
+  .corpo > #cards-servicos{
+    display: flex;
+    padding: 1rem;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .corpo > #cards-servicos > h2 {
+    color: var(--cor-titulos);
+    font-size: 18px;
+  }
+  .corpo > #cards-servicos > .service{
+    padding: 1rem;
+    border: 1px solid red;
+    margin: .5rem;
+  }
+  .image-service{
+    width: 300px;
+    margin: auto;
+    display: block;
+  }
+  .service > .descricao-servico > h3 {
+    display: none;
+  }
+
   #contato {
       padding: 20px;
   }
@@ -391,11 +439,23 @@ html{
   }
 }
 @media (min-width:800px){
+  .image-service{
+    width: 300px;
+  }
   .menu-botao {
     display: none;
   }
+  .service > h3, .service > p, .service > hr {
+    display: none;
+  }
+  .service {
+    display: grid;
+    grid-template-columns: 30rem 1fr 200px;
+    align-items: center;
+    justify-items: center;
+  }
   .listaMenu{
-    display: flex;
+    display: none;
     max-height: fit-content;
     opacity: 1;
     flex-direction: row;
@@ -424,12 +484,6 @@ html{
   .cabecaInicial >p{
     font-size: 25px;
   }
-  .corpo #cards-servicos {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 1fr);
-    justify-content: space-around;
-    flex-wrap: wrap ;
-  }
   .corpo #cards-servicos > h2 {
     text-align: left;
     font-size: 30px;
@@ -449,10 +503,10 @@ html{
     justify-content: space-around;
     align-items: center;
     height: 70dvh;
-    background-image: url(assets/pexels-anna-nekrashevich-6204266.jpg);
+    background-image: url(assets/sobre.png);
     background-position: center center;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: contain;
     background-attachment: fixed;
   }
   .sobreDetalhes h2 {

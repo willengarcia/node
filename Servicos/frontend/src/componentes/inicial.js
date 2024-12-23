@@ -1,8 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../App.css'
+import residencia from '../assets/residencia.png'
+import reparo from '../assets/reparos.png'
+import jardinagem from '../assets/jardinagem.png'
+import informatica from '../assets/informatica.png'
 import { Analytics } from "@vercel/analytics/react"
 function Inicial({children}){
+    const [isMenuVisible, setIsMenuVisible] = useState(true); // Estado para controlar a visibilidade do menu
+    let lastScrollTop = 0; // Variável para armazenar a posição de rolagem anterior
     const [menuAberto, setMenuAberto] = useState(false);
     const navigator = useNavigate()
     const alternarMenu = () => {
@@ -62,41 +68,72 @@ function Inicial({children}){
                 </ul>
             </nav>
             <header className='cabecaInicial'>
-                <h1>Explore Nossos Serviços</h1>
-                <p>Seja Bem-Vindo ao Serviço Expresso</p>
-                <p>Sua solução completa em serviços profissionais</p>
+                <h1>Seja Bem-Vindo ao Serviço Expresso</h1>
+                <div>
+                    <p>Sua solução completa em serviços profissionais</p>
+                </div>
+                
                 <button onClick={()=>{botaoAgendarLogin()}}>Entrar</button>
             </header>
             <main className='corpo'>
                 <section id='cards-servicos'>
                     <h2>Nossos Serviços</h2>
                     <article className='service'>
+                        <img src={residencia} alt='Residencia' className='image-service'></img>
                         <h3>Limpeza Residencial</h3>
+                        <div className='descricao-servico'>
+                            <h3>Limpeza</h3>
+                            <p>Os serviços de limpeza residencial incluem a realização de tarefas como varrição, poeira, lavagem de pisos, limpeza de vidros, banheiro e cozinha, além de organização de ambientes. Profissionais especializados oferecem soluções personalizadas, garantindo um lar mais higienizado e confortável. Esses serviços podem ser recorrentes ou pontuais, atendendo às necessidades de cada cliente, proporcionando mais praticidade e tempo livre para quem busca uma casa sempre limpa e bem cuidada.</p>
+                        </div>
                         <p>Mantenha sua casa impecável com nossa equipe especializada.</p>
                         <hr></hr>
-                        <h4>R$ ~ 70,00 <span className='duvida'>?</span></h4>
-                        <button className='botao-agendar' onClick={()=>{botaoAgendarLogin()}}>Agendar</button>
+                        <div className='preco'>
+                            <h4>R$ ~ 70,00 <span className='duvida'>?</span></h4>
+                            <button className='botao-agendar' onClick={()=>{botaoAgendarLogin()}}>Agendar</button>  
+                        </div>
                     </article>
                     <article className='service'>
+                        <img src={reparo} alt='Residencia' className='image-service'></img>
                         <h3>Reparos Gerais</h3>
+                        <div className='descricao-servico'>
+                            <h3>Reparos</h3>
+                            <p>Os serviços de reparos gerais englobam uma variedade de tarefas para manutenção e conserto de elementos dentro da residência, como conserto de encanamentos, instalações elétricas, pintura, troca de telhas, ajuste de portas e janelas, entre outros. Esses serviços são realizados por profissionais capacitados, garantindo que problemas pequenos ou grandes sejam resolvidos de forma rápida e eficaz. Ideal para quem precisa de uma manutenção periódica ou para situações de emergência, os reparos gerais ajudam a manter o lar funcional e seguro.</p>
+                        </div>
                         <p>Soluções rápidas e eficientes para pequenos reparos domésticos.</p>
                         <hr></hr>
-                        <h4>R$ ~ 80,00 <span className='duvida'>?</span></h4>
-                        <button className='botao-agendar' onClick={()=>{botaoAgendarLogin()}}>Agendar</button>
+                        <div className='preco'>
+                            <h4>R$ ~ 80,00 <span className='duvida'>?</span></h4>
+                            <button className='botao-agendar' onClick={()=>{botaoAgendarLogin()}}>Agendar</button>
+                        </div>
+                        
                     </article>
                     <article className='service'>
+                        <img src={jardinagem} alt='Residencia' className='image-service'></img>
                         <h3>Jardinagem</h3>
+                        <div className='descricao-servico'>
+                            <h3>Jardinagem</h3>
+                            <p>Os serviços de jardinagem incluem cuidados com plantas, jardins e paisagismo, como poda, corte de grama, plantio de flores e árvores, controle de pragas, adubação e irrigação. Profissionais especializados garantem o desenvolvimento saudável do jardim, criando e mantendo ambientes verdes e agradáveis. Esses serviços podem ser recorrentes ou pontuais, atendendo desde a criação de novos jardins até a manutenção de espaços já existentes. A jardinagem contribui para a estética e o bem-estar do ambiente residencial, proporcionando um espaço mais natural e harmonioso.</p>
+                        </div>
                         <p>Cuide do seu jardim com nossos serviços de paisagismo e manutenção.</p>
                         <hr></hr>
-                        <h4>R$ ~ 50,00 <span className='duvida'>?</span></h4>
-                        <button className='botao-agendar' onClick={()=>{botaoAgendarLogin()}}>Agendar</button>
+                        <div className='preco'>
+                            <h4>R$ ~ 50,00 <span className='duvida'>?</span></h4>
+                            <button className='botao-agendar' onClick={()=>{botaoAgendarLogin()}}>Agendar</button>
+                        </div>
                     </article>
                     <article className='service'>
+                        <img src={informatica} alt='Residencia' className='image-service'></img>
                         <h3>Suporte de TI</h3>
+                        <div className='descricao-servico'>
+                            <h3>Informática</h3>
+                            <p>Os serviços de TI (Tecnologia da Informação) englobam uma ampla gama de soluções para atender às necessidades tecnológicas de empresas e indivíduos. Isso inclui suporte técnico, manutenção de redes e servidores, instalação e configuração de software e hardware, gestão de infraestrutura de TI, segurança da informação, recuperação de dados, monitoramento de sistemas e backup. Além disso, serviços especializados como consultoria em TI e desenvolvimento de soluções personalizadas (como aplicativos e sistemas) também são oferecidos. Profissionais de TI ajudam a otimizar o uso de tecnologias, garantindo a eficiência operacional, a segurança de dados e a continuidade dos negócios.</p>
+                        </div>
                         <p>Assistência técnica para seus dispositivos eletrônicos.</p>
                         <hr></hr>
-                        <h4>R$ ~ 100,00 <span className='duvida'>?</span></h4>
-                        <button className='botao-agendar' onClick={()=>{botaoAgendarLogin()}}>Agendar</button>
+                        <div className='preco'>
+                            <h4>R$ ~ 100,00 <span className='duvida'>?</span></h4>
+                            <button className='botao-agendar' onClick={()=>{botaoAgendarLogin()}}>Agendar</button>
+                        </div>
                     </article>
                 </section>
                 <section id='sobre'>
