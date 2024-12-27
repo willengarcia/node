@@ -5,17 +5,20 @@ import residencia from '../assets/residencia.png'
 import reparo from '../assets/reparos.png'
 import jardinagem from '../assets/jardinagem.png'
 import informatica from '../assets/informatica.png'
+import sobre from '../assets/sobre.png'
 import { Analytics } from "@vercel/analytics/react"
 function Inicial({children}){
-    const [isMenuVisible, setIsMenuVisible] = useState(true); // Estado para controlar a visibilidade do menu
-    let lastScrollTop = 0; // Variável para armazenar a posição de rolagem anterior
     const [menuAberto, setMenuAberto] = useState(false);
+    const [detalhesExibir, setDetalhesExibir] = useState(false);
     const navigator = useNavigate()
     const alternarMenu = () => {
         if(window.innerHeight>=600){
             setMenuAberto(!menuAberto); // Alterna o estado do menu entre aberto e fechado
         }
-    };        
+    };   
+    const exibirDetalhes  = ()=>{
+        setDetalhesExibir(!detalhesExibir)
+    }     
     const botaoAgendarLogin = ()=>{
         navigator('/login')
     }
@@ -73,7 +76,7 @@ function Inicial({children}){
                     <p>Sua solução completa em serviços profissionais</p>
                 </div>
                 
-                <button onClick={()=>{botaoAgendarLogin()}}>Entrar</button>
+                <button onClick={()=>{botaoAgendarLogin()}} aria-label='Login site'>Entrar</button>
             </header>
             <main className='corpo'>
                 <section id='cards-servicos'>
@@ -137,11 +140,24 @@ function Inicial({children}){
                     </article>
                 </section>
                 <section id='sobre'>
-                    <div className='imagemParalax'></div>
+                    {/* <div className='imagemParalax'></div> */}
+                    <img src={sobre} alt='Equipe Serviços Expressos' id='imagem-equipe'></img>
                     <article className='sobreDetalhes'>
                         <h2>Sobre Nós</h2>
                         <p>A ServiçosExpress é uma empresa comprometida em fornecer soluções de alta qualidade para suas necessidades diárias. Com anos de experiência e uma equipe de profissionais qualificados, estamos prontos para atender você com excelência e dedicação.</p>
-                        <button>Saiba Mais</button>
+                        <button onClick={exibirDetalhes}>Saiba Mais</button>
+                        {detalhesExibir && 
+                            (<div className={`${detalhesExibir ? 'detalhes-sobre-exibido' : ''}`}>
+                                <aside>
+                                    <h3>Sobre o Serviço Expresso</h3>
+                                    <p>
+                                    A ServiçosExpress é uma empresa comprometida em conectar quem precisa de serviços com quem busca oportunidades de trabalho. Fundada em 2024 por dois empreendedores visionários, nossa missão nasceu do desejo de ajudar pessoas a encontrar empregos e oferecer soluções práticas para as necessidades do dia a dia. Com uma equipe qualificada e dedicada, combinamos inovação e compromisso para atender nossos clientes com excelência, sempre promovendo o crescimento mútuo entre empregadores e trabalhadores.
+                                    </p>
+                                    <button onClick={()=>{botaoAgendarLogin()}} aria-label='Login site'>Entrar</button>
+                                    <button onClick={exibirDetalhes} aria-label='Fechar Janela'>Fechar</button>
+                                </aside>
+                            </div>)
+                        }
                     </article>
                 </section>
                 <section id='avaliacoes'>
